@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 use App\Debt;
+use App\DebtBuyList;
+
 /*
 **Author:tianling
 **createTime:15/3/19 下午3:12
@@ -7,11 +9,18 @@ use App\Debt;
 class DebtController extends Controller{
 
     public function debtData(){
-        echo "ok,boy";
+
+        $debts = DebtBuyList::where('bid','=','1')->orderBy('month','DESC')->first()->toArray();
 
 
-        $debts = Debt::all();
+        $data = array(
+            'status'=>200,
+            'msg'=>'',
+            'data'=>$debts
+        );
 
-        var_dump($debts);
+        $data = json_encode($data);
+
+        echo $data;
     }
 }
