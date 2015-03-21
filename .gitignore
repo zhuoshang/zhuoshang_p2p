@@ -3,4 +3,6 @@
 .env.php
 .idea/
 node_modules/
+.git/
+.sass-cahce/
 
