@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 03/22/2015 00:07:45 AM
+ Date: 03/24/2015 13:45:39 PM
 */
 
 SET NAMES utf8;
@@ -29,14 +29,16 @@ CREATE TABLE `debt` (
   `add_time` int(20) NOT NULL COMMENT '债券添加时间',
   `dates` int(5) NOT NULL DEFAULT '0' COMMENT '债券时长',
   `total` int(8) NOT NULL DEFAULT '0' COMMENT '债券总值',
+  `move` int(1) NOT NULL DEFAULT '0' COMMENT '趋势，0-趋平，1-盈利，2-亏损',
+  `status` int(1) NOT NULL DEFAULT '0' COMMENT '还款情况 0-未还 1-已还',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `debt`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debt` VALUES ('1', '电影进击的巨人债券', '进击的巨人进击的巨人进击的巨人进击的巨人进击的巨人进击的巨人', '0', '1.50', '12.00', '12132131', '90', '150000');
+INSERT INTO `debt` VALUES ('1', '电影进击的巨人债券', '进击的巨人进击的巨人进击的巨人进击的巨人进击的巨人进击的巨人', '0', '1.50', '12.00', '1423109401', '90', '150000', '0', '0'), ('2', '电影奔跑吧兄弟债券', '奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟', '0', '1.50', '12.00', '1426409401', '90', '200000', '0', '0');
 COMMIT;
 
 -- ----------------------------
@@ -53,13 +55,13 @@ CREATE TABLE `debtBuy` (
   PRIMARY KEY (`id`),
   KEY `did` (`did`),
   CONSTRAINT `debt` FOREIGN KEY (`did`) REFERENCES `debt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='债券购买总表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='债券购买总表';
 
 -- ----------------------------
 --  Records of `debtBuy`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtBuy` VALUES ('1', '1', '1', '21313123', '90', '10000');
+INSERT INTO `debtBuy` VALUES ('1', '1', '1', '21313123', '90', '10000'), ('2', '2', '1', '22232323', '90', '50000');
 COMMIT;
 
 -- ----------------------------
@@ -72,18 +74,21 @@ CREATE TABLE `debtBuyList` (
   `risk_keep` int(5) NOT NULL COMMENT '风险保障金',
   `net_value` decimal(6,2) NOT NULL COMMENT '净值',
   `interest` decimal(4,2) NOT NULL COMMENT '利息',
-  `month` datetime NOT NULL COMMENT '修改时间（xxxx年xxxx月）',
+  `month` int(5) NOT NULL COMMENT '修改时间(月份)',
+  `year` int(5) NOT NULL COMMENT '修改年份',
+  `move` int(1) DEFAULT '0' COMMENT '趋势，0-趋平，1-盈利，2-亏损',
   PRIMARY KEY (`id`),
   KEY `bid` (`bid`),
   KEY `months` (`month`) USING BTREE,
+  KEY `years` (`year`) USING BTREE,
   CONSTRAINT `buy_id` FOREIGN KEY (`bid`) REFERENCES `debtBuy` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='债券修改记录';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='债券修改记录';
 
 -- ----------------------------
 --  Records of `debtBuyList`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtBuyList` VALUES ('1', '1', '0', '1.20', '13.00', '2015-03-21 23:45:34'), ('2', '1', '1200', '1.20', '13.00', '2015-04-01 23:46:19');
+INSERT INTO `debtBuyList` VALUES ('3', '1', '5000', '1.20', '10.00', '2', '2014', '0'), ('4', '1', '5500', '1.20', '12.00', '3', '2014', '0'), ('5', '2', '6000', '1.20', '12.00', '2', '2014', '0'), ('6', '2', '5700', '1.20', '12.00', '3', '2014', '0');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -20,4 +20,6 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('debt', 'DebtController@debtData');
+Route::get('list', 'DebtController@debtList');
+
+Route::post('monthlist','DebtController@monthDebtList');

@@ -10,4 +10,8 @@ class DebtBuyList extends Model{
     protected $table = 'debtBuyList';
 
     public $timestamps = false;
+
+    public function debtBuy(){
+        return $this->belongsTo('App\DebtBuy','bid','id');
+    }
 }

@@ -12,5 +12,9 @@ class Debt extends Model{
 
     public $timestamps = false;
 
+    public function debtBuy(){
+       return $this->hasMany('App\DebtBuy','did','id');
+    }
+
 
 }

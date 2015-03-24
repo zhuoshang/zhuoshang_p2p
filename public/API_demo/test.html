@@ -7,7 +7,7 @@
 </head>
 <body>
 <script type="text/javascript">
-    $.get("../debt",{
+    $.get("../list",{
 
             },function(data,textStatus){
                 var urls = data;
@@ -20,7 +20,7 @@
     );
 </script>
     <h1>21312</h1>
-    <form action="../debt" method="get" name="sentence">
+    <form action="../monthlist" method="post" name="sentence">
         <tr>
             <td>请输入症状</td>
         </tr>
@@ -32,6 +32,7 @@
         <tr>
             <td><input type="submit" name="submit" value="提交"></td>
         </tr>
+        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
     </form>
 </body>
 
