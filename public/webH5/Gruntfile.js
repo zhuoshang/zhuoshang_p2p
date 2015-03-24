@@ -29,7 +29,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         cwd: "js/",
-                        src: ["**/*.js", "!lib/*.js"],
+                        src: ["*.js", "!lib/*.js"],
                         dest: "js/",
                         ext: ".min.js"
                     }
@@ -63,4 +63,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-browserify");
     grunt.loadNpmTasks("grunt-contrib-clean");
     grunt.loadNpmTasks('grunt-contrib-watch');
+
+    grunt.registerTask("commonjs", ["clean", "browserify"]);
 };

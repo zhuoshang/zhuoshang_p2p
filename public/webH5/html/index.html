@@ -2,15 +2,104 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta content="yes" name="apple-touch-fullscreen" />
     <meta content="telephone=no,email=no" name="format-detection" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta name="viewport" id="viewport" />
+    <link rel="stylesheet" href="../css/index.css"/>
     <script>(function(){var b,a,e,c,d;window.dpi=window.devicePixelRatio;d=1/window.dpi;document.getElementById("viewport").setAttribute("content","width=device-width,initial-scale="+d+",maximum-scale="+d+",minimum-scale="+d+", user-scalable=no");window.system=window.navigator.userAgent.match(/iPhone|iPad|Android/);if(window.system){window.system=window.system[0]}window.url_path=window.location.origin;b=document.documentElement;b.setAttribute("dpi",window.dpi);a=b.getBoundingClientRect();c=a.width;e=window.innerHeight;if(e>=c){document.documentElement.style.fontSize=c/16+"px"}else{document.documentElement.style.fontSize=e/16+"px"}}).call(this);</script>
+    <script src="../js/bower_components/angular/angular.js"></script>
+    <script src="../js/bower_components/angular-touch/angular-touch.js"></script>
     <title></title>
 </head>
-<body>
-<p>123123123</p>
-<script src="../js/index.min.js"></script>
+<body ng-app="personFun" ng-controller="funController">
+    <header class="header-fun">
+        <nav>
+            <i class="iconfont h-i-list" ng-if="funStatus=='list'">&#xe600;</i>
+            <i class="iconfont h-i-return" ng-if="funStatus!='list'" ng-click="toList()">&#xe601;</i>
+            <span class="h-i-model">{{modelName}}</span>
+            <i class="iconfont h-i-time" ng-click="toCalendar()" ng-show="funStatus!='date'">&#xe602;</i>
+        </nav>
+    </header>
+    <section class="content-fun">
+        <section class="fun-list" ng-if="funStatus=='list'">
+            <div class="list-header">
+                <i class="iconfont s-l-previous">&#xe603;</i>
+            </div>
+            <div class="lists-content">
+                <div class="list-rotate-info">
+                    <div class="rotate rotate-bond-line">
+                        <div class="rotate-half rotate-left-half rotate-bond-out"></div>
+                        <div class="rotate-half rotate-right-half rotate-bond-out"></div>
+                        <div class="c-bond-value">
+                            <span class="b-title">债券进度</span>
+                            <span class="b-number">75.50 <span>%</span></span>
+                            <span class="b-leave">3个月</span>
+                        </div>
+                    </div>
+                    <div class="current-total">
+                        <div class="shadow-number">2</div>
+                        <div class="c-total">3</div>
+                        <div class="shadow-number">4</div>
+                    </div>
+                    <div class="j-box">
+                        <div class="rotate rotate-value-line">
+                            <div class="rotate-half rotate-left-half rotate-value-out"></div>
+                            <div class="rotate-half rotate-default rotate-right-half rotate-value-out"></div>
+                        </div>
+                        <div class="c-j-value">
+                            <span class="j-title">净值</span>
+                            <span class="j-number">1.012</span>
+                            <span class="j-status">
+                                <i class="iconfont j-up">&#xe605;</i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-vote-info">
+                    本月投入
+                    <b>100</b> 万，
+                    获益
+                    <b>120</b> 万
+                </div>
+                <div class="list-base-info">
+                    <div class="b-i-bond">
+                        <span class="b-i-title">债券价值</span>
+                        <span class="b-i-value">
+                            <b>100</b> 万
+                        </span>
+                    </div>
+                    <div class="b-i-interest">
+                        <span class="i-i-title">利息</span>
+                          <span class="b-i-value">
+                            <b>1.20</b> %
+                        </span>
+                    </div>
+                </div>
+                <div class="list-base-info">
+                    <div class="b-i-trend">
+                        <span class="i-t-title">价值走势</span>
+                        <span class="i-t-status">
+                            <b>趋平</b>
+                        </span>
+                    </div>
+                    <div class="b-i-debt">
+                        <span class="i-d-title">还款情况</span>
+                          <span class="i-d-value">
+                            <b>已缴</b>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="list-footer">
+                <i class="iconfont s-l-next">&#xe604;</i>
+                <span class="s-l-notify">点击切换下一张债卷</span>
+            </div>
+        </section>
+        <section class="fun-date" ng-if="funStatus=='date'">2</section>
+    </section>
+
+    <script src="../js/index.js"></script>
 </body>
 </html>

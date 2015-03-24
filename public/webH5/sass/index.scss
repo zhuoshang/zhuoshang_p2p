@@ -1,1 +1,271 @@
 @import "compass/reset";
+@import "compass/css3";
+@import "common/resetApp";
+
+//font-icon defined
+@font-face {font-family: 'iconfont';
+  src: url('../fonts/iconfont.ttf') format('truetype');
+}
+.iconfont{
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+//nav defined
+.header-fun{
+  position: relative;
+  width: 100%;
+  height: 7.8%;
+  border-bottom: 1px solid #d8d7d7;
+  background: #4bc0ed;
+  overflow: hidden;
+  color: #ffffff;
+  padding: setRem(23) setRem(18);
+  @include box-sizing(border-box);
+}
+.h-i-list,
+.h-i-return{
+  float: left;
+}
+.h-i-return{
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.h-i-time{
+  float: right;
+}
+.h-i-model{
+  position: absolute;
+  left: 50%;
+  @include setFontSize(36px);
+  vertical-align: middle;
+  @include translate3d(-50%, 0, 0);
+}
+
+//content
+.content-fun{
+  position: relative;
+  width: 100%;
+  height: 92.2%;
+  border-top: 1px solid #f1f1f1;
+}
+.list-header{
+  padding-top: 4.48%;
+  height: 2.57%;
+  text-align: center;
+}
+.list-footer{
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  width: 100%;
+  height: 9.78%;
+}
+.lists-content{
+  height: 83.17%;
+  overflow: hidden;
+}
+.s-l-previous{
+  color: #ebebeb;
+  font-size: 1.2rem;
+}
+.s-l-next{
+  color: #dbdbdb;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.s-l-notify{
+  vertical-align: 5px;
+  @include setFontSize(30px);
+  color: #505050;
+}
+.list-rotate-info{
+  position: relative;
+  height: setRem(241);
+  margin-top: setRem(34);
+  padding: 0 1rem;
+}
+.j-box{
+  float: right;
+  position: relative;
+}
+.rotate{
+  display: inline-block;
+  position: relative;
+  width: setRem(205);
+  height: setRem(205);
+  @include border-radius(50%);
+}
+.current-total{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: setRem(50);
+  height: 2.3rem;
+  overflow: visible;
+}
+.c-total{
+  position: relative;
+  width: setRem(50);
+  color: #4bc0ed;
+  @include setFontSize(32px);
+  text-align: center;
+  &:before{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: block;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 10px solid #4bc0ed;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-left-width: 12px;
+  }
+  &:after{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: block;
+    width: 0;
+    height: 0;
+    content: "";
+    border: 10px solid #4bc0ed;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-width: 12px;
+  }
+}
+.rotate-bond-line{
+  float: left;
+  border: 15px solid #dddddd;
+}
+.rotate-bond-out{
+  border: 15px solid #4bc0ed;
+}
+.rotate-value-line{
+  border: 15px solid #fefefe;
+  @include rotateZ(60deg);
+}
+.rotate-value-out{
+  border: 15px solid #45b94c;
+}
+.rotate-half{
+  position: absolute;
+  left: -15px;
+  top: -15px;
+  width: setRem(205);
+  height: setRem(205);
+  @include border-radius(50%);
+}
+.rotate-left-half{
+  clip: rect(0,auto,auto,setRem(102.5));
+}
+.rotate-right-half{
+  clip: rect(0,setRem(102.5),auto,auto);
+}
+.rotate-default{
+  @include rotateZ(-10deg);
+}
+.shadow-number{
+  color: #f3f3f3;
+  @include setFontSize(28px);
+  text-align: center;
+}
+.c-bond-value,
+.c-j-value{
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  @include translate3d(0, -50%, 0);
+  span{
+    display: block;
+    line-height: 1.1rem;
+  }
+}
+.b-title,
+.b-leave,
+.j-title{
+  @include setFontSize(28px);
+  color: #505050;
+}
+.b-number{
+  @include setFontSize(36px);
+  color: #4bc0ed;
+  span{
+    display: inline;
+    color: #505050;
+  }
+}
+.j-number,
+.j-up{
+  color: #45b94c;
+}
+.j-up{
+  font-size: 1.5rem;
+}
+.list-vote-info{
+  @include setFontSize(30px);
+  margin-top: 1.05rem;
+  color: #d8d7d7;
+  text-align: center;
+  b{
+    @include setFontSize(36px);
+    font-weight: bolder;
+  }
+}
+.list-base-info{
+  margin: 0.6rem setRem(80);
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #dbdbdb;
+  color: #505050;
+  @include setFontSize(30px);
+  &:after{
+    display: block;
+    content: "";
+    clear: both;
+  }
+  span{
+    display: block;
+    margin-top: 0.45rem;
+  }
+}
+.b-i-bond,
+.b-i-trend{
+  float: left;
+  b{
+    color: #4bc0ed;
+    @include setFontSize(48px);
+    letter-spacing: 5px;
+  }
+}
+.b-i-interest,
+.b-i-debt{
+  float: right;
+  b{
+    @include setFontSize(48px);
+    font-weight: bolder;
+  }
+}
+.b-i-title,
+.i-i-title,
+.i-t-status,
+.b-i-debt{
+  text-align: center;
+}
+.i-d-value{
+  color: #45b94c;
+}
