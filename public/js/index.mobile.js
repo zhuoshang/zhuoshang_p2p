@@ -24,14 +24,16 @@ angular.module("personFun", ["ngTouch"])
             cache: true
         })
             .success(function (data, status) {
-                $scope.listInfo =  data;
-                $scope.listTotal = data.length;
-                isEarn($scope, $filter);
-                reminding($scope, $filter);
-                modelC($scope, {
-                    status: "list",
-                    modelName: "资产列表"
-                })
+                if (data.status == 200) {
+                    $scope.listInfo =  data.data;
+                    $scope.listTotal = data.data.length;
+                    isEarn($scope, $filter);
+                    reminding($scope, $filter);
+                    modelC($scope, {
+                        status: "list",
+                        modelName: "资产列表"
+                    })
+                }
         })
             .error(function (data, status) {});
 
@@ -128,16 +130,18 @@ angular.module("personFun", ["ngTouch"])
         $scope.getBondMonth = function () {
             var _month = Math.round(this.month.n, 10);
 
-            $http.get("../test/historyList.json?month=" + _month + "&year=" + $scope.year, {cache: true})
+            $http.get("monthlist?month=" + _month + "&year=" + $scope.year, {cache: true})
                 .success(function (data, status) {
-                    $scope.listInfo =  data;
-                    $scope.listTotal = data.length;
-                    isEarn($scope, $filter);
-                    reminding($scope, $filter);
-                    modelC($scope, {
-                        status: "history",
-                        modelName: $scope.year  + "." + _month
-                    })
+                    if (data.status == 200) {
+                        $scope.listInfo =  data.data;
+                        $scope.listTotal = data.data.length;
+                        isEarn($scope, $filter);
+                        reminding($scope, $filter);
+                        modelC($scope, {
+                            status: "history",
+                            modelName: $scope.year  + "." + _month
+                        })
+                    }
             })
         };
     }])

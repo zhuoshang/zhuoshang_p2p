@@ -15,3 +15,4 @@ class DebtBuyList extends Model{
         return $this->belongsTo('App\DebtBuy','bid','id');
     }
 }
+

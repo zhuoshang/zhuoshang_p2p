@@ -54,15 +54,27 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'      => env('DB_HOST', '127.0.0.1'),
-			'database'  => env('DB_DATABASE', 'boshang'),
-			'username'  => env('DB_USERNAME', 'tianling'),
-			'password'  => env('DB_PASSWORD', '887976'),
+			'host'      => '127.0.0.1',
+			'database'  => 'boshang',
+			'username'  => 'tianling',
+			'password'  => '887976',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 			'strict'    => false,
 		],
+
+        'mysql' => [
+            'driver'    => 'mysql',
+            'host'      => '127.0.0.1',
+            'database'  => 'boshang',
+            'username'  => 'root',
+            'password'  => 'boshangp2p',
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
 
 		'pgsql' => [
 			'driver'   => 'pgsql',
