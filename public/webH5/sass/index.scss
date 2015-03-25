@@ -18,7 +18,6 @@
 .header-fun{
   position: relative;
   width: 100%;
-  height: 7.8%;
   border-bottom: 1px solid #d8d7d7;
   background: #4bc0ed;
   overflow: hidden;
@@ -40,9 +39,8 @@
 .h-i-model{
   position: absolute;
   left: 50%;
-  @include setFontSize(36px);
-  vertical-align: middle;
-  @include translate3d(-50%, 0, 0);
+  @include setFontSize(36);
+  @include translate3d(-50%, 2px, 0);
 }
 
 //content
@@ -59,7 +57,7 @@
 }
 .list-footer{
   position: absolute;
-  bottom: 0;
+  bottom: -0.3rem;
   text-align: center;
   width: 100%;
   height: 9.78%;
@@ -79,7 +77,7 @@
 }
 .s-l-notify{
   vertical-align: 5px;
-  @include setFontSize(30px);
+  @include setFontSize(30);
   color: #505050;
 }
 .list-rotate-info{
@@ -91,13 +89,6 @@
 .j-box{
   float: right;
   position: relative;
-}
-.rotate{
-  display: inline-block;
-  position: relative;
-  width: setRem(205);
-  height: setRem(205);
-  @include border-radius(50%);
 }
 .current-total{
   position: absolute;
@@ -114,9 +105,9 @@
   position: relative;
   width: setRem(50);
   color: #4bc0ed;
-  @include setFontSize(32px);
+  @include setFontSize(32);
   text-align: center;
-  &:before{
+  .c-total-left{
     position: absolute;
     top: 0;
     bottom: 0;
@@ -125,13 +116,12 @@
     width: 0;
     height: 0;
     content: "";
-    border: 10px solid #4bc0ed;
+    border: 0.25rem solid #4bc0ed;
     border-bottom-color: transparent;
     border-top-color: transparent;
     border-right-color: transparent;
-    border-left-width: 12px;
   }
-  &:after{
+  .c-total-right{
     position: absolute;
     right: 0;
     top: 0;
@@ -141,47 +131,75 @@
     width: 0;
     height: 0;
     content: "";
-    border: 10px solid #4bc0ed;
+    border: 0.25rem solid #4bc0ed;
     border-bottom-color: transparent;
     border-top-color: transparent;
     border-left-color: transparent;
-    border-right-width: 12px;
   }
 }
-.rotate-bond-line{
-  float: left;
-  border: 15px solid #dddddd;
+.rotate{
+  position: relative;
+  width: 5.125rem;
+  height: 5.125rem;
+  @include border-radius(50%);
 }
-.rotate-bond-out{
-  border: 15px solid #4bc0ed;
-}
-.rotate-value-line{
-  border: 15px solid #fefefe;
-  @include rotateZ(60deg);
-}
-.rotate-value-out{
-  border: 15px solid #45b94c;
+.rotate-left,
+.rotate-right{
+  position: absolute;
+  left: -0.375rem;
+  top: -0.375rem;
+  width: 5.875rem;
+  height: 5.875rem;
 }
 .rotate-half{
   position: absolute;
-  left: -15px;
-  top: -15px;
-  width: setRem(205);
-  height: setRem(205);
+  /*left: -0.375rem;
+  top: -0.375rem;*/
+ /* width: 5.875rem;
+  height: 5.875rem;*/
+  width: 5.125rem;
+  height: 5.125rem;
   @include border-radius(50%);
 }
-.rotate-left-half{
-  clip: rect(0,auto,auto,setRem(102.5));
+.rotate-bond-out{
+  border: 0.375rem solid #dddddd;
+  /*background: #dddddd;*/
 }
+.rotate-right,
 .rotate-right-half{
-  clip: rect(0,setRem(102.5),auto,auto);
+  clip: rect(0,auto,auto, 2.9375rem);
+}
+.rotate-left,
+.rotate-left-half{
+  clip: rect(0,2.9375rem, auto, 0);
+}
+
+.rotate-bond-line{
+  float: left;
+  border: 0.375rem solid #4bc0ed;
+  /*background: #4bc0ed;*/
+}
+.rotate-value-line{
+  border: 0.375rem solid #fefefe;
+}
+.rotate-value-line-earn{
+  @include rotateZ(-50deg);
+}
+.rotate-value-line-error{
+  @include rotateZ(50deg);
+}
+.rotate-value-out{
+  border: 0.375rem solid #45b94c;
+}
+.rotate-value-error{
+  border: 0.375rem solid red;
 }
 .rotate-default{
   @include rotateZ(-10deg);
 }
 .shadow-number{
   color: #f3f3f3;
-  @include setFontSize(28px);
+  @include setFontSize(28);
   text-align: center;
 }
 .c-bond-value,
@@ -199,11 +217,11 @@
 .b-title,
 .b-leave,
 .j-title{
-  @include setFontSize(28px);
+  @include setFontSize(28);
   color: #505050;
 }
 .b-number{
-  @include setFontSize(36px);
+  @include setFontSize(36);
   color: #4bc0ed;
   span{
     display: inline;
@@ -211,20 +229,35 @@
   }
 }
 .j-number,
-.j-up{
+.j-status{
   color: #45b94c;
+}
+.j-number{
+  @include setFontSize(36);
+}
+.j-number-error{
+  color: red;
 }
 .j-up{
   font-size: 1.5rem;
 }
+.j-status-error{
+  color: red;
+  @include rotateZ(180deg);
+}
 .list-vote-info{
-  @include setFontSize(30px);
+  @include setFontSize(30);
   margin-top: 1.05rem;
-  color: #d8d7d7;
   text-align: center;
   b{
-    @include setFontSize(36px);
+    @include setFontSize(36);
     font-weight: bolder;
+  }
+  .l-v-v{
+    color: #4bc0ed;
+  }
+  .l-v-e{
+    color: #45b94c;
   }
 }
 .list-base-info{
@@ -232,7 +265,7 @@
   padding-bottom: 0.8rem;
   border-bottom: 1px solid #dbdbdb;
   color: #505050;
-  @include setFontSize(30px);
+  @include setFontSize(30);
   &:after{
     display: block;
     content: "";
@@ -248,7 +281,7 @@
   float: left;
   b{
     color: #4bc0ed;
-    @include setFontSize(48px);
+    @include setFontSize(48);
     letter-spacing: 5px;
   }
 }
@@ -256,7 +289,7 @@
 .b-i-debt{
   float: right;
   b{
-    @include setFontSize(48px);
+    @include setFontSize(48);
     font-weight: bolder;
   }
 }
@@ -268,4 +301,80 @@
 }
 .i-d-value{
   color: #45b94c;
+}
+.d-l-previous,
+.d-l-next{
+  color: #b1b4b5;
+}
+.date-box{
+  position: relative;
+  margin-top: setRem(15);
+  text-align: center;
+}
+.d-month{
+  display: inline-block;
+  position: relative;
+  width: setRem(180);
+  height: setRem(165);
+  margin-right: setRem(8);
+  margin-top: setRem(4);
+  color: #4bc0ed;
+  border: 3px solid #d4d9db;
+  span{
+    display: block;
+    text-align: center;
+    font-weight: bolder;
+  }
+}
+.month-box{
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  @include translate3d(0, -50%, 0);
+}
+.d-c{
+  @include setFontSize(80);
+}
+.d-e{
+  @include setFontSize(30);
+}
+.data-year{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: setRem(160);
+  height: setRem(50);
+  line-height: setRem(50);
+  text-align: center;
+  background: #4bc0ed;
+  color: #fff;
+  @include setFontSize(30);
+  z-index: 1;
+  &:before{
+    position: absolute;
+    left: -1.2rem;
+    top: -0.03rem;
+    display: block;
+    content: "";
+    border: setRem(25) solid #4bc0ed;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-top-width: 0.7rem;
+  }
+  &:after{
+    position: absolute;
+    right: -1.2rem;
+    top: -0.03rem;
+    display: block;
+    content: "";
+    border: setRem(25) solid #4bc0ed;
+    border-right-color: transparent;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-top-width: 0.7rem;
+  }
 }

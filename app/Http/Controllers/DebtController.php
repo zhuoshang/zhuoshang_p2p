@@ -14,6 +14,10 @@ use DB;
 */
 class DebtController extends Controller{
 
+    public function debtIndex() {
+        return view('zsmobile.index');
+    }
+
     public function debtList(){
 
         $debts = DebtBuy::where('uid','=','1')->get();

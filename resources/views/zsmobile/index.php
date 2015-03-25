@@ -131,6 +131,6 @@
         </section>
     </section>
 
-    <script src="../js/index.js"></script>
+    <script src="../js/index.mobile.js"></script>
 </body>
 </html>
