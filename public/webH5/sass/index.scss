@@ -261,7 +261,7 @@
   }
 }
 .list-base-info{
-  margin: 0.6rem setRem(80);
+  margin: 0.6rem setRem(40);
   padding-bottom: 0.8rem;
   border-bottom: 1px solid #dbdbdb;
   color: #505050;
@@ -274,11 +274,14 @@
   span{
     display: block;
     margin-top: 0.45rem;
+    text-align: center;
+    white-space: nowrap;
   }
 }
 .b-i-bond,
 .b-i-trend{
   float: left;
+  width: 5.875rem;
   b{
     color: #4bc0ed;
     @include setFontSize(48);
@@ -288,6 +291,7 @@
 .b-i-interest,
 .b-i-debt{
   float: right;
+  width: 5.875rem;
   b{
     @include setFontSize(48);
     font-weight: bolder;

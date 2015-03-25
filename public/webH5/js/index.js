@@ -169,4 +169,9 @@ angular.module("personFun", ["ngTouch"])
                 right: _right
             }
         }
+    })
+    .filter("transNumber", function () {
+        return function(input) {
+           return input/10000;
+        }
     });
