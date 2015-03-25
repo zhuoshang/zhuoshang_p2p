@@ -32,10 +32,10 @@
                 <div class="list-rotate-info">
                     <div class="rotate rotate-bond-line">
                         <div class="rotate-left">
-                            <div class="rotate-half rotate-left-half rotate-bond-out" ng-style="{'transform': 'rotate(' + loadingRotateLeft + 'deg)'}"></div>
+                            <div class="rotate-half rotate-left-half rotate-bond-out" ng-style="{'-webkit-transform': 'rotate(' + loadingRotateLeft + 'deg)'}"></div>
                         </div>
                         <div class="rotate-right">
-                            <div class="rotate-half rotate-right-half rotate-bond-out" ng-style="{'transform': 'rotate(' + loadingRotateRight + 'deg)'}"></div>
+                            <div class="rotate-half rotate-right-half rotate-bond-out" ng-style="{'-webkit-transform': 'rotate(' + loadingRotateRight + 'deg)'}"></div>
                         </div>
                         <div class="c-bond-value">
                             <span class="b-title">债券进度</span>
@@ -80,7 +80,7 @@
                     <div class="b-i-bond">
                         <span class="b-i-title">债券价值</span>
                         <span class="b-i-value">
-                            <b>{{listInfo[currentList].bondValue}}</b> 万
+                            <b>{{listInfo[currentList].bondValue | transNumber}}</b> 万
                         </span>
                     </div>
                     <div class="b-i-interest">
