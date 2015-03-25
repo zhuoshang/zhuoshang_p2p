@@ -14,12 +14,30 @@ body {
 
 @mixin setFontSize($px) {
   [dpi="3"] & {
-    font-size: ($px/2)*3
+    font-size: (($px/40)*0.75) + rem;
   }
   [dpi="2"] & {
-    font-size: $px;
+    font-size: ($px/40) + rem;
   }
   [dpi="1"] & {
-    font-size: $px/2;
+    font-size: (($px/40)*1.25) + rem;;
+  }
+  [dpi="4"] & {
+    font-size: (($px/40)*0.6) + rem;;
   }
 }
+
+/*@mixin setFontSize($px) {
+  [dpi="3"] & {
+    font-size: ($px/2)*3 + px;
+  }
+  [dpi="2"] & {
+    font-size: $px + px;
+  }
+  [dpi="1"] & {
+    font-size: ($px/2) + px;
+  }
+  [dpi="4"] & {
+    font-size: ($px/2)*4 + px;
+  }
+}*/

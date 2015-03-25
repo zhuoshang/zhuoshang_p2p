@@ -1,0 +1,24 @@
+[
+  {
+    "bondLoading": "10.00",
+    "continuousTime": "50",
+    "netWorth": "0.901",
+    "bondValue": "50",
+    "interest": "0.20",
+    "movements": "趋平",
+    "debt": "已缴",
+    "voteMoney": "100",
+    "earnMoney": "120"
+  },
+  {
+    "bondLoading": "20.00",
+    "continuousTime": "50",
+    "netWorth": "1.001",
+    "bondValue": "50",
+    "interest": "0.20",
+    "movements": "趋平",
+    "debt": "已缴",
+    "voteMoney": "100",
+    "earnMoney": "120"
+  }
+]
