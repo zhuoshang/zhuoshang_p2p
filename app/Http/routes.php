@@ -24,4 +24,4 @@ Route::get('zsmobile', 'DebtController@debtIndex');
 
 Route::get('list', 'DebtController@debtList');
 
-Route::post('monthlist','DebtController@monthDebtList');
+Route::get('monthlist','DebtController@monthDebtList');

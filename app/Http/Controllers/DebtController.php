@@ -21,6 +21,10 @@ class DebtController extends Controller{
     public function debtList(){
 
         $debts = DebtBuy::where('uid','=','1')->get();
+//        $debts = DeBtBuy::all();
+//
+//        var_dump($debts);
+//        die;
 
         $debtData = array();
 
@@ -62,7 +66,7 @@ class DebtController extends Controller{
                 'netWorth'=>$debt->debt->net_value,
                 'bondValue'=>$debt->debt->total,
                 'interest'=>$debt->debt->interest,
-                'move'=>$move,
+                'movements'=>$move,
                 'debt'=>$status,
                 'voteMoney'=>$debt->total_buy,
                 'earnMoney'=>$earn
@@ -142,7 +146,7 @@ class DebtController extends Controller{
                 'netWorth'=>$debt->net_value,
                 'bondValue'=>$debt->total,
                 'interest'=>$debt->interest,
-                'move'=>$move,
+                'movements'=>$move,
                 'debt'=>$status,
                 'voteMoney'=>$debt->total_buy,
                 'earnMoney'=>$earn
