@@ -11,6 +11,7 @@
     <script>(function(){var b,a,e,c,d;window.dpi=window.devicePixelRatio;d=1/window.dpi;document.getElementById("viewport").setAttribute("content","width=device-width, initial-scale="+d+",maximum-scale="+d+",minimum-scale="+d+", user-scalable=no");window.system=window.navigator.userAgent.match(/iPhone|iPad|Android/);if(window.system){window.system=window.system[0]}window.url_path=window.location.origin;b=document.documentElement;b.setAttribute("dpi",window.dpi);a=b.getBoundingClientRect();c=a.width;e=window.innerHeight;if(e>=c){document.documentElement.style.fontSize=c/16+"px"}else{document.documentElement.style.fontSize=e/16+"px"}}).call(this);</script>
     <script src="../js/bower_components/angular/angular.js"></script>
     <script src="../js/bower_components/angular-touch/angular-touch.js"></script>
+    <script src="../js/index.js"></script>
     <title></title>
 </head>
 <body ng-app="personFun" ng-controller="funController">
@@ -31,10 +32,10 @@
                 <div class="list-rotate-info">
                     <div class="rotate rotate-bond-line">
                         <div class="rotate-left">
-                            <div class="rotate-half rotate-left-half rotate-bond-out" ng-style="{'transform': 'rotate(' + loadingRotateLeft + 'deg)'}"></div>
+                            <div class="rotate-half rotate-left-half rotate-bond-out" ng-style="{'-webkit-transform': 'rotate(' + loadingRotateLeft + 'deg)'}"></div>
                         </div>
                         <div class="rotate-right">
-                            <div class="rotate-half rotate-right-half rotate-bond-out" ng-style="{'transform': 'rotate(' + loadingRotateRight + 'deg)'}"></div>
+                            <div class="rotate-half rotate-right-half rotate-bond-out" ng-style="{'-webkit-transform': 'rotate(' + loadingRotateRight + 'deg)'}"></div>
                         </div>
                         <div class="c-bond-value">
                             <span class="b-title">债券进度</span>
@@ -79,7 +80,7 @@
                     <div class="b-i-bond">
                         <span class="b-i-title">债券价值</span>
                         <span class="b-i-value">
-                            <b>{{listInfo[currentList].bondValue}}</b> 万
+                            <b>{{listInfo[currentList].bondValue | transNumber}}</b> 万
                         </span>
                     </div>
                     <div class="b-i-interest">
@@ -130,7 +131,5 @@
             </div>
         </section>
     </section>
-
-    <script src="../js/index.js"></script>
 </body>
 </html>

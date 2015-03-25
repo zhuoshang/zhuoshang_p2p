@@ -141,6 +141,11 @@ angular.module("personFun", ["ngTouch"])
             })
         };
     }])
+    .filter("transNumber", function () {
+        return function(input) {
+            return input/10000;
+        }
+    })
     .filter("newWorth", function () {
         return function(input) {
             var _float = parseInt(input);
