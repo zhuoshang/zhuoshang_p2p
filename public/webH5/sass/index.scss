@@ -47,7 +47,7 @@
 .content-fun{
   position: relative;
   width: 100%;
-  height: 92.2%;
+  min-height: 92.2%;
   border-top: 1px solid #f1f1f1;
 }
 .list-header{
@@ -57,14 +57,15 @@
 }
 .list-footer{
   position: absolute;
-  bottom: -0.3rem;
-  text-align: center;
+  bottom: 0;
   width: 100%;
   height: 9.78%;
+  text-align: center;
+  clear: both;
 }
 .lists-content{
-  height: 83.17%;
   overflow: hidden;
+  padding-bottom: 15.78%;
 }
 .s-l-previous{
   color: #ebebeb;
