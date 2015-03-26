@@ -78,7 +78,7 @@ class DebtController extends Controller{
                 'debt'=>$status,
                 'voteMoney'=>$debt->total_buy,
                 'earnMoney'=>$earn,
-                'riskMoney'=>$debt->debt->resk_keep
+                'riskMoney'=>$debt->debt->risk_keep
 
             );
 
@@ -163,7 +163,7 @@ class DebtController extends Controller{
                 'debt'=>$status,
                 'voteMoney'=>$debt->total_buy,
                 'earnMoney'=>$earn,
-                'riskMoney'=>$debt->resk_keep
+                'riskMoney'=>$debt->risk_keep
             );
 
         }
