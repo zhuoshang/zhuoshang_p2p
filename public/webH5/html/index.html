@@ -71,6 +71,10 @@
                     </div>
                 </div>
                 <div class="list-vote-info">
+                    博尚鸿鼎风险预备金
+                    <b class="l-v-v">{{listInfo[currentList].riskMoney}}</b> 万
+                </div>
+                <div class="list-vote-info">
                     本月投入
                     <b class="l-v-v">{{listInfo[currentList].voteMoney}}</b> 万，
                     获益
