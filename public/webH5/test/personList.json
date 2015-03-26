@@ -8,7 +8,8 @@
     "movements": "趋平",
     "debt": "已缴",
     "voteMoney": "100",
-    "earnMoney": "120"
+    "earnMoney": "120",
+    "riskMoney": "100"
   },
   {
     "bondLoading": "20.00",
@@ -19,6 +20,7 @@
     "movements": "趋平",
     "debt": "已缴",
     "voteMoney": "100",
-    "earnMoney": "120"
+    "earnMoney": "120",
+    "riskMoney": "100"
   }
 ]
