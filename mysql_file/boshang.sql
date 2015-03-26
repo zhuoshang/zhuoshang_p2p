@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 03/24/2015 13:45:39 PM
+ Date: 03/26/2015 14:31:02 PM
 */
 
 SET NAMES utf8;
@@ -52,6 +52,8 @@ CREATE TABLE `debtBuy` (
   `add_time` int(20) NOT NULL COMMENT '债券添加时间',
   `dates` int(5) NOT NULL COMMENT '债券时长',
   `total_buy` int(10) NOT NULL COMMENT '购买债券总金额',
+  `buy_month` int(2) NOT NULL DEFAULT '1' COMMENT '购买月份',
+  `buy_year` int(4) DEFAULT '2014' COMMENT '购买年份',
   PRIMARY KEY (`id`),
   KEY `did` (`did`),
   CONSTRAINT `debt` FOREIGN KEY (`did`) REFERENCES `debt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -61,7 +63,7 @@ CREATE TABLE `debtBuy` (
 --  Records of `debtBuy`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtBuy` VALUES ('1', '1', '1', '21313123', '90', '10000'), ('2', '2', '1', '22232323', '90', '50000');
+INSERT INTO `debtBuy` VALUES ('1', '1', '1', '21313123', '90', '10000', '3', '2015'), ('2', '2', '1', '22232323', '90', '50000', '3', '2015');
 COMMIT;
 
 -- ----------------------------

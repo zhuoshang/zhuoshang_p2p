@@ -18,18 +18,26 @@ class DebtController extends Controller{
         return view('zsmobile.index');
     }
 
+
+    /*
+     ** 查询当月购买债券最新数据
+     **/
     public function debtList(){
 
-        $debts = DebtBuy::where('uid','=','1')->get();
-//        $debts = DeBtBuy::all();
-//
-//        var_dump($debts);
-//        die;
+        $now_month = intval(date('m',time()));
+        $now_year = intval(date('Y',time()));
+
+
+        $debts = DebtBuy::where('uid','=','1')
+            ->where('buy_month','=',$now_month)
+            ->where('buy_year','=',$now_year)
+            ->get();
 
         $debtData = array();
 
         $now = time();
 
+        //拼当月最新数据数组
         foreach($debts as $debt){
 
             //计算进度时间
@@ -90,22 +98,26 @@ class DebtController extends Controller{
     }
 
 
+    /*
+     * 按月查询用户资产最新情况
+     **/
     public function monthDebtList(Request $request){
 
         $month = $request->input('month');
+        $year = $request->input('year');
 
-        if($month == ''){
+
+        if($month == '' || $year == ''){
 
             $this->throwERROE(400,'关键参数不得为空');
 
         }
 
-
         $debts = DB::table('debtBuy')
             ->join('debt','debtBuy.did','=','debt.id')
-            ->join('debtBuyList','debtBuy.id','=','debtBuyList.bid')
             ->where('debtBuy.uid','=',1)
-            ->where('debtBuyList.month','=',$month)
+            ->where('debtBuy.buy_month','=',$month)
+            ->where('debtBuy.buy_year','=',$year)
             ->get();
 
         $dataArray = array();
@@ -168,7 +180,9 @@ class DebtController extends Controller{
     }
 
 
-
+    /*
+     ** 抛错函数
+     **/
     private function throwERROE($code,$msg){
         echo json_encode(array(
             'status'=>$code,
