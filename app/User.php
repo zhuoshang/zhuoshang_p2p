@@ -26,4 +26,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password'];
 
+    public function front_user(){
+        return $this->hasOne('FrontUser','uid','id');
+    }
+
 }

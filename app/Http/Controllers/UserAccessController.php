@@ -4,10 +4,11 @@
 **createTime:15/4/3 下午7:31
 */
 
-use App\User;
+//use App\User;
 use App\FrontUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Controller as BaseController;
 use Auth;
 
 class UserAccessController extends Controller
@@ -90,9 +91,8 @@ class UserAccessController extends Controller
         }
 
 
-        Auth::login($userCheck);
+        Auth::login($userCheck,false);
 
-        echo Auth::user()->front_uid;
 
         echo json_encode(
             array(
@@ -101,6 +101,8 @@ class UserAccessController extends Controller
                 'data'=>'/'
             )
         );
+
+        return redirect()->intended('list');
 
     }
 

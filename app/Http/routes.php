@@ -21,9 +21,9 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('zsmobile', array('before' => 'loginCheck','DebtController@debtIndex'));
+Route::get('zsmobile',array('before' => 'loginCheck','DebtController@debtIndex'));
 
-Route::get('list', array('before' => 'loginCheck','DebtController@debtList'));
+Route::get('list', array('before' => 'loginCheck','uses'=>'DebtController@debtList'));
 
 Route::get('monthlist',array('before' => 'loginCheck','DebtController@monthDebtList'));
 
@@ -35,13 +35,14 @@ Route::get('loginPage','UserAccessController@loginPage');
 
 Route::post('login','UserAccessController@login');
 
-Route::get('logout',array('before' => 'loginCheck','UserAccessController@logout'));
+Route::get('logout',array('before' => 'loginCheck','uses'=>'UserAccessController@logout'));
 
 #登录验证
 Route::filter('loginCheck', function()
 {
-    if (!Auth::check())
+    if (!\Auth::check())
     {
         return Redirect::to('loginPage');
+
     }
 });
