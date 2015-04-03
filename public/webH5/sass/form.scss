@@ -78,6 +78,9 @@ body{
   padding-left: 40px;
   -webkit-appearance: none;
 }
+.login-form{
+  top: 10.5rem;
+}
 .login-form,
 .register-form{
   @include c-center;
@@ -90,17 +93,37 @@ body{
     padding-bottom: setRem(14);
     background: transparent;
     border: none;
-    border-bottom: 2px solid #c6c6c6;
+    border-bottom: 2px solid;
     @include setFontSize(30);
     color: #c6c6c6;
     outline: none;
     -webkit-appearance: none;
   }
-  input.rr-verify{
+  .m-register-t{
+    position: relative;
+    right: setRem(38);
+    width: setRem(508);
+    height: setRem(88);
+    margin-top: setRem(78);
+    padding-left: 40px;
+    color: #368bab;
+    border: 3px solid;
+    background: transparent;
+    @include setFontSize(40);
+    letter-spacing: 40px;
+    @include border-radius(setRem(50));
+  }
+  input.rr-verify {
     float: left;
     width: setRem(242);
   }
+  input.ng-touched.ng-invalid,
+  input.ng-touched.ng-invalid::-webkit-input-placeholder{
+    color: red;
+    border-bottom-color: red;
+  }
 }
+
 .t-i{
   position: absolute;
   left: setRem(20);
@@ -158,20 +181,6 @@ body{
     background: #c6c6c6;
     @include border-radius(50%);
   }
-}
-.m-register-t{
-  position: relative;
-  right: setRem(38);
-  width: setRem(508);
-  height: setRem(88);
-  margin-top: setRem(78);
-  padding-left: 40px;
-  color: #368bab;
-  border: 3px solid;
-  background: transparent;
-  @include setFontSize(40);
-  letter-spacing: 40px;
-  @include border-radius(setRem(50));
 }
 .g-verify{
   position: relative;

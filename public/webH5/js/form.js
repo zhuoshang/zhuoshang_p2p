@@ -3,7 +3,7 @@
  */
 angular.module("loginAndRegister", ["ngTouch"])
     .controller("CLR", ["$scope", "$http", function ($scope, $http) {
-        $scope.where = "register";
+        $scope.where = "init";
         $scope.formTop = 10.5;
 
         $scope.toLogin = function () {
@@ -14,15 +14,23 @@ angular.module("loginAndRegister", ["ngTouch"])
             $scope.where = "register";
         };
 
-        $scope.moveForm = function () {
-            $scope.formTop = 8.5;
-        };
-
-        $scope.recoverForm = function () {
-            $scope.formTop = 10.5;
+        $scope.setUnTouched = function (input) {
+            input.$setUntouched();
         };
 
         $scope.toInit = function () {
             $scope.where = "init";
+        };
+
+        $scope.sRegister = function (form) {
+            if (form.$valid) {
+                return;
+            }
+        }
+
+        $scope.sLogin = function (form) {
+            if (form.$valid) {
+                return;
+            }
         }
     }]);
