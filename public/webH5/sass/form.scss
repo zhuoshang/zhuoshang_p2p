@@ -1,0 +1,193 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "common/resetApp";
+@mixin c-center{
+  &{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+}
+
+//font-icon defined
+@font-face {font-family: 'iconfont';
+  src: url('../fonts/iconfont.ttf') format('truetype');
+}
+.iconfont{
+  font-family:"iconfont" !important;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body{
+  background: url("../images/larbg.jpg");
+  @include background-size(cover);
+}
+.logo{
+  @include c-center;
+  top: setRem(274);
+  max-width: 451px;
+  max-height: 102px;
+  width: setRem(451);
+  height: setRem(102);
+  background: url("../images/logo.png");
+}
+.c-register{
+  @include c-center;
+  bottom: setRem(82);
+  width: setRem(225);
+  height: setRem(58);
+  border: 3px solid;
+  @include setFontSize(30);
+  color: #368bab;
+  @include border-radius(setRem(40));
+  text-align: center;
+  line-height: setRem(58);
+}
+@mixin lbc() {
+  &{
+    width:  setRem(508);
+    height: setRem(88);
+    line-height: setRem(88);
+    background: #e52325;
+    @include border-radius(setRem(50));
+    color: white;
+    letter-spacing: 40px;
+    text-align: center;
+    @include setFontSize(40);
+  }
+}
+.c-login{
+  @include c-center;
+  bottom: setRem(218);
+  @include lbc;
+  span{
+    padding-left: 40px;
+  }
+}
+.m-login-t{
+  @include lbc;
+  position: relative;
+  right: setRem(38);
+  margin-top: setRem(100);
+  border: none;
+  bottom: 0;
+  padding-left: 40px;
+  -webkit-appearance: none;
+}
+.login-form{
+  top: 10.5rem;
+}
+.login-form,
+.register-form{
+  @include c-center;
+  width: setRem(424);
+  input[type="text"],
+  input[type="password"]{
+    display: inline-block;
+    width: setRem(435);
+    margin-top: setRem(42);
+    padding-bottom: setRem(14);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid;
+    @include setFontSize(30);
+    color: #c6c6c6;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  .m-register-t{
+    position: relative;
+    right: setRem(38);
+    width: setRem(508);
+    height: setRem(88);
+    margin-top: setRem(78);
+    padding-left: 40px;
+    color: #368bab;
+    border: 3px solid;
+    background: transparent;
+    @include setFontSize(40);
+    letter-spacing: 40px;
+    @include border-radius(setRem(50));
+  }
+  input.rr-verify {
+    float: left;
+    width: setRem(242);
+  }
+  input.ng-touched.ng-invalid,
+  input.ng-touched.ng-invalid::-webkit-input-placeholder{
+    color: red;
+    border-bottom-color: red;
+  }
+}
+
+.t-i{
+  position: absolute;
+  left: setRem(20);
+  top: setRem(20);
+  color: white;
+  @include setFontSize(50);
+  font-weight: bolder
+}
+.f-password{
+  float: left;
+  margin-top: 1.2rem;
+  margin-left: setRem(24);
+  @include setFontSize(24);
+  color: #c6c6c6;
+  &:before{
+    display: inline-block;
+    content: "?";
+    width: setRem(20);
+    height: setRem(20);
+    @include setFontSize(20);
+    line-height: setRem(20);
+    color: #c6c6c6;
+    border: 2px solid;
+    @include border-radius(50%);
+    text-align: center;
+  }
+}
+.r-password{
+  float: right;
+  margin-top: setRem(43);
+  margin-right: setRem(24);
+  @include setFontSize(24);
+  color: #c6c6c6;
+}
+.r-password-i{
+  position: relative;
+  top: setRem(5);
+  -webkit-appearance: none;
+  width: setRem(20);
+  height: setRem(20);
+  @include border-radius(50%);
+  border: 2px solid #c6c6c6;
+}
+.r-password-i:checked{
+  &:after{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    content: "";
+    width: setRem(14);
+    height: setRem(14);
+    background: #c6c6c6;
+    @include border-radius(50%);
+  }
+}
+.g-verify{
+  position: relative;
+  top: 0.8rem;
+  float: right;
+  border: 4px solid;
+  color: #c6c6c6;
+  padding: setRem(12);
+  @include setFontSize(30);
+}
