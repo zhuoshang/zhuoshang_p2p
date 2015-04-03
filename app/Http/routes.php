@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+//Route::get('/', 'WelcomeController@index');
+Route::get('/', array('before' => 'loginCheck', 'uses' => 'WelcomeController@index'));//用户中心首页
 
 Route::get('home', 'HomeController@index');
 
@@ -20,8 +21,27 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('zsmobile', 'DebtController@debtIndex');
+Route::get('zsmobile', array('before' => 'loginCheck','DebtController@debtIndex'));
 
-Route::get('list', 'DebtController@debtList');
+Route::get('list', array('before' => 'loginCheck','DebtController@debtList'));
 
-Route::get('monthlist','DebtController@monthDebtList');
+Route::get('monthlist',array('before' => 'loginCheck','DebtController@monthDebtList'));
+
+Route::get('registerPage','UserAccessController@registerPage');
+
+Route::post('register','UserAccessController@register');
+
+Route::get('loginPage','UserAccessController@loginPage');
+
+Route::post('login','UserAccessController@login');
+
+Route::get('logout',array('before' => 'loginCheck','UserAccessController@logout'));
+
+#登录验证
+Route::filter('loginCheck', function()
+{
+    if (!Auth::check())
+    {
+        return Redirect::to('loginPage');
+    }
+});
