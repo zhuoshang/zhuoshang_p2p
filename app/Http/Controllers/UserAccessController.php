@@ -4,7 +4,7 @@
 **createTime:15/4/3 下午7:31
 */
 
-//use App\User;
+use App\User;
 use App\FrontUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +20,7 @@ class UserAccessController extends Controller
     public function registerPage()
     {
 
-        echo "you have arrived the register page!";
+        return view('zsmobile.form');
     }
 
 
@@ -29,7 +29,13 @@ class UserAccessController extends Controller
      **/
     public function loginPage(){
 
-        echo "you have arrived the login page!";
+        //若用户已经登录则跳转至资产列表
+        if(Auth::check()){
+            return redirect()->intended('zsmobile/index');
+
+        }
+
+        return view('zsmobile.form');
     }
 
 
@@ -53,11 +59,14 @@ class UserAccessController extends Controller
             $userCheck->user->last_login_time = time();
             $userCheck->user->lock = 0;
             if($userCheck->user->save()){
+
+                Auth::login($userCheck);
+
                 echo json_encode(
                     array(
                         'status'=>200,
                         'msg'=>'ok',
-                        'data'=>'/'
+                        'data'=>'index'
                     )
                 );
             }
@@ -98,11 +107,11 @@ class UserAccessController extends Controller
             array(
                 'status'=>200,
                 'msg'=>'ok',
-                'data'=>url('/')
+                'data'=>'index'
             )
         );
 
-        return redirect()->intended('list');
+        //  return redirect()->intended('list');
 
     }
 

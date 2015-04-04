@@ -25,16 +25,27 @@ angular.module("loginAndRegister", ["ngTouch"])
 
         $scope.sRegister = function (form) {
             if (form.$valid) {
-                $http.post("/", $scope.user)
-                    .success(function (data) {});
+                $http.post("../register", $scope.user)
+                    .success(function (data) {
+                        if (data.status == 200) {
+                            window.location.href = data.data;
+                        }else{
+                            alert(data.msg);
+                        }
+                    });
             }
         };
 
         $scope.sLogin = function (form) {
-            console.log(form);
             if (form.$valid) {
-                $http.post("/", $scope.user)
-                    .success(function (data) {});
+                $http.post("../login", $scope.user)
+                    .success(function (data) {
+                        if (data.status == 200) {
+                            window.location.href = data.data;
+                        }else{
+                            alert(data.msg);
+                        }
+                    });
             }
         }
     }]);

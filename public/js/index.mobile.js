@@ -20,7 +20,7 @@ angular.module("personFun", ["ngTouch"])
         $scope.currentList = 0;
         $scope.year = new Date().getFullYear();
 
-        $http.get("list", {
+        $http.get("../list", {
             cache: true
         })
             .success(function (data, status) {
@@ -130,7 +130,7 @@ angular.module("personFun", ["ngTouch"])
         $scope.getBondMonth = function () {
             var _month = Math.round(this.month.n, 10);
 
-            $http.get("monthlist?month=" + _month + "&year=" + $scope.year, {cache: true})
+            $http.get("../monthlist?month=" + _month + "&year=" + $scope.year, {cache: true})
                 .success(function (data, status) {
                     if (data.status == 200) {
                         $scope.listInfo =  data.data;
