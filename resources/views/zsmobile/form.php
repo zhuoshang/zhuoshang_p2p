@@ -7,11 +7,11 @@
     <meta content="telephone=no,email=no" name="format-detection" />
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta name="viewport" id="viewport" />
-    <link rel="stylesheet" href="../css/form.css"/>
+    <link rel="stylesheet" href="css/form.css"/>
     <script>(function(){var b,a,e,c,d;window.dpi=window.devicePixelRatio;d=1/window.dpi;document.getElementById("viewport").setAttribute("content","width=device-width, initial-scale="+d+",maximum-scale="+d+",minimum-scale="+d+", user-scalable=no");window.system=window.navigator.userAgent.match(/iPhone|iPad|Android/);if(window.system){window.system=window.system[0]}window.url_path=window.location.origin;b=document.documentElement;b.setAttribute("dpi",window.dpi);a=b.getBoundingClientRect();c=a.width;e=window.innerHeight;if(e>=c){document.documentElement.style.fontSize=c/16+"px"}else{document.documentElement.style.fontSize=e/16+"px"}}).call(this);</script>
-    <script src="../js/bower_components/angular/angular.js"></script>
-    <script src="../js/bower_components/angular-touch/angular-touch.js"></script>
-    <script src="../js/form.js"></script>
+    <script src="/js/bower_components/angular/angular.js"></script>
+    <script src="/js/bower_components/angular-touch/angular-touch.js"></script>
+    <script src="/js/form.js"></script>
     <title></title>
 </head>
 <body ng-app="loginAndRegister" ng-controller="CLR">
