@@ -19,6 +19,8 @@ angular.module("personFun", ["ngTouch"])
     .controller("funController", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
         $scope.currentList = 0;
         $scope.year = new Date().getFullYear();
+        $scope.route = "assetsList";
+        $scope.personList = false;
 
         $http.get("../test/personList.json", {
             cache: true
@@ -139,6 +141,13 @@ angular.module("personFun", ["ngTouch"])
                         modelName: $scope.year  + "." + _month
                     })
             })
+        };
+        $scope.toRoute = function (routeName) {
+            $scope.personList = false;
+            $scope.route = routeName;
+        };
+        $scope.toPersonList = function () {
+            $scope.personList = true;
         };
     }])
     .filter("newWorth", function () {

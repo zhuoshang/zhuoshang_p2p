@@ -13,11 +13,21 @@
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-
+body{
+  background: url("../images/larbg.jpg");
+  @include background-size(cover);
+}
 //nav defined
+.assets-list{
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  background: white;
+}
 .header-fun{
   position: relative;
   width: 100%;
+  height: 7.8%;
   border-bottom: 1px solid #d8d7d7;
   background: #4bc0ed;
   overflow: hidden;
@@ -65,7 +75,7 @@
 }
 .lists-content{
   overflow: hidden;
-  padding-bottom: 15.78%;
+  padding-bottom: 19.78%;
 }
 .s-l-previous{
   color: #ebebeb;
@@ -154,17 +164,12 @@
 }
 .rotate-half{
   position: absolute;
-  /*left: -0.375rem;
-  top: -0.375rem;*/
- /* width: 5.875rem;
-  height: 5.875rem;*/
   width: 5.125rem;
   height: 5.125rem;
   @include border-radius(50%);
 }
 .rotate-bond-out{
   border: 0.375rem solid #dddddd;
-  /*background: #dddddd;*/
 }
 .rotate-right,
 .rotate-right-half{
@@ -382,4 +387,76 @@
     border-bottom-color: transparent;
     border-top-width: 0.7rem;
   }
+}
+.fun-list{
+  position: relative;
+  height: 100%;
+}
+.to-personList{
+  @include transform(scale3d(1,0.9,1) translate3d(11.9rem,0,0));
+}
+.person-list{
+  position: absolute;
+  width: 100%;
+  margin-left: setRem(45);
+  padding-top: setRem(24);
+}
+.user-phone,
+.user-name{
+  color: white;
+  @include setFontSize(24);
+  text-align: center;
+  margin-left: setRem(-45);
+}
+.user-name{
+  margin-top: 0.1rem;
+}
+.login-info{
+  img{
+    float: left;
+    margin-right: setRem(15);
+    width: setRem(127);
+    height: setRem(127);
+    border: setRem(10) solid #383c47;
+    @include border-radius(50%);
+  }
+  p{
+    line-height: 1.2;
+  }
+  .last-login{
+    padding-top: setRem(35);
+    color: white;
+    @include setFontSize(30);
+  }
+  .last-location,
+  .last-date{
+    color: #4bc0ed;
+    @include setFontSize(24);
+  }
+}
+.person-info-first{
+  margin-top: setRem(65);
+  border-top: 3px solid #9c9c9c;
+}
+.person-info{
+  width: setRem(411);
+  padding: setRem(20) 0;
+  color: #d1d2d3;
+  border-bottom: 2px solid #9c9c9c;
+  @include setFontSize(30);
+  span{
+    color: white;
+  }
+}
+.route-w-icon{
+  margin-top: setRem(54);
+  color: #d1d2d3;
+  @include setFontSize(30);
+  i{
+    @include setFontSize(40);
+    padding-right: setRem(30);
+  }
+}
+.route-status{
+  color: #4bc0ec;
 }
