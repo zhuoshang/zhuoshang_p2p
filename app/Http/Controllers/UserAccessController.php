@@ -91,14 +91,14 @@ class UserAccessController extends Controller
         }
 
 
-        Auth::login($userCheck,false);
+        Auth::login($userCheck);
 
 
         echo json_encode(
             array(
                 'status'=>200,
                 'msg'=>'ok',
-                'data'=>'/'
+                'data'=>url('/')
             )
         );
 
@@ -118,7 +118,7 @@ class UserAccessController extends Controller
             array(
                 'status'=>200,
                 'msg'=>'ok',
-                'data'=>'/'
+                'data'=>url('/')
             )
         );
     }
