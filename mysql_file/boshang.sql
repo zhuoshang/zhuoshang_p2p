@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 03/26/2015 14:31:02 PM
+ Date: 04/03/2015 21:40:29 PM
 */
 
 SET NAMES utf8;
@@ -38,7 +38,7 @@ CREATE TABLE `debt` (
 --  Records of `debt`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debt` VALUES ('1', '电影进击的巨人债券', '进击的巨人进击的巨人进击的巨人进击的巨人进击的巨人进击的巨人', '0', '1.50', '12.00', '1423109401', '90', '150000', '0', '0'), ('2', '电影奔跑吧兄弟债券', '奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟', '0', '1.50', '12.00', '1426409401', '90', '200000', '0', '0');
+INSERT INTO `debt` VALUES ('1', '电影进击的巨人债券', '进击的巨人进击的巨人进击的巨人进击的巨人进击的巨人进击的巨人', '20', '1.50', '12.00', '1423109401', '90', '150000', '0', '0'), ('2', '电影奔跑吧兄弟债券', '奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟奔跑吧兄弟', '55', '0.70', '12.00', '1426409401', '90', '200000', '0', '0');
 COMMIT;
 
 -- ----------------------------
@@ -91,6 +91,54 @@ CREATE TABLE `debtBuyList` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `debtBuyList` VALUES ('3', '1', '5000', '1.20', '10.00', '2', '2014', '0'), ('4', '1', '5500', '1.20', '12.00', '3', '2014', '0'), ('5', '2', '6000', '1.20', '12.00', '2', '2014', '0'), ('6', '2', '5700', '1.20', '12.00', '3', '2014', '0');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `frontUser`
+-- ----------------------------
+DROP TABLE IF EXISTS `frontUser`;
+CREATE TABLE `frontUser` (
+  `front_uid` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(11) unsigned NOT NULL,
+  `user_name` varchar(20) DEFAULT NULL,
+  `real_name` varchar(8) NOT NULL,
+  `mobile` varchar(11) NOT NULL,
+  `email` varchar(25) DEFAULT NULL COMMENT '用户邮箱',
+  `remember_token` varchar(255) DEFAULT NULL COMMENT '用户保持登录token',
+  `updated_at` varchar(25) DEFAULT NULL,
+  `created_at` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`front_uid`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `frontUser`
+-- ----------------------------
+BEGIN;
+INSERT INTO `frontUser` VALUES ('1', '4', null, 'tianling', '13399857034', null, null, '2015-04-03 08:13:04', '2015-04-03 08:13:04'), ('2', '5', null, 'luo', '13618372995', null, null, '2015-04-03 08:18:21', '2015-04-03 08:18:21'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `user`
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `password` varchar(255) DEFAULT NULL,
+  `last_login_ip` varchar(15) DEFAULT NULL,
+  `last_login_time` int(11) DEFAULT NULL,
+  `lock` int(1) NOT NULL DEFAULT '1' COMMENT '0-未锁定，1-用户被锁定',
+  `created_at` varchar(25) DEFAULT NULL,
+  `updated_at` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `user`
+-- ----------------------------
+BEGIN;
+INSERT INTO `user` VALUES ('4', '$2y$10$c2gLxKNy3DsoObntp6ohg.fiZlAR7Ds9H5Z6vjlgC58z5qdacOJw6', '127.0.0.1', '1428067574', '0', null, '2015-04-03 13:26:14'), ('5', null, null, null, '1', null, null), ('6', null, null, null, '1', null, null);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

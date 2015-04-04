@@ -1,11 +1,13 @@
 <?php namespace App\Http\Controllers;
 use App\Debt;
+use App\FrontUser;
 use App\DebtBuyList;
 use App\DebtBuy;
 use App\Quotation;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;;
+use Illuminate\Routing\Controller as BaseController;
 use DB;
+use Auth;
 
 
 /*
