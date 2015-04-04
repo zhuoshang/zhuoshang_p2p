@@ -27,11 +27,11 @@ Route::get('list', array('before' => 'loginCheck','uses'=>'DebtController@debtLi
 
 Route::get('monthlist',array('before' => 'loginCheck','DebtController@monthDebtList'));
 
-Route::get('registerPage','UserAccessController@registerPage');
+Route::get('register','UserAccessController@registerPage');
 
 Route::post('register','UserAccessController@register');
 
-Route::get('loginPage','UserAccessController@loginPage');
+Route::get('login','UserAccessController@loginPage');
 
 Route::post('login','UserAccessController@login');
 
@@ -42,7 +42,7 @@ Route::filter('loginCheck', function()
 {
     if (!\Auth::check())
     {
-        return Redirect::to('loginPage');
+        return Redirect::to('login');
 
     }
 });
