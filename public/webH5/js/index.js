@@ -11,16 +11,24 @@ function reminding ($scope, $filter) {
 }
 
 function modelC ($scope, obj) {
-    $scope.funStatus = obj.status;
-    $scope.modelName = obj.modelName;
+    $scope.assets.funStatus = obj.status;
+    $scope.assets.modelName = obj.modelName;
 }
 
 angular.module("personFun", ["ngTouch"])
     .controller("funController", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
         $scope.currentList = 0;
         $scope.year = new Date().getFullYear();
-        $scope.route = "assetsList";
+        $scope.route = "fund";
         $scope.personList = false;
+        $scope.assets = {};
+        $scope.fund = {
+            status: "list",
+            search: {
+                type: ["全部","1","2","3","4"],
+                status: "全部"
+            }
+        };
 
         $http.get("../test/personList.json", {
             cache: true
@@ -149,6 +157,13 @@ angular.module("personFun", ["ngTouch"])
         $scope.toPersonList = function () {
             $scope.personList = true;
         };
+        $scope.showSearch = function () {
+            $scope.fund.isSearch = true;
+        };
+        $scope.cSeachModel = function (searchType) {
+            $scope.fund.isSearch = false;
+            $scope.fund.search.status= searchType;
+        }
     }])
     .filter("newWorth", function () {
         return function(input) {
