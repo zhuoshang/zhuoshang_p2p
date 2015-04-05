@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 04/03/2015 21:40:29 PM
+ Date: 04/05/2015 01:25:43 AM
 */
 
 SET NAMES utf8;
@@ -63,7 +63,7 @@ CREATE TABLE `debtBuy` (
 --  Records of `debtBuy`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtBuy` VALUES ('1', '1', '1', '21313123', '90', '10000', '3', '2015'), ('2', '2', '1', '22232323', '90', '50000', '3', '2015');
+INSERT INTO `debtBuy` VALUES ('1', '1', '1', '21313123', '90', '10000', '4', '2015'), ('2', '2', '1', '22232323', '90', '50000', '4', '2015');
 COMMIT;
 
 -- ----------------------------
@@ -116,7 +116,7 @@ CREATE TABLE `frontUser` (
 --  Records of `frontUser`
 -- ----------------------------
 BEGIN;
-INSERT INTO `frontUser` VALUES ('1', '4', null, 'tianling', '13399857034', null, null, '2015-04-03 08:13:04', '2015-04-03 08:13:04'), ('2', '5', null, 'luo', '13618372995', null, null, '2015-04-03 08:18:21', '2015-04-03 08:18:21'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22');
+INSERT INTO `frontUser` VALUES ('1', '4', null, 'tianling', '13399857034', null, 'aaAUqIJfFxVkktkVv8eus9IE6WcwFamndcQiNhFMm5M4JM7wBr13lhfGeoax', '2015-04-04 01:11:53', '2015-04-03 08:13:04'), ('2', '5', null, 'luo', '13618372995', null, '5FvQkIrPOmj9JwNcW4I3ZbS9W0lary6yRD6yJ1uP8SqFobZQYjqXekEbV83d', '2015-04-04 02:27:20', '2015-04-03 08:18:21'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22');
 COMMIT;
 
 -- ----------------------------
@@ -131,6 +131,7 @@ CREATE TABLE `user` (
   `lock` int(1) NOT NULL DEFAULT '1' COMMENT '0-未锁定，1-用户被锁定',
   `created_at` varchar(25) DEFAULT NULL,
   `updated_at` varchar(25) DEFAULT NULL,
+  `remember_token` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
@@ -138,7 +139,7 @@ CREATE TABLE `user` (
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('4', '$2y$10$c2gLxKNy3DsoObntp6ohg.fiZlAR7Ds9H5Z6vjlgC58z5qdacOJw6', '127.0.0.1', '1428067574', '0', null, '2015-04-03 13:26:14'), ('5', null, null, null, '1', null, null), ('6', null, null, null, '1', null, null);
+INSERT INTO `user` VALUES ('4', '$2y$10$c2gLxKNy3DsoObntp6ohg.fiZlAR7Ds9H5Z6vjlgC58z5qdacOJw6', '127.0.0.1', '1428067574', '0', null, '2015-04-03 16:05:13', null), ('5', '$2y$10$QEV5bXJ7f4Zgv.TsrCp/MucG/g.Il5jJyqrzEveBYzW4tVBaGKr42', '127.0.0.1', '1428113402', '0', null, '2015-04-04 02:10:02', null), ('6', null, null, null, '1', null, null, null);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

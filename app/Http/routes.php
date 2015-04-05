@@ -12,7 +12,7 @@
 */
 
 //Route::get('/', 'WelcomeController@index');
-Route::get('/', array('before' => 'loginCheck', 'uses' => 'WelcomeController@index'));//用户中心首页
+Route::get('/', array('before' => 'indexCheck'));//用户中心首页
 
 Route::get('home', 'HomeController@index');
 
@@ -21,28 +21,49 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-Route::get('zsmobile',array('before' => 'loginCheck','DebtController@debtIndex'));
+#zsmobile 页面
+
+Route::get('zsmobile/index',array('before' => 'loginCheck','uses'=>'DebtController@debtIndex'));
+
+Route::get('zsmobile/login','UserAccessController@loginPage');
+
+Route::get('zsmobile/register','UserAccessController@registerPage');
+
+Route::post('login','UserAccessController@login');
+
+#zsmobile API
+Route::get('zsmobile/logout',array('before' => 'loginCheck','uses'=>'UserAccessController@logout'));
+
+
+#公共API
+Route::post('register','UserAccessController@register');
+
+Route::get('zsmobile/login','UserAccessController@loginPage');
 
 Route::get('list', array('before' => 'loginCheck','uses'=>'DebtController@debtList'));
 
 Route::get('monthlist',array('before' => 'loginCheck','DebtController@monthDebtList'));
 
-Route::get('register','UserAccessController@registerPage');
 
-Route::post('register','UserAccessController@register');
-
-Route::get('login','UserAccessController@loginPage');
-
-Route::post('login','UserAccessController@login');
-
-Route::get('logout',array('before' => 'loginCheck','uses'=>'UserAccessController@logout'));
 
 #登录验证
 Route::filter('loginCheck', function()
 {
     if (!\Auth::check())
     {
-        return Redirect::to('login');
+        return Redirect::to('zsmobile/login');
 
+    }
+});
+
+#根目录跳转
+Route::filter('indexCheck', function()
+{
+    if (!\Auth::check())
+    {
+        return Redirect::to('zsmobile/login');
+
+    }else{
+        return Redirect::to('zsmobile/index');
     }
 });
