@@ -28,7 +28,7 @@
         <p class="person-info">当月投资个数: <span> 5</span></p>
         <p class="person-info">历史投资个数: <span> 24</span></p>
         <p class="route-w-icon" ng-class="{'route-status': route =='assetsList'}" ng-click="toRoute('assetsList')"><i class="iconfont">&#xe607;</i>资产列表</p>
-        <p class="route-w-icon" ng-class="{'route-status': route =='fund'}" ng-click="toRoute('fund')"><i class="iconfont">&#xe606;</i>基金</p>
+        <p class="route-w-icon" ng-class="{'route-status': route =='fund'}" ng-click="toRoute('fund');getFundType();getFundProduce()"><i class="iconfont">&#xe606;</i>基金</p>
         <p class="route-w-icon"><i class="iconfont">&#xe608;</i>爱心卷狂</p>
         <p class="route-w-icon"><i class="iconfont">&#xe609;</i>贵宾优享</p>
     </section>
@@ -163,7 +163,7 @@
                 <i class="i-q">?</i>
             </nav>
         </header>
-        <section class="fund-product">
+        <section class="fund-product" ng-if="fund.status == 'list'">
             <section class="search-box" ng-if="fund.isSearch == true">
                 <div class="search-model" ng-class="{'search-model-activity': fund.search.status == search}" ng-repeat="search in fund.search.type" ng-click="cSeachModel(search)">
                     <i class="iconfont">&#xe60a;</i> {{search}}
@@ -173,34 +173,35 @@
                 历史认购总额 <b>500</b> 万 下期认购金额 <b>500</b> 万
                 <span class="fun-s" ng-click="showSearch()">{{fund.search.status}}</span>
             </section>
-            <div class="fund-product-list">
+            <div class="fund-product-list" ng-repeat="foundPInfo in fund.showList">
                 <header>
-                    <span class="f-p-title">杭州西湖区某住宅抵押贷款</span>
+                    <span class="f-p-title">{{foundPInfo.title}}</span>
                     <span class="f-p-type">债券投资基金</span>
                 </header>
                 <div class="f-p-is">
                     <div class="f-p-i">
-                        <b>1.0121</b>
+                        <b>{{foundPInfo.newWorth}}</b>
                         <span>基金净值</span>
                     </div>
                     <div class="f-p-i">
-                        <b>1.0121 <i>%</i></b>
+                        <b>{{foundPInfo.interest}} <i>%</i></b>
                         <span>基金利息</span>
                     </div>
                     <div class="f-p-i">
-                        <b>0500 <span>万</span></b>
+                        <b>{{foundPInfo.boundValue}} <span>万</span></b>
                         <span>基金净值</span>
                     </div>
-                    <div class="f-p-i">
+                    <div class="f-p-i f-p-ic">
                         <i class="iconfont i-d">&#xe60b;</i>
                     </div>
                 </div>
                 <div class="f-p-b">
                     <div class="f-p-bl">
-                        <div class="f-p-b-loading"></div>
-                        <div class="f-p-b-text">100%</div>
+                        <div class="f-p-b-loading" ng-style="{width: foundPInfo.bondLoading + 'rem'}"></div>
+                        <div class="f-p-b-text">{{foundPInfo.bondLoading * 10}}%</div>
                     </div>
-                    <div class="f-p-s">置顶</div>
+                    <div class="f-p-s" ng-if="foundPInfo.status == 1">置顶</div>
+                    <div class="f-p-s f-p-s-c"  ng-if="foundPInfo.status == 0">推荐</div>
                 </div>
             </div>
         </section>

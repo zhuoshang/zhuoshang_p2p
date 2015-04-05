@@ -493,7 +493,7 @@ body{
   margin-right: setRem(20);
   &:after{
     position: absolute;
-    top: setRem(5);
+    top: 5px;
     right: setRem(-25);
     content: "";
     border: setRem(10) solid #505050;
@@ -534,6 +534,7 @@ body{
   }
 }
 .fund-product-list{
+  position: relative;
   width: setRem(600);
   height: 6.3rem;
   margin: setRem(18) auto;
@@ -563,8 +564,10 @@ body{
 }
 .f-p-i{
   display: inline-block;
+  min-width: setRem(144);
   margin-top: setRem(40);
-  margin-right: setRem(27);
+  margin-right: 0.2rem;
+  text-align: center;
   b, span{
     display: block;
   }
@@ -582,7 +585,6 @@ body{
   }
   span{
     margin-top: setRem(6);
-    text-align: center;
     color: #a2a1a1;
     @include setFontSize(24);
   }
@@ -592,7 +594,13 @@ body{
     color: #a2a1a1;
   }
 }
+.f-p-ic{
+  position: absolute;
+  right: 0;
+  top: 1.8rem;
+}
 .f-p-b{
+  position: relative;
   div{
     display: inline-block;
   }
@@ -610,9 +618,12 @@ body{
   color: #505050;
 }
 .f-p-s{
-  position: relative;
-  left: 1rem;
-  top: 0.1rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0;
   color: #e52325;
   @include setFontSize(24);
+}
+.f-p-s-c{
+  color: #45b94c;
 }

@@ -19,29 +19,30 @@ angular.module("personFun", ["ngTouch"])
     .controller("funController", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
         $scope.currentList = 0;
         $scope.year = new Date().getFullYear();
-        $scope.route = "fund";
+        $scope.route = "assetsList";
         $scope.personList = false;
         $scope.assets = {};
         $scope.fund = {
-            status: "list",
             search: {
-                type: ["全部","1","2","3","4"],
+                type: ["全部"],
                 status: "全部"
             }
         };
 
-        $http.get("../test/personList.json", {
+        $http.get("../test/list", {
             cache: true
         })
             .success(function (data, status) {
-                $scope.listInfo =  data;
-                $scope.listTotal = data.length;
-                isEarn($scope, $filter);
-                reminding($scope, $filter);
-                modelC($scope, {
-                    status: "list",
-                    modelName: "资产列表"
-                })
+                if (data.status == 200) {
+                    $scope.listInfo =  data.data;
+                    $scope.listTotal = data.data.length;
+                    isEarn($scope, $filter);
+                    reminding($scope, $filter);
+                    modelC($scope, {
+                        status: "list",
+                        modelName: "资产列表"
+                    });
+                }
         })
             .error(function (data, status) {});
 
@@ -138,17 +139,19 @@ angular.module("personFun", ["ngTouch"])
         $scope.getBondMonth = function () {
             var _month = Math.round(this.month.n, 10);
 
-            $http.get("../test/historyList.json?month=" + _month , {cache: true})
+            $http.get("../monthlist?month=" + _month + "&year=" + $scope.year, {cache: true})
                 .success(function (data, status) {
-                    $scope.listInfo =  data;
-                    $scope.listTotal = data.length;
-                    isEarn($scope, $filter);
-                    reminding($scope, $filter);
-                    modelC($scope, {
-                        status: "history",
-                        modelName: $scope.year  + "." + _month
-                    })
-            })
+                    if (data.status == 200) {
+                        $scope.listInfo =  data.data;
+                        $scope.listTotal = data.data.length;
+                        isEarn($scope, $filter);
+                        reminding($scope, $filter);
+                        modelC($scope, {
+                            status: "history",
+                            modelName: $scope.year  + "." + _month
+                        })
+                    }
+                })
         };
         $scope.toRoute = function (routeName) {
             $scope.personList = false;
@@ -163,6 +166,29 @@ angular.module("personFun", ["ngTouch"])
         $scope.cSeachModel = function (searchType) {
             $scope.fund.isSearch = false;
             $scope.fund.search.status= searchType;
+        };
+        $scope.getFundType = function () {
+            $scope.fund.status = "list";
+
+            $http.get("../test/fundType.json",{
+                cache: true
+            })
+                .success(function (data) {
+                    $scope.fund.search.type = $scope.fund.search.type.concat(data);
+                });
+        };
+        $scope.getFundProduce = function () {
+            $http.get("../test/fundProduct.json",{
+                cache: true
+            })
+                .success(function (data) {
+                    data = data.map(function (value) {
+                        value.bondLoading = $filter("fundLoading")(value.bondLoading);
+                        return value;
+                    });
+
+                    $scope.fund.showList = data;
+                });
         }
     }])
     .filter("newWorth", function () {
@@ -197,5 +223,10 @@ angular.module("personFun", ["ngTouch"])
     .filter("transNumber", function () {
         return function(input) {
            return input/10000;
+        }
+    })
+    .filter("fundLoading", function () {
+        return function (input) {
+            return parseFloat(input, 10)/100 * 10;
         }
     });

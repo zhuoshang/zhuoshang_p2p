@@ -11,14 +11,23 @@ function reminding ($scope, $filter) {
 }
 
 function modelC ($scope, obj) {
-    $scope.funStatus = obj.status;
-    $scope.modelName = obj.modelName;
+    $scope.assets.funStatus = obj.status;
+    $scope.assets.modelName = obj.modelName;
 }
 
 angular.module("personFun", ["ngTouch"])
     .controller("funController", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
         $scope.currentList = 0;
         $scope.year = new Date().getFullYear();
+        $scope.route = "assetsList";
+        $scope.personList = false;
+        $scope.assets = {};
+        $scope.fund = {
+            search: {
+                type: ["全部"],
+                status: "全部"
+            }
+        };
 
         $http.get("../list", {
             cache: true
@@ -34,7 +43,7 @@ angular.module("personFun", ["ngTouch"])
                         modelName: "资产列表"
                     })
                 }
-        })
+            })
             .error(function (data, status) {});
 
         $scope.monthDate = [
@@ -142,14 +151,46 @@ angular.module("personFun", ["ngTouch"])
                             modelName: $scope.year  + "." + _month
                         })
                     }
-            })
+                })
         };
-    }])
-    .filter("transNumber", function () {
-        return function(input) {
-            return input/10000;
+        $scope.toRoute = function (routeName) {
+            $scope.personList = false;
+            $scope.route = routeName;
+        };
+        $scope.toPersonList = function () {
+            $scope.personList = true;
+        };
+        $scope.showSearch = function () {
+            $scope.fund.isSearch = true;
+        };
+        $scope.cSeachModel = function (searchType) {
+            $scope.fund.isSearch = false;
+            $scope.fund.search.status= searchType;
+        };
+        $scope.getFundType = function () {
+            $scope.fund.status = "list";
+
+            $http.get("../test/fundType.json",{
+                cache: true
+            })
+                .success(function (data) {
+                    $scope.fund.search.type = $scope.fund.search.type.concat(data);
+                });
+        };
+        $scope.getFundProduce = function () {
+            $http.get("../test/fundProduct.json",{
+                cache: true
+            })
+                .success(function (data) {
+                    data = data.map(function (value) {
+                        value.bondLoading = $filter("fundLoading")(value.bondLoading);
+                        return value;
+                    });
+
+                    $scope.fund.showList = data;
+                });
         }
-    })
+    }])
     .filter("newWorth", function () {
         return function(input) {
             var _float = parseInt(input);
@@ -177,5 +218,15 @@ angular.module("personFun", ["ngTouch"])
                 left: _left,
                 right: _right
             }
+        }
+    })
+    .filter("transNumber", function () {
+        return function(input) {
+            return input/10000;
+        }
+    })
+    .filter("fundLoading", function () {
+        return function (input) {
+            return parseFloat(input, 10)/100 * 10;
         }
     });
