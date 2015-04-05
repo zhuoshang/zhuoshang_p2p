@@ -2,6 +2,7 @@
 use App\Debt;
 use App\FrontUser;
 use App\DebtBuyList;
+use App\DebtType;
 use App\DebtBuy;
 use App\Quotation;
 use Illuminate\Http\Request;
@@ -181,6 +182,74 @@ class DebtController extends Controller{
         exit();
 
 
+    }
+
+
+    /*
+     * 获取所有正在发布的基金信息
+     **/
+    public function debtTable(){
+        $debtData = array();
+
+        //获取所有置顶基金
+        $topDebt = Debt::where('top','=',1)
+            ->orderBy('add_time','DESC')
+            ->get();
+
+        $now = time();
+
+        foreach($topDebt as $tops){
+
+            //计算进度时间
+            $bondLoading = $now - $tops->add_time;
+            $bondLoading = ceil($bondLoading/(60*60)/24);
+
+            $debtData[] = array(
+                'bondLoading'=>$bondLoading,
+                'newWorth'=>$tops->net_value,
+                'interest'=>$tops->interest,
+                'boundValue'=>$tops->total,
+                'status'=>$tops->top,
+                'type'=>array(
+                    $tops->debtType->id=>$tops->debtType->name
+                ),
+                'title'=>$tops->title
+
+            );
+        }
+
+        //获取所有未置顶基金
+        $normalDebt = Debt::where('top','=',0)
+            ->orderBy('add_time','DESC')
+            ->get();
+
+        //将未置顶基金追加到置顶基金之后
+        foreach($normalDebt as $debt){
+            //计算进度时间
+            $bondLoading = $now - $debt->add_time;
+            $bondLoading = ceil($bondLoading/(60*60)/24);
+
+            $debtData[] = array(
+                'bondLoading'=>$bondLoading,
+                'newWorth'=>$debt->net_value,
+                'interest'=>$debt->interest,
+                'boundValue'=>$debt->total,
+                'status'=>$debt->top,
+                'type'=>array(
+                    $debt->debtType->id=>$debt->debtType->name
+                ),
+                'title'=>$debt->title
+
+            );
+        }
+
+        echo json_encode(array(
+            'status'=>200,
+            'msg'=>'ok',
+            'data'=>$debtData
+        ));
+
+        exit();
     }
 
 
