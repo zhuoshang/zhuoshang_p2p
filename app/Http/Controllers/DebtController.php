@@ -31,7 +31,7 @@ class DebtController extends Controller{
         $now_year = intval(date('Y',time()));
 
 
-        $debts = DebtBuy::where('uid','=','1')
+        $debts = DebtBuy::where('uid','=','4')
             ->where('buy_month','=',$now_month)
             ->where('buy_year','=',$now_year)
             ->get();
@@ -119,7 +119,7 @@ class DebtController extends Controller{
 
         $debts = DB::table('debtBuy')
             ->join('debt','debtBuy.did','=','debt.id')
-            ->where('debtBuy.uid','=',1)
+            ->where('debtBuy.uid','=',4)
             ->where('debtBuy.buy_month','=',$month)
             ->where('debtBuy.buy_year','=',$year)
             ->get();
@@ -248,6 +248,33 @@ class DebtController extends Controller{
             'msg'=>'ok',
             'data'=>$debtData
         ));
+
+        exit();
+    }
+
+
+    /*
+     * 基金类型列表
+     **/
+    public function DebtTypeList(){
+
+        $typeList = DebtType::all();
+
+        $typeData = array();
+
+        foreach($typeList as $type){
+            $typeData[] = array(
+              $type->id=>$type->name
+            );
+        }
+
+        echo json_encode(
+            array(
+                'status'=>200,
+                'msg'=>'ok',
+                'data'=>$typeData
+            )
+        );
 
         exit();
     }

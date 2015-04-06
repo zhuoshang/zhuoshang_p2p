@@ -47,6 +47,10 @@ Route::get('monthlist',array('before' => 'loginCheck','uses'=>'DebtController@mo
 
 Route::get('debtTable',array('before'=>'loginCheck','uses'=>'DebtController@debtTable'));
 
+Route::get('debtTypeList',array('before'=>'loginCheck','uses'=>'DebtController@DebtTypeList'));
+
+Route::get('userinfo',array('before'=>'loginCheck','uses'=>'UserAccountController@userInfo'));
+
 
 
 #登录验证
