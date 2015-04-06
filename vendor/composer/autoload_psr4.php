@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Zhuzhichao\\IpLocationZh\\' => array($vendorDir . '/zhuzhichao/ip-location-zh/src'),
     'XdgBaseDir\\' => array($vendorDir . '/dnoegel/php-xdg-base-dir/src'),
     'SuperClosure\\' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),

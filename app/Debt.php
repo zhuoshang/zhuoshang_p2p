@@ -16,5 +16,9 @@ class Debt extends Model{
        return $this->hasMany('App\DebtBuy','did','id');
     }
 
+    public function debtType(){
+        return $this->belongsTo('App\DebtType','type','id');
+    }
+
 
 }

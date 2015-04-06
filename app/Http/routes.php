@@ -31,6 +31,7 @@ Route::get('zsmobile/register','UserAccessController@registerPage');
 
 Route::post('login','UserAccessController@login');
 
+
 #zsmobile API
 Route::get('zsmobile/logout',array('before' => 'loginCheck','uses'=>'UserAccessController@logout'));
 
@@ -42,7 +43,13 @@ Route::get('zsmobile/login','UserAccessController@loginPage');
 
 Route::get('list', array('before' => 'loginCheck','uses'=>'DebtController@debtList'));
 
-Route::get('monthlist',array('before' => 'loginCheck','DebtController@monthDebtList'));
+Route::get('monthlist',array('before' => 'loginCheck','uses'=>'DebtController@monthDebtList'));
+
+Route::get('debtTable',array('before'=>'loginCheck','uses'=>'DebtController@debtTable'));
+
+Route::get('debtTypeList',array('before'=>'loginCheck','uses'=>'DebtController@DebtTypeList'));
+
+Route::get('userinfo',array('before'=>'loginCheck','uses'=>'UserAccountController@userInfo'));
 
 
 
