@@ -29,6 +29,16 @@ angular.module("personFun", ["ngTouch"])
             }
         };
 
+        $http.get("../userinfo", {
+            cache: true
+        })
+            .success(function (data) {
+                if (data.status == 200) {
+                    $scope.personInfo = data.data;
+                    console.log($scope.personInfo);
+                }
+            });
+
         $http.get("../list", {
             cache: true
         })
@@ -164,30 +174,61 @@ angular.module("personFun", ["ngTouch"])
             $scope.fund.isSearch = true;
         };
         $scope.cSeachModel = function (searchType) {
+            var _data;
+
             $scope.fund.isSearch = false;
             $scope.fund.search.status= searchType;
+
+
+            if (searchType == "全部") {
+                $scope.fund.showList = angular.copy($scope.fund.allData);
+                return;
+            }
+
+            _data = $scope.fund.allData.filter(function (value) {
+                return value.type.match(searchType);
+            });
+
+            if (_data[0]){
+                $scope.fund.showList = _data;
+            }else{
+                alert("没有此类型的基金");
+            }
+
         };
         $scope.getFundType = function () {
             $scope.fund.status = "list";
 
-            $http.get("../test/fundType.json",{
+            $http.get("../debtTypeList",{
                 cache: true
             })
                 .success(function (data) {
-                    $scope.fund.search.type = $scope.fund.search.type.concat(data);
+                    if (data.status == 200) {
+                        $scope.fund.search.type = $scope.fund.search.type.concat(data.data.map(function (value) {
+                            for (var i in value) {
+                                return value[i]
+                            }
+                        }));
+                    }
                 });
         };
         $scope.getFundProduce = function () {
-            $http.get("../test/fundProduct.json",{
+            $http.get("../debtTable",{
                 cache: true
             })
                 .success(function (data) {
-                    data = data.map(function (value) {
-                        value.bondLoading = $filter("fundLoading")(value.bondLoading);
-                        return value;
-                    });
+                    if (data.status == 200) {
+                        data = data.data.map(function (value) {
+                            value.bondLoading = $filter("fundLoading")(value.bondLoading);
+                            for (var i in value.type) {
+                                value.type = value.type[i];
+                            }
+                            return value;
+                        });
+                        $scope.fund.allData = angular.copy(data);
+                        $scope.fund.showList = data;
+                    }
 
-                    $scope.fund.showList = data;
                 });
         }
     }])

@@ -37,10 +37,15 @@ class UserAccountController extends Controller{
             ->count();
 
         $last_login_location = Ip::find(Auth::user()->user->last_login_ip);
+//        var_dump($last_login_location);
+//        die;
         if(is_array($last_login_location)){
             $location = '';
-            foreach($last_login_location as $value){
-                $location+=$value;
+            foreach($last_login_location as $key=>$value){
+                if($key+1<count($last_login_location)&&$last_login_location[$key] != $last_login_location[$key+1]){
+                    $location.=$value;
+                }
+                continue;
             }
         }else{
             $location = $last_login_location;

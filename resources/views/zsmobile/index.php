@@ -16,17 +16,17 @@
 </head>
 <body ng-app="personFun" ng-controller="funController">
     <section class="person-list" ng-if="personList==true">
-        <p class="user-phone">188****5678</p>
-        <p class="user-name">王果冻</p>
+        <p class="user-phone">{{personInfo.phoneNumber}}</p>
+        <p class="user-name">{{personInfo.userName}}</p>
         <section class="login-info">
             <img src="../images/logo.png" />
             <p class="last-login">上次登陆</p>
-            <p class="last-date">2015.01.27 14:55</p>
-            <p class="last-location">中国北京</p>
+            <p class="last-date">{{personInfo.lastDate}}</p>
+            <p class="last-location">{{personInfo.location}}</p>
         </section>
-        <p class="person-info person-info-first">已投金额(元): <span> 5000.000.00</span></p>
-        <p class="person-info">当月投资个数: <span> 5</span></p>
-        <p class="person-info">历史投资个数: <span> 24</span></p>
+        <p class="person-info person-info-first">已投金额(元): <span> {{personInfo.hasVote}}</span></p>
+        <p class="person-info">当月投资个数: <span> {{personInfo.voteNumbers}}</span></p>
+        <p class="person-info">历史投资个数: <span> {{personInfo.voteNumberHistory}}</span></p>
         <p class="route-w-icon" ng-class="{'route-status': route =='assetsList'}" ng-click="toRoute('assetsList')"><i class="iconfont">&#xe607;</i>资产列表</p>
         <p class="route-w-icon" ng-class="{'route-status': route =='fund'}" ng-click="toRoute('fund');getFundType();getFundProduce()"><i class="iconfont">&#xe606;</i>基金</p>
         <p class="route-w-icon"><i class="iconfont">&#xe608;</i>爱心卷狂</p>
@@ -176,7 +176,7 @@
             <div class="fund-product-list" ng-repeat="foundPInfo in fund.showList">
                 <header>
                     <span class="f-p-title">{{foundPInfo.title}}</span>
-                    <span class="f-p-type">债券投资基金</span>
+                    <span class="f-p-type">{{foundPInfo.type}}</span>
                 </header>
                 <div class="f-p-is">
                     <div class="f-p-i">
@@ -188,7 +188,7 @@
                         <span>基金利息</span>
                     </div>
                     <div class="f-p-i">
-                        <b>{{foundPInfo.boundValue}} <span>万</span></b>
+                        <b>{{foundPInfo.boundValue | transNumber }} <span>万</span></b>
                         <span>基金净值</span>
                     </div>
                     <div class="f-p-i f-p-ic">
