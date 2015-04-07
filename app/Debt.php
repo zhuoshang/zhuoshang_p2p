@@ -20,5 +20,9 @@ class Debt extends Model{
         return $this->belongsTo('App\DebtType','type','id');
     }
 
+    public function debtPic(){
+        return $this->hasMany('App\DebtPic','did','id');
+    }
+
 
 }
