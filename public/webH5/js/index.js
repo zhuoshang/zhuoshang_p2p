@@ -23,11 +23,30 @@ angular.module("personFun", ["ngTouch"])
         $scope.personList = false;
         $scope.assets = {};
         $scope.fund = {
+            modelName: "基金详情",
+            status: "list",
             search: {
                 type: ["全部"],
                 status: "全部"
+            },
+            detailRoute: "base"
+        };
+        $scope.set = {
+            modelName: "更换邮箱",
+            status: "index",
+            data: {
+                email: "123"
             }
         };
+
+        $http.get("../test/userinfo", {
+            cache: true
+        })
+            .success(function (data) {
+                if (data.status == 200) {
+                    $scope.personInfo = data.data;
+                }
+            });
 
         $http.get("../test/list", {
             cache: true
@@ -41,9 +60,9 @@ angular.module("personFun", ["ngTouch"])
                     modelC($scope, {
                         status: "list",
                         modelName: "资产列表"
-                    });
+                    })
                 }
-        })
+            })
             .error(function (data, status) {});
 
         $scope.monthDate = [
@@ -164,31 +183,96 @@ angular.module("personFun", ["ngTouch"])
             $scope.fund.isSearch = true;
         };
         $scope.cSeachModel = function (searchType) {
+            var _data;
+
             $scope.fund.isSearch = false;
             $scope.fund.search.status= searchType;
+
+
+            if (searchType == "全部") {
+                $scope.fund.showList = angular.copy($scope.fund.allData);
+                return;
+            }
+
+            _data = $scope.fund.allData.filter(function (value) {
+                return value.type.match(searchType);
+            });
+
+            if (_data[0]){
+                $scope.fund.showList = _data;
+            }else{
+                alert("没有此类型的基金");
+            }
+
+        };
+        $scope.fundRoute = function (route, name) {
+            $scope.fund.status = route;
+            $scope.fund.modelName = name;
         };
         $scope.getFundType = function () {
-            $scope.fund.status = "list";
-
-            $http.get("../test/fundType.json",{
+            $http.get("../test/debtTypeList",{
                 cache: true
             })
                 .success(function (data) {
-                    $scope.fund.search.type = $scope.fund.search.type.concat(data);
+                    if (data.status == 200) {
+                        $scope.fund.search.type = $scope.fund.search.type.concat(data.data.map(function (value) {
+                            for (var i in value) {
+                                return value[i]
+                            }
+                        }));
+                    }
                 });
         };
         $scope.getFundProduce = function () {
-            $http.get("../test/fundProduct.json",{
+            $http.get("../test/debtTable",{
                 cache: true
             })
                 .success(function (data) {
-                    data = data.map(function (value) {
-                        value.bondLoading = $filter("fundLoading")(value.bondLoading);
-                        return value;
-                    });
+                    if (data.status == 200) {
+                        data = data.data.map(function (value) {
+                            value.bondLoading = $filter("fundLoading")(value.bondLoading);
+                            for (var i in value.type) {
+                                value.type = value.type[i];
+                            }
+                            return value;
+                        });
+                        $scope.fund.allData = angular.copy(data);
+                        $scope.fund.showList = data;
+                    }
 
-                    $scope.fund.showList = data;
                 });
+        };
+        $scope.fundDeatilRoute = function (name) {
+            $scope.fund.detailRoute = name;
+        };
+        $scope.toFundDetailProduct = function () {
+            $scope.fund.detailBaseInfo = this.foundPInfo;
+            $scope.fund.status = "detail";
+            $scope.fund.modelName = "基金详情";
+            $http.get("../test/detail",{cache: true})
+                .success(function (data) {
+                    if (data.status == 200) {
+                        var _data = data.data;
+                        $scope.fund.voteInfo = _data.voteInfo;
+                        $scope.fund.voteHistory = _data.voteHistory;
+                        $scope.fund.voteProtect = _data.voteProtect;
+                    }
+                });
+        };
+        $scope.getSettingInfo = function () {
+           $scope.set.data.userName = $scope.personInfo.userName;
+           $scope.set.data.phoneNumber = $scope.personInfo.phoneNumber;
+        };
+        $scope.setRoute = function (status, modelName) {
+            $scope.set.modelName = modelName;
+            $scope.set.status = status;
+        };
+        $scope.sendInfo = function () {
+            console.log($scope.set.status);
+            console.log($scope.set.data.sendInfo);
+        };
+        $scope.setEmail = function () {
+            $scope.set.data.sendInfo = $scope.set.data.email;
         }
     }])
     .filter("newWorth", function () {
@@ -222,7 +306,7 @@ angular.module("personFun", ["ngTouch"])
     })
     .filter("transNumber", function () {
         return function(input) {
-           return input/10000;
+            return input/10000;
         }
     })
     .filter("fundLoading", function () {

@@ -23,23 +23,32 @@ angular.module("personFun", ["ngTouch"])
         $scope.personList = false;
         $scope.assets = {};
         $scope.fund = {
+            modelName: "基金详情",
+            status: "list",
             search: {
                 type: ["全部"],
                 status: "全部"
+            },
+            detailRoute: "base"
+        };
+        $scope.set = {
+            modelName: "更换邮箱",
+            status: "index",
+            data: {
+                email: "123"
             }
         };
 
-        $http.get("../userinfo", {
+        $http.get("../test/userinfo", {
             cache: true
         })
             .success(function (data) {
                 if (data.status == 200) {
                     $scope.personInfo = data.data;
-                    console.log($scope.personInfo);
                 }
             });
 
-        $http.get("../list", {
+        $http.get("../test/list", {
             cache: true
         })
             .success(function (data, status) {
@@ -196,10 +205,12 @@ angular.module("personFun", ["ngTouch"])
             }
 
         };
+        $scope.fundRoute = function (route, name) {
+            $scope.fund.status = route;
+            $scope.fund.modelName = name;
+        };
         $scope.getFundType = function () {
-            $scope.fund.status = "list";
-
-            $http.get("../debtTypeList",{
+            $http.get("../test/debtTypeList",{
                 cache: true
             })
                 .success(function (data) {
@@ -213,7 +224,7 @@ angular.module("personFun", ["ngTouch"])
                 });
         };
         $scope.getFundProduce = function () {
-            $http.get("../debtTable",{
+            $http.get("../test/debtTable",{
                 cache: true
             })
                 .success(function (data) {
@@ -230,6 +241,38 @@ angular.module("personFun", ["ngTouch"])
                     }
 
                 });
+        };
+        $scope.fundDeatilRoute = function (name) {
+            $scope.fund.detailRoute = name;
+        };
+        $scope.toFundDetailProduct = function () {
+            $scope.fund.detailBaseInfo = this.foundPInfo;
+            $scope.fund.status = "detail";
+            $scope.fund.modelName = "基金详情";
+            $http.get("../test/detail",{cache: true})
+                .success(function (data) {
+                    if (data.status == 200) {
+                        var _data = data.data;
+                        $scope.fund.voteInfo = _data.voteInfo;
+                        $scope.fund.voteHistory = _data.voteHistory;
+                        $scope.fund.voteProtect = _data.voteProtect;
+                    }
+                });
+        };
+        $scope.getSettingInfo = function () {
+            $scope.set.data.userName = $scope.personInfo.userName;
+            $scope.set.data.phoneNumber = $scope.personInfo.phoneNumber;
+        };
+        $scope.setRoute = function (status, modelName) {
+            $scope.set.modelName = modelName;
+            $scope.set.status = status;
+        };
+        $scope.sendInfo = function () {
+            console.log($scope.set.status);
+            console.log($scope.set.data.sendInfo);
+        };
+        $scope.setEmail = function () {
+            $scope.set.data.sendInfo = $scope.set.data.email;
         }
     }])
     .filter("newWorth", function () {
