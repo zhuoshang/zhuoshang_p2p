@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 04/06/2015 16:25:09 PM
+ Date: 04/07/2015 21:36:44 PM
 */
 
 SET NAMES utf8;
@@ -61,13 +61,13 @@ CREATE TABLE `debtBuy` (
   PRIMARY KEY (`id`),
   KEY `did` (`did`),
   CONSTRAINT `debt` FOREIGN KEY (`did`) REFERENCES `debt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='债券购买总表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='债券购买总表';
 
 -- ----------------------------
 --  Records of `debtBuy`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtBuy` VALUES ('1', '1', '4', '21313123', '90', '10000', '4', '2015'), ('2', '2', '4', '22232323', '90', '50000', '4', '2015');
+INSERT INTO `debtBuy` VALUES ('1', '1', '4', '21313123', '90', '10000', '4', '2015'), ('2', '2', '4', '22232323', '90', '50000', '4', '2015'), ('3', '1', '2', '21313213', '90', '5000', '4', '2015');
 COMMIT;
 
 -- ----------------------------
@@ -95,6 +95,46 @@ CREATE TABLE `debtBuyList` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `debtBuyList` VALUES ('3', '1', '5000', '1.20', '10.00', '2', '2014', '0'), ('4', '1', '5500', '1.20', '12.00', '3', '2014', '0'), ('5', '2', '6000', '1.20', '12.00', '2', '2014', '0'), ('6', '2', '5700', '1.20', '12.00', '3', '2014', '0');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `debtPic`
+-- ----------------------------
+DROP TABLE IF EXISTS `debtPic`;
+CREATE TABLE `debtPic` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `did` int(10) unsigned NOT NULL,
+  `url` varchar(100) NOT NULL,
+  `type` varchar(15) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `did` (`did`),
+  KEY `did_2` (`did`),
+  KEY `did_3` (`did`),
+  CONSTRAINT `debt_pic` FOREIGN KEY (`did`) REFERENCES `debt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `debtPic`
+-- ----------------------------
+BEGIN;
+INSERT INTO `debtPic` VALUES ('1', '1', 'upload/jinji1.jpg', 'jpg'), ('2', '1', 'upload/jinji2.jpg', 'jpg'), ('3', '2', 'upload/benpao1.jpg', 'jpg'), ('4', '2', 'upload/benpao2.jpg', 'jpg'), ('5', '3', 'upload/sanxia1.jpeg', 'jpeg');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `debtProtection`
+-- ----------------------------
+DROP TABLE IF EXISTS `debtProtection`;
+CREATE TABLE `debtProtection` (
+  `id` int(1) unsigned NOT NULL AUTO_INCREMENT,
+  `url` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `debtProtection`
+-- ----------------------------
+BEGIN;
+INSERT INTO `debtProtection` VALUES ('1', 'protection.png');
 COMMIT;
 
 -- ----------------------------
@@ -138,7 +178,7 @@ CREATE TABLE `frontUser` (
 --  Records of `frontUser`
 -- ----------------------------
 BEGIN;
-INSERT INTO `frontUser` VALUES ('2', '5', null, 'luo', '13618372995', null, 'BzFgwBVvjcOyoiZwCA30hozDFkZHqbIwnPWUYvXheaXaZZvrhApt0dKn1jmW', '2015-04-04 17:32:28', '2015-04-03 08:18:21'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22'), ('4', '7', null, 'tianling', '13399857034', null, 'vjevHHIiTqEsC5mD5RHXt8IMG0AUVQOGMBeHXqbaiPdaOojPthejhmAWUTlU', '2015-04-06 02:21:44', '2015-04-04 17:31:29'), ('5', '9', null, 'tianlin2', '13529194568', null, null, '2015-04-04 17:43:35', '2015-04-04 17:43:35');
+INSERT INTO `frontUser` VALUES ('2', '5', null, 'luo', '13618372995', null, 'BzFgwBVvjcOyoiZwCA30hozDFkZHqbIwnPWUYvXheaXaZZvrhApt0dKn1jmW', '2015-04-04 17:32:28', '2015-04-03 08:18:21'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22'), ('4', '7', null, 'tianling', '13399857034', null, 'xIth4o2xRozginvWBcwFybLXz36nb3OKwdyGu4ki8vU4AyGAQ1vcFgNQgIOW', '2015-04-06 13:36:23', '2015-04-04 17:31:29'), ('5', '9', null, 'tianlin2', '13529194568', null, null, '2015-04-04 17:43:35', '2015-04-04 17:43:35');
 COMMIT;
 
 -- ----------------------------
