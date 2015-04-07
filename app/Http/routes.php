@@ -33,7 +33,7 @@ Route::post('login','UserAccessController@login');
 
 
 #zsmobile API
-Route::get('zsmobile/logout',array('before' => 'loginCheck','uses'=>'UserAccessController@logout'));
+
 
 
 #公共API
@@ -51,11 +51,16 @@ Route::get('debtTypeList',array('before'=>'loginCheck','uses'=>'DebtController@D
 
 Route::get('userinfo',array('before'=>'loginCheck','uses'=>'UserAccountController@userInfo'));
 
+Route::get('logout',array('before' => 'loginCheck','uses'=>'UserAccessController@logout'));
+
+Route::get('debtContent',array('before'=>'loginCheck','uses'=>'DebtController@debtContent'));
+
 
 
 #登录验证
 Route::filter('loginCheck', function()
 {
+
     if (!\Auth::check())
     {
         return Redirect::to('zsmobile/login');

@@ -205,6 +205,7 @@ class DebtController extends Controller{
             $bondLoading = ceil($bondLoading/(60*60)/24);
 
             $debtData[] = array(
+                'id'=>$tops->id,
                 'bondLoading'=>$bondLoading,
                 'newWorth'=>$tops->net_value,
                 'interest'=>$tops->interest,
@@ -230,6 +231,7 @@ class DebtController extends Controller{
             $bondLoading = ceil($bondLoading/(60*60)/24);
 
             $debtData[] = array(
+                'id'=>$tops->id,
                 'bondLoading'=>$bondLoading,
                 'newWorth'=>$debt->net_value,
                 'interest'=>$debt->interest,
@@ -277,6 +279,64 @@ class DebtController extends Controller{
         );
 
         exit();
+    }
+
+
+    /*
+     * 基金详情
+     **/
+    public function debtContent(Request $request){
+
+        $id = $request->input('id');
+
+        $debt = Debt::find($id);
+        if($debt == ''){
+            $this->throwERROE(500,'该基金不存在');
+        }
+
+        $debtBuyData = array();
+        $debtContent = array();
+        foreach($debt->debtBuy as $key=>$buy){
+            $debtBuyData[] = array(
+                'userName'=>$buy->user->real_name,
+                'voteMoney'=>$buy->total_buy,
+                'date'=>date('Y-m-d H:i:s',$buy->add_time),
+            );
+
+            $debtContent['img'] = array();
+            foreach($debt->debtPic as $pic){
+                $debtContent['img'][] = $pic->url;
+            }
+
+
+        }
+
+        $debtContent['text'] = $debt->content;
+
+        $protect = DB::table('debtProtection')->first();
+        if(!empty($protect)){
+            $debtpro = $protect->url;
+        }else{
+            $debtpro = '';
+        }
+
+        $debtData = array(
+            'voteHistory'=>$debtBuyData,
+            'voteProtect'=>$debtpro,
+            'voteInfo'=>$debtContent,
+            'allowVote'=>$debt->debtType->choosable
+        );
+
+        echo json_encode(
+            array(
+                'status'=>200,
+                'msg'=>'ok',
+                'data'=>$debtData
+            )
+        );
+
+        exit();
+
     }
 
 

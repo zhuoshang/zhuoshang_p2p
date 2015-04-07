@@ -21,4 +21,8 @@ class DebtBuy extends Model{
         return $this->belongsTo('App\Debt','did','id');
     }
 
+    public function user(){
+        return $this->belongsTo('App\FrontUser','uid','front_uid');
+    }
+
 }

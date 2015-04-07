@@ -100,8 +100,7 @@ class UserAccessController extends Controller
         }
 
 
-        Auth::login($userCheck);
-
+        $login =  Auth::login($userCheck);
 
         echo json_encode(
             array(
