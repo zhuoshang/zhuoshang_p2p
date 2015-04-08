@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 04/07/2015 21:36:44 PM
+ Date: 04/08/2015 10:32:19 AM
 */
 
 SET NAMES utf8;
@@ -117,7 +117,7 @@ CREATE TABLE `debtPic` (
 --  Records of `debtPic`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtPic` VALUES ('1', '1', 'upload/jinji1.jpg', 'jpg'), ('2', '1', 'upload/jinji2.jpg', 'jpg'), ('3', '2', 'upload/benpao1.jpg', 'jpg'), ('4', '2', 'upload/benpao2.jpg', 'jpg'), ('5', '3', 'upload/sanxia1.jpeg', 'jpeg');
+INSERT INTO `debtPic` VALUES ('1', '1', 'upload/jinji01.jpg', 'jpg'), ('2', '1', 'upload/jinji2.jpg', 'jpg'), ('3', '2', 'upload/benpao1.jpg', 'jpg'), ('4', '2', 'upload/benpao2.jpg', 'jpg'), ('5', '3', 'upload/sanxia1.jpeg', 'jpeg');
 COMMIT;
 
 -- ----------------------------
@@ -134,7 +134,7 @@ CREATE TABLE `debtProtection` (
 --  Records of `debtProtection`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtProtection` VALUES ('1', 'protection.png');
+INSERT INTO `debtProtection` VALUES ('1', 'upload/protection.png');
 COMMIT;
 
 -- ----------------------------

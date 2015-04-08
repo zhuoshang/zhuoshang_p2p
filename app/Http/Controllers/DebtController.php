@@ -231,7 +231,7 @@ class DebtController extends Controller{
             $bondLoading = ceil($bondLoading/(60*60)/24);
 
             $debtData[] = array(
-                'id'=>$tops->id,
+                'id'=>$debt->id,
                 'bondLoading'=>$bondLoading,
                 'newWorth'=>$debt->net_value,
                 'interest'=>$debt->interest,
@@ -303,19 +303,20 @@ class DebtController extends Controller{
                 'date'=>date('Y-m-d H:i:s',$buy->add_time),
             );
 
-            $debtContent['img'] = array();
-            foreach($debt->debtPic as $pic){
-                $debtContent['img'][] = $pic->url;
-            }
-
 
         }
+
+        $debtContent['img'] = array();
+        foreach($debt->debtPic as $pic){
+            $debtContent['img'][] = asset($pic->url);;
+        }
+
 
         $debtContent['text'] = $debt->content;
 
         $protect = DB::table('debtProtection')->first();
         if(!empty($protect)){
-            $debtpro = $protect->url;
+            $debtpro = asset($protect->url);
         }else{
             $debtpro = '';
         }

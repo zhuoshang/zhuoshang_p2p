@@ -207,7 +207,7 @@
                 <p>{{fund.voteInfo.text}}</p>
             </section>
             <section class="f-d-product" ng-if="fund.detailRoute == 'protect'">
-                <img ng-src="{{fund.voteProtect.img}}"/>
+                <img ng-src="{{fund.voteProtect}}"/>
             </section>
             <section class="f-d-history" ng-if="fund.detailRoute == 'history'">
                 <div ng-repeat="voteHistory in fund.voteHistory">

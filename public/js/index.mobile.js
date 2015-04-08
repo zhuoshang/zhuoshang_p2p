@@ -39,7 +39,7 @@ angular.module("personFun", ["ngTouch"])
             }
         };
 
-        $http.get("../test/userinfo", {
+        $http.get("../userinfo", {
             cache: true
         })
             .success(function (data) {
@@ -48,7 +48,7 @@ angular.module("personFun", ["ngTouch"])
                 }
             });
 
-        $http.get("../test/list", {
+        $http.get("../list", {
             cache: true
         })
             .success(function (data, status) {
@@ -210,7 +210,7 @@ angular.module("personFun", ["ngTouch"])
             $scope.fund.modelName = name;
         };
         $scope.getFundType = function () {
-            $http.get("../test/debtTypeList",{
+            $http.get("../debtTypeList",{
                 cache: true
             })
                 .success(function (data) {
@@ -224,7 +224,7 @@ angular.module("personFun", ["ngTouch"])
                 });
         };
         $scope.getFundProduce = function () {
-            $http.get("../test/debtTable",{
+            $http.get("../debtTable",{
                 cache: true
             })
                 .success(function (data) {
@@ -246,13 +246,18 @@ angular.module("personFun", ["ngTouch"])
             $scope.fund.detailRoute = name;
         };
         $scope.toFundDetailProduct = function () {
+            var _id = this.foundPInfo.id;
+            console.log(this.foundPInfo);
             $scope.fund.detailBaseInfo = this.foundPInfo;
             $scope.fund.status = "detail";
             $scope.fund.modelName = "基金详情";
-            $http.get("../test/detail",{cache: true})
+
+
+            $http.get("../debtContent?id=" + _id, {cache: true})
                 .success(function (data) {
                     if (data.status == 200) {
                         var _data = data.data;
+                        console.log(_data);
                         $scope.fund.voteInfo = _data.voteInfo;
                         $scope.fund.voteHistory = _data.voteHistory;
                         $scope.fund.voteProtect = _data.voteProtect;
