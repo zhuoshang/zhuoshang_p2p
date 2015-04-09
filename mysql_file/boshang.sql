@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 04/08/2015 10:32:19 AM
+ Date: 04/09/2015 19:41:47 PM
 */
 
 SET NAMES utf8;
@@ -178,7 +178,29 @@ CREATE TABLE `frontUser` (
 --  Records of `frontUser`
 -- ----------------------------
 BEGIN;
-INSERT INTO `frontUser` VALUES ('2', '5', null, 'luo', '13618372995', null, 'BzFgwBVvjcOyoiZwCA30hozDFkZHqbIwnPWUYvXheaXaZZvrhApt0dKn1jmW', '2015-04-04 17:32:28', '2015-04-03 08:18:21'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22'), ('4', '7', null, 'tianling', '13399857034', null, 'xIth4o2xRozginvWBcwFybLXz36nb3OKwdyGu4ki8vU4AyGAQ1vcFgNQgIOW', '2015-04-06 13:36:23', '2015-04-04 17:31:29'), ('5', '9', null, 'tianlin2', '13529194568', null, null, '2015-04-04 17:43:35', '2015-04-04 17:43:35');
+INSERT INTO `frontUser` VALUES ('2', '5', null, 'luo', '13618372995', null, 'BzFgwBVvjcOyoiZwCA30hozDFkZHqbIwnPWUYvXheaXaZZvrhApt0dKn1jmW', '2015-04-04 17:32:28', '2015-04-03 08:18:21'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22'), ('4', '7', null, 'tianling', '13399857034', '2507073658@qq.com', 'xIth4o2xRozginvWBcwFybLXz36nb3OKwdyGu4ki8vU4AyGAQ1vcFgNQgIOW', '2015-04-09 11:15:07', '2015-04-04 17:31:29'), ('5', '9', null, 'tianlin2', '13529194568', null, null, '2015-04-04 17:43:35', '2015-04-04 17:43:35');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `message`
+-- ----------------------------
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `content` text NOT NULL,
+  `created_at` varchar(25) DEFAULT NULL,
+  `updated_at` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `mgssage_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户反馈表';
+
+-- ----------------------------
+--  Records of `message`
+-- ----------------------------
+BEGIN;
+INSERT INTO `message` VALUES ('1', '4', '这app好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊', '2015-04-09 11:31:19', '2015-04-09 11:31:19'), ('2', '4', '这app好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊', '2015-04-09 11:34:03', '2015-04-09 11:34:03'), ('3', '4', '这app好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊好牛逼啊', '2015-04-09 19:40:38', '2015-04-09 19:40:38');
 COMMIT;
 
 -- ----------------------------
