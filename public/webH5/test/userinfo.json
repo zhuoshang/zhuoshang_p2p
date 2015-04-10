@@ -1,0 +1,12 @@
+{
+  "status": 200,
+  "data": {
+    "phoneNumber": "13008329395",
+    "userName": "果冻",
+    "lastDate": "2014 04 01 14:55",
+    "location": "中国重庆",
+    "hasVote": "100000",
+    "voteNumbers": "5",
+    "voteNumberHistory": "5"
+  }
+}

@@ -16,10 +16,24 @@ function modelC ($scope, obj) {
 }
 
 angular.module("personFun", ["ngTouch"])
+    .directive("myclick", function() {
+
+        return function(scope, element, attrs) {
+
+            element.bind('touchstart click', function(event) {
+
+                event.preventDefault();
+                event.stopPropagation();
+
+                scope.$apply(attrs['myclick']);
+            });
+        };
+    })
     .controller("funController", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
         $scope.currentList = 0;
         $scope.year = new Date().getFullYear();
-        $scope.route = "assetsList";
+        $scope.route = "love";
+        $scope.historyRoute = "love";
         $scope.personList = false;
         $scope.assets = {};
         $scope.fund = {
@@ -32,14 +46,31 @@ angular.module("personFun", ["ngTouch"])
             detailRoute: "base"
         };
         $scope.set = {
-            modelName: "更换邮箱",
+            modelName: "设置",
             status: "index",
             data: {
                 email: "123"
             }
         };
+        $scope.person = {
+            status: "get"
+        };
+        $scope.honouredAndLove = {
+            status: "exercise",
+            modelName: "活动详情"
+        };
 
-        $http.get("../userinfo", {
+        $scope.honouredAndLoveRoute = function (status, modelName) {
+            $scope.honouredAndLove.historyModelName = $scope.honouredAndLove.modelName;
+            $scope.honouredAndLove.status = status;
+            $scope.honouredAndLove.modelName = modelName;
+        };
+        $scope.honouredAndLoveRouteBack = function (status) {
+            $scope.honouredAndLove.status = status;
+            $scope.honouredAndLove.modelName = $scope.honouredAndLove.historyModelName;
+        };
+
+        $http.get("../test/userinfo", {
             cache: true
         })
             .success(function (data) {
@@ -48,7 +79,7 @@ angular.module("personFun", ["ngTouch"])
                 }
             });
 
-        $http.get("../list", {
+        $http.get("../test/list", {
             cache: true
         })
             .success(function (data, status) {
@@ -129,12 +160,11 @@ angular.module("personFun", ["ngTouch"])
                 modelName: "资产列表"
             })
         };
-
         $scope.cNList = function () {
             if ($scope.currentList + 1 == $scope.listTotal) {
                 alert("没有更多债券了");
                 return;
-            }
+            };
             $scope.currentList = $scope.currentList + 1;
             isEarn($scope, $filter);
             reminding($scope, $filter);
@@ -144,7 +174,7 @@ angular.module("personFun", ["ngTouch"])
             if ($scope.currentList == 0) {
                 alert("没有更多债券了");
                 return;
-            }
+            };
             $scope.currentList = $scope.currentList - 1;
             isEarn($scope, $filter);
             reminding($scope, $filter);
@@ -158,7 +188,7 @@ angular.module("personFun", ["ngTouch"])
         $scope.getBondMonth = function () {
             var _month = Math.round(this.month.n, 10);
 
-            $http.get("../monthlist?month=" + _month + "&year=" + $scope.year, {cache: true})
+            $http.get("../test/monthlist?month=" + _month + "&year=" + $scope.year, {cache: true})
                 .success(function (data, status) {
                     if (data.status == 200) {
                         $scope.listInfo =  data.data;
@@ -175,6 +205,10 @@ angular.module("personFun", ["ngTouch"])
         $scope.toRoute = function (routeName) {
             $scope.personList = false;
             $scope.route = routeName;
+
+            if (routeName != "person") {
+                $scope.historyRoute = $scope.route;
+            }
         };
         $scope.toPersonList = function () {
             $scope.personList = true;
@@ -210,7 +244,7 @@ angular.module("personFun", ["ngTouch"])
             $scope.fund.modelName = name;
         };
         $scope.getFundType = function () {
-            $http.get("../debtTypeList",{
+            $http.get("../test/debtTypeList",{
                 cache: true
             })
                 .success(function (data) {
@@ -224,7 +258,7 @@ angular.module("personFun", ["ngTouch"])
                 });
         };
         $scope.getFundProduce = function () {
-            $http.get("../debtTable",{
+            $http.get("../test/debtTable",{
                 cache: true
             })
                 .success(function (data) {
@@ -253,7 +287,7 @@ angular.module("personFun", ["ngTouch"])
             $scope.fund.modelName = "基金详情";
 
 
-            $http.get("../debtContent?id=" + _id, {cache: true})
+            $http.get("../test/debtContent?id=" + _id, {cache: true})
                 .success(function (data) {
                     if (data.status == 200) {
                         var _data = data.data;
@@ -261,12 +295,10 @@ angular.module("personFun", ["ngTouch"])
                         $scope.fund.voteInfo = _data.voteInfo;
                         $scope.fund.voteHistory = _data.voteHistory;
                         $scope.fund.voteProtect = _data.voteProtect;
+                        $scope.fund.allowVote = _data.allowVote;
+                        $scope.fund._id = _id;
                     }
                 });
-        };
-        $scope.getSettingInfo = function () {
-            $scope.set.data.userName = $scope.personInfo.userName;
-            $scope.set.data.phoneNumber = $scope.personInfo.phoneNumber;
         };
         $scope.setRoute = function (status, modelName) {
             $scope.set.modelName = modelName;
@@ -278,7 +310,28 @@ angular.module("personFun", ["ngTouch"])
         };
         $scope.setEmail = function () {
             $scope.set.data.sendInfo = $scope.set.data.email;
-        }
+        };
+        $scope.getSecondInfo = function (name) {
+            $scope.set.data.secondData = name;
+        };
+        $scope.backLastStatus = function () {
+            $scope.personList = true;
+            $scope.route = $scope.historyRoute;
+        };
+        $scope.payRoute = function (name) {
+            $scope.person.status = name;
+        };
+        $scope.getMoney = function (form) {
+            console.log(form);
+        };
+        $scope.payMoney = function (form) {
+            console.log(form);
+        };
+        $scope.voteFund = function (fund) {
+            if (fund.allowVote == 1) {
+                $scope.fund.status = "pay";
+            }
+        };
     }])
     .filter("newWorth", function () {
         return function(input) {

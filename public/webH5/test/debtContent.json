@@ -1,0 +1,17 @@
+{
+  "status": 200,
+  "data":
+    {
+      "voteHistory": [{
+        "userName": "投资人",
+        "voteMoney": "投资多少钱",
+        "date": "投资时间"
+        }],
+      "voteProtect": "图片地址",
+      "voteInfo": {
+        "img": ["1","2"],
+        "text": "sb"
+      },
+      "allowVote": "1"
+    }
+}
