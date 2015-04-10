@@ -55,6 +55,13 @@ Route::get('logout',array('before' => 'loginCheck','uses'=>'UserAccessController
 
 Route::get('debtContent',array('before'=>'loginCheck','uses'=>'DebtController@debtContent'));
 
+Route::get('email',array('before'=>'loginCheck','uses'=>'UserAccountController@emailGet'));
+
+Route::post('email',array('before'=>'loginCheck','uses'=>'UserAccountController@emailSet'));
+
+Route::post('message',array('before'=>'loginCheck','uses'=>'UserAccountController@messageSet'));
+
+
 
 
 #登录验证
