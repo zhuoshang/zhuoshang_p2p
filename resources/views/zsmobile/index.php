@@ -16,7 +16,7 @@
 </head>
 <body ng-app="personFun" ng-controller="funController">
 <section class="person-list" ng-if="personList==true">
-    <i class="iconfont i-setting" ng-class="{'route-status': route =='setting'}" ng-click="toRoute('setting');">&#xe60c;</i>
+    <i class="iconfont i-setting" ng-class="{'route-status': route =='setting'}" ng-click="toRoute('setting');getEmail()">&#xe60c;</i>
     <p class="user-phone">{{personInfo.phoneNumber}}</p>
     <p class="user-name">{{personInfo.userName}}</p>
     <section class="login-info">
@@ -424,9 +424,12 @@
                 </span>
             </div>
         </section>
-        <section class="s-exit">
-            退出登陆
-        </section>
+        <form action="../logout">
+            <section class="s-exit">
+                退出登陆
+                <input type="submit" value="退出登录" />
+            </section>
+        </form>
     </section>
     <section class="set-suggest" ng-if="set.status == 'suggest'">
         <textarea name="suggest" placeholder="博尚鸿鼎团队正在真正仔细的聆听您的意

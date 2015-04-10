@@ -32,8 +32,8 @@ angular.module("personFun", ["ngTouch"])
     .controller("funController", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
         $scope.currentList = 0;
         $scope.year = new Date().getFullYear();
-        $scope.route = "love";
-        $scope.historyRoute = "love";
+        $scope.route = "assetsList";
+        $scope.historyRoute = "assetsList";
         $scope.personList = false;
         $scope.assets = {};
         $scope.fund = {
@@ -48,12 +48,10 @@ angular.module("personFun", ["ngTouch"])
         $scope.set = {
             modelName: "设置",
             status: "index",
-            data: {
-                email: "123"
-            }
+            data: {}
         };
         $scope.person = {
-            status: "get"
+            status: "index"
         };
         $scope.honouredAndLove = {
             status: "exercise",
@@ -70,7 +68,7 @@ angular.module("personFun", ["ngTouch"])
             $scope.honouredAndLove.modelName = $scope.honouredAndLove.historyModelName;
         };
 
-        $http.get("../test/userinfo", {
+        $http.get("../userinfo", {
             cache: true
         })
             .success(function (data) {
@@ -79,7 +77,7 @@ angular.module("personFun", ["ngTouch"])
                 }
             });
 
-        $http.get("../test/list", {
+        $http.get("../list", {
             cache: true
         })
             .success(function (data, status) {
@@ -244,7 +242,7 @@ angular.module("personFun", ["ngTouch"])
             $scope.fund.modelName = name;
         };
         $scope.getFundType = function () {
-            $http.get("../test/debtTypeList",{
+            $http.get("../debtTypeList",{
                 cache: true
             })
                 .success(function (data) {
@@ -258,7 +256,7 @@ angular.module("personFun", ["ngTouch"])
                 });
         };
         $scope.getFundProduce = function () {
-            $http.get("../test/debtTable",{
+            $http.get("../debtTable",{
                 cache: true
             })
                 .success(function (data) {
@@ -287,7 +285,7 @@ angular.module("personFun", ["ngTouch"])
             $scope.fund.modelName = "基金详情";
 
 
-            $http.get("../test/debtContent?id=" + _id, {cache: true})
+            $http.get("../debtContent?id=" + _id, {cache: true})
                 .success(function (data) {
                     if (data.status == 200) {
                         var _data = data.data;
@@ -305,7 +303,27 @@ angular.module("personFun", ["ngTouch"])
             $scope.set.status = status;
         };
         $scope.sendInfo = function () {
-            console.log($scope.set.status);
+            if ($scope.set.status == "email") {
+                $http.post("../email", {
+                    email: $scope.set.data.sendInfo
+                }).success(function (data) {
+                    if (data.status == 200) {
+                        alert("修改成功");
+                        $scope.set.data.email = $scope.set.data.sendInfo;
+                    }
+                });
+            };
+
+            if ($scope.set.status == "suggest") {
+                $http.post("../message", {
+                    message: $scope.set.data.sendInfo
+                }).success(function (data) {
+                    if (data.status == 200) {
+                        alert("建议提交成功");
+                        $scope.set.data.sendInfo = "";
+                    }
+                });
+            }
             console.log($scope.set.data.sendInfo);
         };
         $scope.setEmail = function () {
@@ -331,6 +349,15 @@ angular.module("personFun", ["ngTouch"])
             if (fund.allowVote == 1) {
                 $scope.fund.status = "pay";
             }
+        };
+        $scope.getEmail = function () {
+            $http.get("../email").
+                success(function (data) {
+                    if (data.status == 200) {
+                        console.log(data.data);
+                        $scope.set.data.email = data.data;
+                    }
+                });
         };
     }])
     .filter("newWorth", function () {
