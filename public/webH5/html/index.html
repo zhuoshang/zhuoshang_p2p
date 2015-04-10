@@ -9,18 +9,18 @@
     <meta name="viewport" id="viewport" />
     <link rel="stylesheet" href="../css/index.css"/>
     <script>(function(){var b,a,e,c,d;window.dpi=window.devicePixelRatio;d=1/window.dpi;document.getElementById("viewport").setAttribute("content","width=device-width, initial-scale="+d+",maximum-scale="+d+",minimum-scale="+d+", user-scalable=no");window.system=window.navigator.userAgent.match(/iPhone|iPad|Android/);if(window.system){window.system=window.system[0]}window.url_path=window.location.origin;b=document.documentElement;b.setAttribute("dpi",window.dpi);a=b.getBoundingClientRect();c=a.width;e=window.innerHeight;if(e>=c){document.documentElement.style.fontSize=c/16+"px"}else{document.documentElement.style.fontSize=e/16+"px"}}).call(this);</script>
-    <script src="../js/bower_components/angular/angular.js"></script>
-    <script src="../js/bower_components/angular-touch/angular-touch.js"></script>
+    <script src="../js/bower_components/angular/angular.min.js"></script>
+    <script src="../js/bower_components/angular-touch/angular-touch.min.js"></script>
     <script src="../js/index.js"></script>
     <title></title>
 </head>
 <body ng-app="personFun" ng-controller="funController">
 <section class="person-list" ng-if="personList==true">
-    <i class="iconfont i-setting" ng-class="{'route-status': route =='setting'}" ng-click="toRoute('setting');getSettingInfo()">&#xe60c;</i>
+    <i class="iconfont i-setting" ng-class="{'route-status': route =='setting'}" ng-click="toRoute('setting');">&#xe60c;</i>
     <p class="user-phone">{{personInfo.phoneNumber}}</p>
     <p class="user-name">{{personInfo.userName}}</p>
     <section class="login-info">
-        <img src="../images/logo.png" />
+        <img src="../images/logo.png" ng-click="toRoute('person')"/>
         <p class="last-login">上次登陆</p>
         <p class="last-date">{{personInfo.lastDate}}</p>
         <p class="last-location">{{personInfo.location}}</p>
@@ -30,8 +30,89 @@
     <p class="person-info">历史投资个数: <span> {{personInfo.voteNumberHistory}}</span></p>
     <p class="route-w-icon" ng-class="{'route-status': route =='assetsList'}" ng-click="toRoute('assetsList')"><i class="iconfont">&#xe607;</i>资产列表</p>
     <p class="route-w-icon" ng-class="{'route-status': route =='fund'}" ng-click="toRoute('fund');getFundType();getFundProduce();fundRoute('list', '基金产品')"><i class="iconfont">&#xe606;</i>基金</p>
-    <p class="route-w-icon"><i class="iconfont">&#xe608;</i>爱心捐款</p>
-    <p class="route-w-icon"><i class="iconfont">&#xe609;</i>贵宾优享</p>
+    <p class="route-w-icon" ng-class="{'route-status': route =='love'}" ng-click="toRoute('love');honouredAndLoveRoute('index', '爱心捐款')"><i class="iconfont">&#xe608;</i>爱心捐款</p>
+    <p class="route-w-icon" ng-class="{'route-status': route =='honoured'}" ng-click="toRoute('honoured');honouredAndLoveRoute('index', '贵宾优享')"><i class="iconfont">&#xe609;</i>贵宾优享</p>
+</section>
+<section class="love-and-honoured" ng-if="route == 'love' || route == 'honoured'" ng-class="{'to-personList': personList}">
+    <header class="header-fun">
+        <nav>
+            <i class="iconfont h-i-list" ng-if="honouredAndLove.status =='index'" ng-click="toPersonList()">&#xe600;</i>
+            <i class="iconfont h-i-return" ng-if="honouredAndLove.status !='index'" ng-click="honouredAndLoveRouteBack('index')">&#xe601;</i>
+            <span class="h-i-model">{{honouredAndLove.modelName}}</span>
+            <span class="wfz30" ng-click="honouredAndLoveRoute('detail', '明细')" ng-if="honouredAndLove.status != 'detail'">明细</span>
+        </nav>
+    </header>
+    <section class="love-and-honoured-index" ng-if="honouredAndLove.status == 'index'">
+       <div class="l-h-i-box">
+           <div class="l-h-i-img-todo">
+               <img src="#" />
+               <span class="todo">给给给给</span>
+           </div>
+           <div class="l-h-i-l-info">
+                <div class="i-left">
+                    <p class="i-l-f">捐助时间: <span class="i-activity">2014.01.30 - 2015.03.30</span></p>
+                    <p class="i-l-s">
+                        <span>
+                            <i class="iconfont">&#xe615;</i> 1024
+                        </span>
+                        <span>
+                            <i class="iconfont">&#xe616;</i> 1024
+                        </span>
+                        <span>
+                            <i class="iconfont">&#xe614;</i> 1024
+                        </span>
+                    </p>
+                </div>
+                <div class="i-right i-notify-activity">
+                    进行中
+                </div>
+           </div>
+       </div>
+        <div class="l-h-i-box">
+            <div class="l-h-i-img-todo">
+                <img src="#" />
+                <span class="todo">给给给给</span>
+            </div>
+            <div class="l-h-i-l-info">
+                <div class="i-left">
+                    <p class="i-l-f">捐助时间: <span class="i-no-activity">2014.01.30 - 2015.03.30</span></p>
+                    <p class="i-l-s">
+                        <span>
+                            <i class="iconfont">&#xe615;</i> 1024
+                        </span>
+                        <span>
+                            <i class="iconfont">&#xe616;</i> 1024
+                        </span>
+                        <span>
+                            <i class="iconfont">&#xe614;</i> 1024
+                        </span>
+                    </p>
+                </div>
+                <div class="i-right i-no-notify-activity">
+                    已结束
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="love-and-honoured-detail" ng-if="honouredAndLove.status == 'detail'">
+        <header>435345345</header>
+        <table>
+            <thead>
+                <tr>
+                    <td>序号</td>
+                    <td>捐款者</td>
+                    <td>捐款方式</td>
+                    <td>捐款金额
+                        (元)</td>
+                    <td>制单日期</td>
+                    <td>备注</td>
+                </tr>
+            </thead>
+        </table>
+    </section>
+    <section class="love-and-honoured-detail" ng-if="honouredAndLove.status == 'exercise'">
+            123123
+    </section>
 </section>
 <section class="assets-list" ng-if="route=='assetsList'" ng-class="{'to-personList': personList}">
     <header class="header-fun">
@@ -43,8 +124,8 @@
         </nav>
     </header>
     <section class="content-fun">
-        <section class="fun-list" ng-if="assets.funStatus=='list' || assets.funStatus=='history'">
-            <div class="list-header" ng-click="cPList()">
+        <section class="fun-list" ng-if="assets.funStatus=='list'" ng-click="test()">
+            <div class="list-header" myclick="cPList()">
                 <i class="iconfont s-l-previous">&#xe603;</i>
             </div>
             <div class="lists-content">
@@ -128,7 +209,7 @@
                     </div>
                 </div>
             </div>
-            <div class="list-footer" ng-click="cNList()">
+            <div class="list-footer" myclick="cNList()">
                 <i class="iconfont s-l-next">&#xe604;</i>
                 <span class="s-l-notify">点击切换下一张债卷</span>
             </div>
@@ -156,7 +237,7 @@
     </section>
 </section>
 <section class="fund-list" ng-if="route=='fund'" ng-class="{'to-personList': personList}">
-    <header class="header-fund">
+    <header class="header-fund" ng-if="fund.status != 'pay'">
         <nav>
             <i class="iconfont h-i-list" ng-click="toPersonList()" ng-if="fund.status == 'list'">&#xe600;</i>
             <i class="iconfont h-i-return" ng-if="fund.status !='list'" ng-click="fundRoute('list', '基金产品')">&#xe601;</i>
@@ -207,7 +288,7 @@
                 <p>{{fund.voteInfo.text}}</p>
             </section>
             <section class="f-d-product" ng-if="fund.detailRoute == 'protect'">
-                <img ng-src="{{fund.voteProtect.img}}"/>
+                <img ng-src="{{fund.voteProtect}}"/>
             </section>
             <section class="f-d-history" ng-if="fund.detailRoute == 'history'">
                 <div ng-repeat="voteHistory in fund.voteHistory">
@@ -217,7 +298,7 @@
                 </div>
             </section>
         </section>
-        <footer class="f-d-c f-d-c-a">我要投资</footer>
+        <footer class="f-d-c" ng-class="{'f-d-c-a': fund.allowVote == 1, 'f-d-c-na': fund.allowVote == 0}" ng-click="voteFund(fund)">我要投资</footer>
     </section>
     <section class="fund-product" ng-if="fund.status == 'list'">
         <section class="search-box" ng-if="fund.isSearch == true">
@@ -264,14 +345,35 @@
     <section class="fund-introduce" ng-if="fund.status == 'introduce'">
         1231231
     </section>
+    <section class="fund-pay" ng-if="fund.status == 'pay'">
+        <i class="iconfont h-i-return f-i-reutrn" ng-click="fundRoute('detail', '基金详情')">&#xe601;</i>
+        <div class="logo-pay-get"></div>
+        <form class="form-get" novalidate name="f-p-form">
+            <div class="g-notify">
+                <span class="s-left">支付方式</span>
+                <span class="s-right">默认线下支付</span>
+            </div>
+            <label for="f-money">
+                <input type="text" id="f-money" name="fMoney" placeholder="请输入提现金额" ng-model="person.getMoney" required />
+            </label>
+            <label for="f-verify">
+                <input type="text" id="f-verify" class="f-verify" name="fVerify" placeholder="验证码" required />
+            </label>
+            <div class="gg-verify">
+                点击获取
+            </div>
+            <input type="submit" class="g-sure" value="确定"  />
+        </form>
+    </section>
 </section>
 <section class="set-list" ng-if="route=='setting'"  ng-class="{'to-personList': personList}">
     <header class="header-set">
         <nav>
             <i class="iconfont h-i-list" ng-if="set.status == 'index'" ng-click="toPersonList()">&#xe600;</i>
-            <i class="iconfont h-i-return" ng-if="set.status !='index'" ng-click="setRoute('index', '设置')">&#xe601;</i>
+            <i class="iconfont h-i-return" ng-if="set.status !='index' && set.status !='second'" ng-click="setRoute('index', '设置')">&#xe601;</i>
+            <i class="iconfont h-i-return" ng-if="set.status =='second'" ng-click="setRoute('about', '关于我们')">&#xe601;</i>
             <span class="h-i-model">{{set.modelName}}</span>
-            <span class="h-i-submit" ng-click="sendInfo()" ng-if="set.status !='index'">确认</span>
+            <span class="h-i-submit" ng-click="sendInfo()" ng-if="set.status =='suggest' || set.status == 'email'">确认</span>
         </nav>
     </header>
     <section class="set-index" ng-if="set.status =='index'">
@@ -279,12 +381,12 @@
             <div class="s-user">
                 <i class="iconfont i-user">&#xe612;</i>
                 <span>用户名</span>
-                <span class="info">{{set.data.userName}}</span>
+                <span class="info">{{personInfo.userName}}</span>
             </div>
             <div class="s-phone">
                 <i class="iconfont i-phone">&#xe611;</i>
                 <span>手机号码</span>
-                <span class="info">{{set.data.phoneNumber}}</span>
+                <span class="info">{{personInfo.phoneNumber}}</span>
             </div>
             <div class="s-mail" ng-click="setRoute('email', '更换邮箱');setEmail()">
                 <i class="iconfont i-mail">&#xe60f;</i>
@@ -314,12 +416,12 @@
                   <i class="iconfont">&#xe613;</i>
             </span>
             </div>
-            <div class="s-about">
+            <div class="s-about" ng-click="setRoute('about', '关于我们')">
                 <i class="iconfont i-about">&#xe60d;</i>
                 <span>关于我们</span>
-            <span class="info">
-                  <i class="iconfont">&#xe613;</i>
-            </span>
+                <span class="info">
+                      <i class="iconfont">&#xe613;</i>
+                </span>
             </div>
         </section>
         <section class="s-exit">
@@ -336,6 +438,100 @@
                 <input id="set-email" type="text" ng-model="set.data.sendInfo" />
             </label>
         </div>
+    </section>
+    <section class="set-about" ng-if="set.status == 'about'">
+        <img src="../images/about-logo.png" class="about-logo" />
+        <section class="s-us">
+            <div class="s-welcome">
+                <span>欢迎页</span>
+                   <span class="info">
+                      <i class="iconfont">&#xe613;</i>
+                </span>
+            </div>
+            <div class="s-deal" ng-click="setRoute('second', '用户协议');getSecondInfo('用户协议')">
+                <span>用户协议</span>
+                   <span class="info">
+                      <i class="iconfont">&#xe613;</i>
+                </span>
+            </div>
+            <div class="s-com" ng-click="setRoute('second', '公司介绍');getSecondInfo('公司介绍')">
+                <span>介绍博尚鸿鼎公司</span>
+                   <span class="info">
+                      <i class="iconfont">&#xe613;</i>
+                </span>
+            </div>
+        </section>
+        <p class="s-phone-title">客户电话(按照当地市话标准收费)</p>
+        <a class="s-p" href="tel:1-408-555-5555">1-408-555-5555</a>
+    </section>
+    <section class="set-about-second" ng-if="set.status == 'second'">
+        {{set.data.secondData}}
+    </section>
+</section>
+<section class="person-pay" ng-if="route=='person'">
+    <i class="iconfont h-i-return" ng-if="person.status =='index'" ng-click="backLastStatus()">&#xe601;</i>
+    <i class="iconfont h-i-return" ng-if="person.status !='index'" ng-click="payRoute('index')">&#xe601;</i>
+    <section class="person-list-big" ng-if="person.status =='index'">
+        <img src="../images/logo.png" class="logo" />
+        <form>
+            <input type="submit" value="退出登陆" class="exit"/>
+        </form>
+        <img src=../images/logo.png class="person-img" />
+        <p class="p-user-name">{{personInfo.userName}}</p>
+        <p class="p-user-vote">
+            已投金额: <b>{{personInfo.hasVote}}</b>元
+        </p>
+        <p class="p-user-location">
+            上次登陆: <b>{{personInfo.lastDate}} {{personInfo.location}}</b>
+        </p>
+        <div class="blur">
+            <div class="pay" ng-click="payRoute('pay')">
+                <i class="iconfont pay-out">&#xe610;</i>
+                <span>充 值</span>
+            </div>
+            <div class="get" ng-click="payRoute('get')">
+                <i class="iconfont get-in">&#xe610;</i>
+                <span>提 现</span>
+            </div>
+        </div>
+    </section>
+    <section class="section-pay" ng-if="person.status =='pay'">
+        <div class="logo-pay-get"></div>
+        <form class="form-pay" novalidate name="pForm">
+            <div class="g-notify">
+                <span class="s-left">支付方式</span>
+                <span class="s-right">默认线下支付</span>
+            </div>
+            <label for="p-money">
+                <input type="text" id="p-money" name="pMoney" placeholder="请输入支付金额" ng-model="person.payMonery" />
+            </label>
+            <label for="p-verify">
+                <input type="text" id="p-verify" class="p-verify" name="pVerify" placeholder="验证码" required />
+            </label>
+            <div class="pp-verify">
+                点击获取
+            </div>
+            <input type="submit" class="p-sure" value="确定" ng-click="payMonery(pForm)" />
+        </form>
+    </section>
+    <section class="section-get" ng-if="person.status =='get'">
+        <div class="logo-pay-get"></div>
+        <form class="form-get" novalidate name="gForm">
+            <div class="g-notify">
+                <span class="s-left">提现方式</span>
+                <span class="s-right">默认线下提现</span>
+            </div>
+            <label for="g-money">
+                <input type="text" id="g-money" name="gMoney" placeholder="请输入提现金额" ng-model="person.getMoney" required />
+            </label>
+            <label for="g-verify">
+                <input type="text" id="g-verify" class="g-verify" name="gVerify" placeholder="验证码" required />
+            </label>
+            <div class="gg-verify">
+                点击获取
+            </div>
+            <input type="submit" class="g-sure" value="确定" ng-click="getMoney(gForm)" />
+        </form>
     </section>
 </section>
 </body>

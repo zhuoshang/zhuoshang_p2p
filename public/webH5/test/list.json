@@ -1,7 +1,7 @@
 {
   "status": 200,
   "data":   [{
-    "bondLoading": "60.00",
+    "bondLoading": "30.00",
     "continuousTime": "50",
     "netWorth": "0.901",
     "bondValue": "50",
