@@ -6,8 +6,10 @@
 
 use App\DebtBuy;
 use App\Message;
+use App\Recharge;
 use App\User;
 use App\FrontUser;
+use App\Withdraw;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller as BaseController;
@@ -160,6 +162,68 @@ class UserAccountController extends Controller{
         }
 
     }
+
+
+    /*
+     * 提现订单添加
+     **/
+    public function withdrawDeposit(Request $request){
+        $sum = $request->input('money');
+        if(!is_numeric($sum)){
+            $this->throwERROE(500,'金额数据格式不合法');
+        }
+
+        $withdraw = new Withdraw();
+        $withdraw->uid = $this->uid;
+        $withdraw->sum = $sum;
+
+        if($withdraw->save()){
+            echo json_encode(
+                array(
+                    'status'=>200,
+                    'msg'=>'ok',
+                    'data'=>''
+                )
+            );
+
+            exit();
+        }else{
+            $this->throwERROE(501,'save error');
+        }
+
+
+    }
+
+
+    /*
+     * 充值订单添加
+     **/
+    public function recharge(Request $request){
+        $sum = $request->input('money');
+        if(!is_numeric($sum)){
+            $this->throwERROE(500,'金额数据格式不合法');
+        }
+
+        $recharge = new Recharge();
+        $recharge->uid = $this->uid;
+        $recharge->sum = $sum;
+
+        if($recharge->save()){
+            echo json_encode(
+                array(
+                    'status'=>200,
+                    'msg'=>'ok',
+                    'data'=>''
+                )
+            );
+
+            exit();
+        }else{
+            $this->throwERROE(501,'save error');
+        }
+    }
+
+
 
     /*
      * 抛错函数

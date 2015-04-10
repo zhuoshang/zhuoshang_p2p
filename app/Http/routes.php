@@ -61,6 +61,10 @@ Route::post('email',array('before'=>'loginCheck','uses'=>'UserAccountController@
 
 Route::post('message',array('before'=>'loginCheck','uses'=>'UserAccountController@messageSet'));
 
+Route::post('withDraw',array('before'=>'loginCheck','uses'=>'UserAccountController@withdrawDeposit'));//体现接口
+
+Route::post('recharge',array('before'=>'loginCheck','uses'=>'UserAccountController@recharge'));//充值接口
+
 
 
 
