@@ -122,13 +122,7 @@ class UserAccessController extends Controller
     public function logout(){
         Auth::logout();
 
-        echo json_encode(
-            array(
-                'status'=>200,
-                'msg'=>'ok',
-                'data'=>url('/')
-            )
-        );
+        return redirect('/');
     }
 
 
