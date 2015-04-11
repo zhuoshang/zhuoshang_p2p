@@ -11,15 +11,8 @@
 |
 */
 
-//Route::get('/', 'WelcomeController@index');
 Route::get('/', array('before' => 'indexCheck'));//用户中心首页
 
-Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
 
 #zsmobile 页面
 
@@ -64,6 +57,8 @@ Route::post('message',array('before'=>'loginCheck','uses'=>'UserAccountControlle
 Route::post('withDraw',array('before'=>'loginCheck','uses'=>'UserAccountController@withdrawDeposit'));//体现接口
 
 Route::post('recharge',array('before'=>'loginCheck','uses'=>'UserAccountController@recharge'));//充值接口
+
+Route::post('debtOrder',array('before' => 'loginCheck','uses'=>'DebtController@orderSet'));//基金预约接口
 
 
 

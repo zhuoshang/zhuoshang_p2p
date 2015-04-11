@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 use App\Debt;
+use App\DebtOrder;
 use App\FrontUser;
 use App\DebtBuyList;
 use App\DebtType;
@@ -17,6 +18,18 @@ use Auth;
 */
 class DebtController extends Controller{
 
+
+    private $uid;
+
+    public function __construct()
+    {
+        $this->uid = Auth::user()->front_uid;
+        date_default_timezone_set('PRC');
+    }
+
+    /*
+     * 资产列表页面
+     **/
     public function debtIndex() {
         return view('zsmobile.index');
     }
@@ -338,6 +351,33 @@ class DebtController extends Controller{
 
         exit();
 
+    }
+
+
+    /*
+     * 用户预约基金操作
+     **/
+    public function orderSet(Request $request){
+        $did = $request->input('id');
+        $money = $request->input('money');
+
+        $order = new DebtOrder();
+        $order->uid = $this->uid;
+        $order->did = $did;
+        $order->sum = $money;
+
+        if($order->save()){
+            echo json_encode(array(
+               'status'=>200,
+                'msg'=>'ok',
+                'data'=>''
+            ));
+
+            exit();
+
+        }else{
+            $this->throwERROE(501,'save error');
+        }
     }
 
 

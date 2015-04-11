@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 04/09/2015 19:41:47 PM
+ Date: 04/10/2015 22:03:04 PM
 */
 
 SET NAMES utf8;
@@ -204,6 +204,29 @@ INSERT INTO `message` VALUES ('1', '4', '这app好牛逼啊好牛逼啊好牛逼
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `recharge`
+-- ----------------------------
+DROP TABLE IF EXISTS `recharge`;
+CREATE TABLE `recharge` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `sum` decimal(10,2) NOT NULL,
+  `created_at` varchar(25) DEFAULT NULL,
+  `updated_at` varchar(25) DEFAULT NULL,
+  `verify` int(1) unsigned DEFAULT '0' COMMENT '体现请求后台审核结果;0-后台未审核，1-审核通过，2-审核未通过',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `recharge_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `recharge`
+-- ----------------------------
+BEGIN;
+INSERT INTO `recharge` VALUES ('1', '4', '10000.00', '2015-04-10 21:57:48', '2015-04-10 21:57:48', '0'), ('2', '4', '10000.00', '2015-04-10 21:57:58', '2015-04-10 21:57:58', '0');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `user`
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -224,6 +247,29 @@ CREATE TABLE `user` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `user` VALUES ('5', '$2y$10$QEV5bXJ7f4Zgv.TsrCp/MucG/g.Il5jJyqrzEveBYzW4tVBaGKr42', '125.87.198.250', '1428113402', '0', null, '2015-04-04 02:10:02', null), ('6', null, null, null, '1', null, null, null), ('7', '$2y$10$G0MPMOrSrRDvkJRW4EZLru1obSO6o.qY2nvLkmMrfDj/tRKyLPsZe', '125.87.198.250', '1428168784', '0', '2015-04-04 17:31:29', '2015-04-04 17:33:04', null), ('8', null, null, null, '1', '2015-04-04 17:43:19', '2015-04-04 17:43:19', null), ('9', null, null, null, '1', '2015-04-04 17:43:35', '2015-04-04 17:43:35', null);
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `withdrawDeposit`
+-- ----------------------------
+DROP TABLE IF EXISTS `withdrawDeposit`;
+CREATE TABLE `withdrawDeposit` (
+  `id` int(15) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `sum` decimal(10,2) NOT NULL COMMENT '提现金额',
+  `created_at` varchar(25) DEFAULT NULL,
+  `updated_at` varchar(25) DEFAULT NULL,
+  `verify` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '体现请求后台审核结果;0-后台未审核，1-审核通过，2-审核未通过',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `withdraw_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `withdrawDeposit`
+-- ----------------------------
+BEGIN;
+INSERT INTO `withdrawDeposit` VALUES ('1', '4', '10000.00', '2015-04-10 21:39:57', '2015-04-10 21:39:57', '0');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
