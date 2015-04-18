@@ -60,6 +60,8 @@ Route::post('recharge',array('before'=>'loginCheck','uses'=>'UserAccountControll
 
 Route::post('debtOrder',array('before' => 'loginCheck','uses'=>'DebtController@orderSet'));//基金预约接口
 
+Route::get('activityList',array('before'=>'loginCheck','uses'=>'ActivityController@activityList'));//贵宾优享列表
+
 
 
 
