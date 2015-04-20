@@ -746,6 +746,14 @@ body{
   top: 0.5rem;
   color: white;
 }
+.s-exit{
+  width: 100%;
+  padding: setRem(30) 0;
+  color: #505050;
+  @include setFontSize(30);
+  border: 0;
+  outline: none;
+}
 .s-info,
 .s-pay,
 .s-su,
@@ -758,12 +766,6 @@ body{
 }
 .s-us{
   margin-bottom: setRem(32);
-}
-.s-exit{
-  padding: setRem(30) 0;
-  text-align: center;
-  color: #505050;
-  @include setFontSize(30);
 }
 .s-user,
 .s-phone,
@@ -1024,7 +1026,8 @@ body{
   }
   input.g-verify,
   input.p-verify,
-  input.f-verify{
+  input.f-verify,
+  input.d-verify{
     float: left;
     width: setRem(242);
   }
@@ -1202,4 +1205,58 @@ body{
   position: absolute;
   right: setRem(20);
   line-height: setRem(80);
+}
+.love-and-honoured-exercise{
+  position: absolute;
+  background: white;
+  width: 16rem;
+  margin: 0 auto;
+  min-height: 89%;
+}
+@mixin c50f($fontSize) {
+  color: #505050;
+  @include setFontSize($fontSize);
+}
+.exercise-title{
+  @include c50f(32);
+  margin-top: setRem(20);
+  margin-left: setRem(20);
+}
+.exercise-time{
+  @include c50f(24);
+  margin: setRem(10) 0;
+  margin-left: setRem(20);
+  .active{
+    color: #4bc0ed;
+  }
+  .no-activity{
+    color: #e52325;
+  }
+}
+.exercise-info{
+  margin-top: setRem(9);
+  margin-left: setRem(20);
+  @include setFontSize(18);
+  color: #505050;
+  span{
+    display: inline-block;
+    margin-right: setRem(20);
+  }
+}
+.exercise-cover{
+  display: block;
+  width: setRem(600);
+  margin: setRem(25) setRem(20);
+}
+.exercise-content{
+  color: #505050;
+  margin-left: setRem(20);
+  @include setFontSize(28);
+}
+.section-pay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("../images/larbg.jpg") no-repeat;
+  @include background-size(100%);
 }
