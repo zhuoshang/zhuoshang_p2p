@@ -32,8 +32,8 @@ angular.module("personFun", ["ngTouch"])
     .controller("funController", ["$scope", "$http", "$filter", function ($scope, $http, $filter) {
         $scope.currentList = 0;
         $scope.year = new Date().getFullYear();
-        $scope.route = "love";
-        $scope.historyRoute = "love";
+        $scope.route = "assetsList";
+        $scope.historyRoute = "assetsList";
         $scope.personList = false;
         $scope.assets = {};
         $scope.fund = {
@@ -48,18 +48,20 @@ angular.module("personFun", ["ngTouch"])
         $scope.set = {
             modelName: "设置",
             status: "index",
-            data: {
-                email: "123"
-            }
+            data: {}
         };
         $scope.person = {
-            status: "get"
+            status: "index"
         };
         $scope.honouredAndLove = {
-            status: "exercise",
-            modelName: "活动详情"
+            status: "pay",
+            modelName: "活动详情",
+            historyModelName: "爱心捐赠",
+            showData: {
+                index: "",
+                detail: ""
+            }
         };
-
         $scope.honouredAndLoveRoute = function (status, modelName) {
             $scope.honouredAndLove.historyModelName = $scope.honouredAndLove.modelName;
             $scope.honouredAndLove.status = status;
@@ -305,7 +307,27 @@ angular.module("personFun", ["ngTouch"])
             $scope.set.status = status;
         };
         $scope.sendInfo = function () {
-            console.log($scope.set.status);
+            if ($scope.set.status == "email") {
+                $http.post("../email", {
+                    email: $scope.set.data.sendInfo
+                }).success(function (data) {
+                    if (data.status == 200) {
+                        alert("修改成功");
+                        $scope.set.data.email = $scope.set.data.sendInfo;
+                    }
+                });
+            };
+
+            if ($scope.set.status == "suggest") {
+                $http.post("../message", {
+                    message: $scope.set.data.sendInfo
+                }).success(function (data) {
+                    if (data.status == 200) {
+                        alert("建议提交成功");
+                        $scope.set.data.sendInfo = "";
+                    }
+                });
+            }
             console.log($scope.set.data.sendInfo);
         };
         $scope.setEmail = function () {
@@ -327,10 +349,22 @@ angular.module("personFun", ["ngTouch"])
         $scope.payMoney = function (form) {
             console.log(form);
         };
+        $scope.fundPay = function (form){
+            console.log(form, $scope.fund.id, $scope.fund.status);
+        };
         $scope.voteFund = function (fund) {
             if (fund.allowVote == 1) {
                 $scope.fund.status = "pay";
             }
+        };
+        $scope.getEmail = function () {
+            $http.get("../email").
+                success(function (data) {
+                    if (data.status == 200) {
+                        console.log(data.data);
+                        $scope.set.data.email = data.data;
+                    }
+                });
         };
     }])
     .filter("newWorth", function () {
