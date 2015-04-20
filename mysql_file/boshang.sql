@@ -9,11 +9,32 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 04/09/2015 19:41:47 PM
+ Date: 04/16/2015 11:51:23 AM
 */
 
 SET NAMES utf8;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+--  Table structure for `admin`
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `id` int(3) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `level` int(1) unsigned NOT NULL DEFAULT '1' COMMENT '1-普通管理员；2-超级管理员',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `admin_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `admin`
+-- ----------------------------
+BEGIN;
+INSERT INTO `admin` VALUES ('1', '10', 'tianling', '1');
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `debt`
@@ -98,6 +119,32 @@ INSERT INTO `debtBuyList` VALUES ('3', '1', '5000', '1.20', '10.00', '2', '2014'
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `debtOrder`
+-- ----------------------------
+DROP TABLE IF EXISTS `debtOrder`;
+CREATE TABLE `debtOrder` (
+  `id` int(15) unsigned NOT NULL AUTO_INCREMENT,
+  `did` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `verify` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0-后台未审核 1-审核通过 2-审核未通过',
+  `sum` decimal(10,2) DEFAULT NULL,
+  `created_at` varchar(25) DEFAULT NULL,
+  `updated_at` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `did` (`did`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `debt_order` FOREIGN KEY (`did`) REFERENCES `debt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `order_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `debtOrder`
+-- ----------------------------
+BEGIN;
+INSERT INTO `debtOrder` VALUES ('2', '1', '4', '0', '50000.00', '2015-04-11 23:58:25', '2015-04-11 23:58:25');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `debtPic`
 -- ----------------------------
 DROP TABLE IF EXISTS `debtPic`;
@@ -169,6 +216,14 @@ CREATE TABLE `frontUser` (
   `remember_token` varchar(255) DEFAULT NULL COMMENT '用户保持登录token',
   `updated_at` varchar(25) DEFAULT NULL,
   `created_at` varchar(25) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `gender` int(1) DEFAULT '0' COMMENT '0-男;1-女',
+  `monthlyIncome` decimal(10,2) DEFAULT '0.00' COMMENT '用户月收入',
+  `companyIndustry` varchar(50) DEFAULT NULL,
+  `companyScale` varchar(50) DEFAULT NULL,
+  `userJob` varchar(30) DEFAULT NULL,
+  `userIntro` text,
+  `aboutUser` text,
   PRIMARY KEY (`front_uid`),
   KEY `uid` (`uid`),
   CONSTRAINT `user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -178,7 +233,7 @@ CREATE TABLE `frontUser` (
 --  Records of `frontUser`
 -- ----------------------------
 BEGIN;
-INSERT INTO `frontUser` VALUES ('2', '5', null, 'luo', '13618372995', null, 'BzFgwBVvjcOyoiZwCA30hozDFkZHqbIwnPWUYvXheaXaZZvrhApt0dKn1jmW', '2015-04-04 17:32:28', '2015-04-03 08:18:21'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22'), ('4', '7', null, 'tianling', '13399857034', '2507073658@qq.com', 'xIth4o2xRozginvWBcwFybLXz36nb3OKwdyGu4ki8vU4AyGAQ1vcFgNQgIOW', '2015-04-09 11:15:07', '2015-04-04 17:31:29'), ('5', '9', null, 'tianlin2', '13529194568', null, null, '2015-04-04 17:43:35', '2015-04-04 17:43:35');
+INSERT INTO `frontUser` VALUES ('2', '5', null, 'luo', '13618372995', null, 'BzFgwBVvjcOyoiZwCA30hozDFkZHqbIwnPWUYvXheaXaZZvrhApt0dKn1jmW', '2015-04-04 17:32:28', '2015-04-03 08:18:21', null, '0', '0.00', null, null, null, null, null), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22', null, '0', '0.00', null, null, null, null, null), ('4', '7', null, 'tianling', '13399857034', '2507073658@qq.com', 'xIth4o2xRozginvWBcwFybLXz36nb3OKwdyGu4ki8vU4AyGAQ1vcFgNQgIOW', '2015-04-09 11:15:07', '2015-04-04 17:31:29', null, '0', '0.00', null, null, null, null, null), ('5', '9', null, 'tianlin2', '13529194568', null, null, '2015-04-04 17:43:35', '2015-04-04 17:43:35', null, '0', '0.00', null, null, null, null, null);
 COMMIT;
 
 -- ----------------------------
@@ -204,6 +259,29 @@ INSERT INTO `message` VALUES ('1', '4', '这app好牛逼啊好牛逼啊好牛逼
 COMMIT;
 
 -- ----------------------------
+--  Table structure for `recharge`
+-- ----------------------------
+DROP TABLE IF EXISTS `recharge`;
+CREATE TABLE `recharge` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `sum` decimal(10,2) NOT NULL,
+  `created_at` varchar(25) DEFAULT NULL,
+  `updated_at` varchar(25) DEFAULT NULL,
+  `verify` int(1) unsigned DEFAULT '0' COMMENT '体现请求后台审核结果;0-后台未审核，1-审核通过，2-审核未通过',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `recharge_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `recharge`
+-- ----------------------------
+BEGIN;
+INSERT INTO `recharge` VALUES ('1', '4', '10000.00', '2015-04-10 21:57:48', '2015-04-10 21:57:48', '0'), ('2', '4', '10000.00', '2015-04-10 21:57:58', '2015-04-10 21:57:58', '0');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `user`
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
@@ -216,14 +294,38 @@ CREATE TABLE `user` (
   `created_at` varchar(25) DEFAULT NULL,
   `updated_at` varchar(25) DEFAULT NULL,
   `remember_token` varchar(255) DEFAULT NULL,
+  `modify` int(5) unsigned DEFAULT '0' COMMENT '信息修改次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('5', '$2y$10$QEV5bXJ7f4Zgv.TsrCp/MucG/g.Il5jJyqrzEveBYzW4tVBaGKr42', '125.87.198.250', '1428113402', '0', null, '2015-04-04 02:10:02', null), ('6', null, null, null, '1', null, null, null), ('7', '$2y$10$G0MPMOrSrRDvkJRW4EZLru1obSO6o.qY2nvLkmMrfDj/tRKyLPsZe', '125.87.198.250', '1428168784', '0', '2015-04-04 17:31:29', '2015-04-04 17:33:04', null), ('8', null, null, null, '1', '2015-04-04 17:43:19', '2015-04-04 17:43:19', null), ('9', null, null, null, '1', '2015-04-04 17:43:35', '2015-04-04 17:43:35', null);
+INSERT INTO `user` VALUES ('5', '$2y$10$QEV5bXJ7f4Zgv.TsrCp/MucG/g.Il5jJyqrzEveBYzW4tVBaGKr42', '125.87.198.250', '1428113402', '0', null, '2015-04-04 02:10:02', null, '0'), ('6', null, null, null, '1', null, null, null, '0'), ('7', '$2y$10$G0MPMOrSrRDvkJRW4EZLru1obSO6o.qY2nvLkmMrfDj/tRKyLPsZe', '125.87.198.250', '1428168784', '0', '2015-04-04 17:31:29', '2015-04-04 17:33:04', null, '0'), ('9', null, null, null, '1', '2015-04-04 17:43:35', '2015-04-04 17:43:35', null, '0'), ('10', '$2y$10$tyGiDi7d4oY9Yx7RMTpAm.JNTFsHPXRa2hNLPLulqnx/vFEfzGWTO', '127.0.0.1', '1429156105', '0', '2015-04-16 03:48:25', '2015-04-16 03:48:25', null, '0');
+COMMIT;
+
+-- ----------------------------
+--  Table structure for `withdrawDeposit`
+-- ----------------------------
+DROP TABLE IF EXISTS `withdrawDeposit`;
+CREATE TABLE `withdrawDeposit` (
+  `id` int(15) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `sum` decimal(10,2) NOT NULL COMMENT '提现金额',
+  `created_at` varchar(25) DEFAULT NULL,
+  `updated_at` varchar(25) DEFAULT NULL,
+  `verify` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '体现请求后台审核结果;0-后台未审核，1-审核通过，2-审核未通过',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `withdraw_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `withdrawDeposit`
+-- ----------------------------
+BEGIN;
+INSERT INTO `withdrawDeposit` VALUES ('1', '4', '10000.00', '2015-04-10 21:39:57', '2015-04-10 21:39:57', '0');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
