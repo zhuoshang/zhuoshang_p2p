@@ -11,5 +11,7 @@ class Charity extends Model{
 
     protected $table = 'charity';
 
-
+    public function pic(){
+        return $this->hasMany('App\CharityPic','cid','id');
+    }
 }

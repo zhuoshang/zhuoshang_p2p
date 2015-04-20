@@ -54,13 +54,15 @@ Route::post('email',array('before'=>'loginCheck','uses'=>'UserAccountController@
 
 Route::post('message',array('before'=>'loginCheck','uses'=>'UserAccountController@messageSet'));
 
-Route::post('withDraw',array('before'=>'loginCheck','uses'=>'UserAccountController@withdrawDeposit'));//体现接口
+Route::post('withDraw',array('before'=>'loginCheck','uses'=>'UserAccountController@withdrawDeposit'));//提现接口
 
 Route::post('recharge',array('before'=>'loginCheck','uses'=>'UserAccountController@recharge'));//充值接口
 
 Route::post('debtOrder',array('before' => 'loginCheck','uses'=>'DebtController@orderSet'));//基金预约接口
 
 Route::get('activityList',array('before'=>'loginCheck','uses'=>'ActivityController@activityList'));//贵宾优享列表
+
+Route::get('charityList',array('before'=>'loginCheck','uses'=>'ActivityController@charityList'));//爱心捐赠列表
 
 
 
