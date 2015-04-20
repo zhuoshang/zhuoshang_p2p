@@ -54,10 +54,14 @@ angular.module("personFun", ["ngTouch"])
             status: "index"
         };
         $scope.honouredAndLove = {
-            status: "exercise",
-            modelName: "活动详情"
+            status: "pay",
+            modelName: "活动详情",
+            historyModelName: "爱心捐赠",
+            showData: {
+                index: "",
+                detail: ""
+            }
         };
-
         $scope.honouredAndLoveRoute = function (status, modelName) {
             $scope.honouredAndLove.historyModelName = $scope.honouredAndLove.modelName;
             $scope.honouredAndLove.status = status;
@@ -186,7 +190,7 @@ angular.module("personFun", ["ngTouch"])
         $scope.getBondMonth = function () {
             var _month = Math.round(this.month.n, 10);
 
-            $http.get("../test/monthlist?month=" + _month + "&year=" + $scope.year, {cache: true})
+            $http.get("../monthlist?month=" + _month + "&year=" + $scope.year, {cache: true})
                 .success(function (data, status) {
                     if (data.status == 200) {
                         $scope.listInfo =  data.data;
@@ -340,10 +344,33 @@ angular.module("personFun", ["ngTouch"])
             $scope.person.status = name;
         };
         $scope.getMoney = function (form) {
-            console.log(form);
+            $http.post("../withDraw", {
+                money: $scope.person.getMoney
+            }).success(function (data) {
+                if (data.status == 200) {
+                    alert("提现成功");
+                }
+            });
         };
         $scope.payMoney = function (form) {
-            console.log(form);
+            $http.post("../recharge", {
+                money: $scope.person.payMoney
+            }).success(function (data) {
+                if (data.status == 200) {
+                    alert("充值成功");
+                }
+            });
+        };
+        $scope.fundPay = function (form){
+
+            $http.post("../debtOrder", {
+                id: $scope.fund._id,
+                money: $scope.person.getMoney
+            }).success(function(data) {
+                if (data.status == 200) {
+                    alert("投资成功");
+                }
+            });
         };
         $scope.voteFund = function (fund) {
             if (fund.allowVote == 1) {
@@ -359,6 +386,25 @@ angular.module("personFun", ["ngTouch"])
                     }
                 });
         };
+        $scope.getLoveAndHonouredData = function (status) {
+            if (status == "love") {
+                $http.get("../charityList", {
+                    cache: true
+                }).success(function (data) {
+                    if (data.status == 200) {
+                        $scope.honouredAndLove.showData.index = data.data;
+                    }
+                });
+            }else{
+                $http.get("../activityList", {
+                    cache: true
+                }).success(function (data) {
+                    if (data.status == 200) {
+                        $scope.honouredAndLove.showData.index = data.data;
+                    }
+                });
+            }
+        }
     }])
     .filter("newWorth", function () {
         return function(input) {
