@@ -52,7 +52,7 @@ Route::get('email',array('before'=>'loginCheck','uses'=>'UserAccountController@e
 
 Route::post('email',array('before'=>'loginCheck','uses'=>'UserAccountController@emailSet'));
 
-Route::post('message',array('before'=>'loginCheck','uses'=>'UserAccountController@messageSet'));
+Route::post('message',array('before'=>'loginCheck','uses'=>'UserAccountController@messageSet'));//用户反馈接口
 
 Route::post('withDraw',array('before'=>'loginCheck','uses'=>'UserAccountController@withdrawDeposit'));//提现接口
 
@@ -63,6 +63,12 @@ Route::post('debtOrder',array('before' => 'loginCheck','uses'=>'DebtController@o
 Route::get('activityList',array('before'=>'loginCheck','uses'=>'ActivityController@activityList'));//贵宾优享列表
 
 Route::get('charityList',array('before'=>'loginCheck','uses'=>'ActivityController@charityList'));//爱心捐赠列表
+
+Route::get('activityContent',array('before'=>'loginCheck','uses'=>'ActivityController@activityContent'));//贵宾优享详情
+
+Route::get('charityContent',array('before'=>'loginCheck','uses'=>'ActivityController@charityContent'));//爱心捐赠详情
+
+Route::post('acOrder',array('before'=>'loginCheck','uses'=>'ActivityController@acOrder'));//爱心捐赠及贵宾优享预约接口
 
 
 
