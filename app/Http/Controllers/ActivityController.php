@@ -304,6 +304,11 @@ class ActivityController extends Controller{
     }
 
 
+    public function acDetail(Request $request){
+
+    }
+
+
 
 
     /*

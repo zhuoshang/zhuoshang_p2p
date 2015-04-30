@@ -10,5 +10,5 @@ use Illuminate\Database\Eloquent\Model;
 class ActivityOrder extends Model{
     protected $table = 'activityOrder';
 
-    public $timestamps = false;
+//    public $timestamps = false;
 }

@@ -70,6 +70,10 @@ Route::get('charityContent',array('before'=>'loginCheck','uses'=>'ActivityContro
 
 Route::post('acOrder',array('before'=>'loginCheck','uses'=>'ActivityController@acOrder'));//爱心捐赠及贵宾优享预约接口
 
+Route::get('acDetail',array('before'=>'loginCheck','uses'=>'ActivityController@acDetail'));//爱心捐赠及贵宾优享明细
+
+Route::post('smsSent','SmsController@smsSent');
+
 
 
 

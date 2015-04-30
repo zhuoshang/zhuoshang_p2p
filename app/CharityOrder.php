@@ -9,5 +9,5 @@ use Illuminate\Database\Eloquent\Model;
 class CharityOrder extends Model{
     protected $table = 'charityOrder';
 
-    public $timestamps = false;
+//    public $timestamps = false;
 }

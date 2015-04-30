@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 04/23/2015 17:16:08 PM
+ Date: 04/30/2015 12:12:36 PM
 */
 
 SET NAMES utf8;
@@ -34,7 +34,7 @@ CREATE TABLE `activity` (
 --  Records of `activity`
 -- ----------------------------
 BEGIN;
-INSERT INTO `activity` VALUES ('2', '顶级别墅装修', '顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修', '2015-04-18 13:58:58', '2015-04-18 13:58:58', '30', '0'), ('3', '顶级跑车优惠', '顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠', '2015-04-18 15:02:10', '2015-04-18 15:02:10', '30', '0');
+INSERT INTO `activity` VALUES ('2', '顶级别墅装修', '顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修', '2015-04-18 13:58:58', '2015-04-29 07:59:36', '30', '2'), ('3', '顶级跑车优惠', '顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠', '2015-04-18 15:02:10', '2015-04-18 15:02:10', '30', '0');
 COMMIT;
 
 -- ----------------------------
@@ -47,12 +47,23 @@ CREATE TABLE `activityOrder` (
   `uid` int(10) unsigned NOT NULL,
   `verify` int(1) NOT NULL DEFAULT '0',
   `sum` decimal(10,2) NOT NULL,
+  `created_at` varchar(25) DEFAULT NULL,
+  `updated_at` varchar(25) DEFAULT NULL,
+  `method` varchar(20) DEFAULT NULL,
+  `remark` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `aid` (`aid`),
   KEY `uid` (`uid`),
   CONSTRAINT `order_activity` FOREIGN KEY (`aid`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_activity_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `activityOrder`
+-- ----------------------------
+BEGIN;
+INSERT INTO `activityOrder` VALUES ('1', '2', '4', '0', '12000.56', null, null, null, null), ('2', '2', '4', '0', '135500.77', '2015-04-29 08:41:19', '2015-04-29 08:41:19', null, null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `activityPic`
@@ -66,13 +77,13 @@ CREATE TABLE `activityPic` (
   PRIMARY KEY (`id`),
   KEY `aid` (`aid`),
   CONSTRAINT `pic_activity` FOREIGN KEY (`aid`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `activityPic`
 -- ----------------------------
 BEGIN;
-INSERT INTO `activityPic` VALUES ('1', '2', 'upload/haozhai.png', '1'), ('2', '3', 'upload/paoche.png', '1');
+INSERT INTO `activityPic` VALUES ('1', '2', 'upload/haozhai.png', '1'), ('2', '3', 'upload/paoche.png', '1'), ('3', '2', 'upload/jinji01.jpg', '0'), ('4', '2', 'upload/jinji01.jpg', '0'), ('5', '3', 'upload/jinji2.jpg', '0'), ('6', '3', 'upload/jinji2.jpg', '0');
 COMMIT;
 
 -- ----------------------------
@@ -115,7 +126,7 @@ CREATE TABLE `charity` (
 --  Records of `charity`
 -- ----------------------------
 BEGIN;
-INSERT INTO `charity` VALUES ('1', '帮助非洲男孩', '帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩', '2015-04-18 14:34:38', '2015-04-18 14:34:38', '30', '0');
+INSERT INTO `charity` VALUES ('1', '帮助非洲男孩', '帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩', '2015-04-18 14:34:38', '2015-04-29 08:00:08', '30', '2');
 COMMIT;
 
 -- ----------------------------
@@ -130,12 +141,21 @@ CREATE TABLE `charityOrder` (
   `verify` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0-后台未审核；1-审核通过；2-审核未通过',
   `created_at` varchar(25) DEFAULT NULL,
   `updated_at` varchar(25) DEFAULT NULL,
+  `method` varchar(20) DEFAULT NULL,
+  `remark` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `cid` (`cid`),
   CONSTRAINT `charity_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_charity` FOREIGN KEY (`cid`) REFERENCES `charity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `charityOrder`
+-- ----------------------------
+BEGIN;
+INSERT INTO `charityOrder` VALUES ('1', '1', '4', '12000.00', '0', null, null, null, null), ('2', '1', '4', '12000.56', '0', null, null, null, null);
+COMMIT;
 
 -- ----------------------------
 --  Table structure for `charityPic`
@@ -442,7 +462,7 @@ CREATE TABLE `withdrawDeposit` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   CONSTRAINT `withdraw_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户提现记录表';
 
 -- ----------------------------
 --  Records of `withdrawDeposit`

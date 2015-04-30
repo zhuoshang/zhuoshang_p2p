@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller as BaseController;
 use Auth;
+use Cache;
 
 class UserAccessController extends Controller
 {
@@ -47,8 +48,17 @@ class UserAccessController extends Controller
         //获取用户输入数据
         $mobile = $request->input('phoneNumber');
         $password = $request->input('password');
+        $checkCode = $request->input('checkCode');
         if($mobile == '' || $password == ''){
             $this->throwERROE(501,'手机号或密码不得为空');
+        }
+
+        $ip = $this->getIP();
+
+        $key = md5('register'.$mobile.$ip);
+        $code = Cache::get($key);
+        if($checkCode != $code){
+            $this->throwERROE(505,'验证码错误');
         }
 
         $userCheck = $this->userCheck($mobile);
