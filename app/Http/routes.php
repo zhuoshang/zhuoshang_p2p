@@ -72,7 +72,7 @@ Route::post('acOrder',array('before'=>'loginCheck','uses'=>'ActivityController@a
 
 Route::get('acDetail',array('before'=>'loginCheck','uses'=>'ActivityController@acDetail'));//爱心捐赠及贵宾优享明细
 
-Route::post('smsSent','SmsController@smsSent');
+Route::post('smsSent','SmsController@smsSent');//短信发送接口
 
 
 

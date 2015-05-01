@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use DB;
 use Auth;
+use Cache;
 
 class ActivityController extends Controller{
 
@@ -131,7 +132,7 @@ class ActivityController extends Controller{
 
 
     /*
-     * 爱心捐赠详情
+     * 贵宾优享详情
      **/
     public function activityContent(Request $request){
         $id = $request->input('id');
@@ -247,10 +248,22 @@ class ActivityController extends Controller{
         $option = $request->input('option');
         $id = $request->input('id');
         $sum = $request->input('money');
+        $checkCode = $request->checkCode;//获取验证码
 
         if(!is_numeric($id) || !is_numeric($sum)){
             $this->throwERROE(500,'数据违法');
         }
+
+        //短信验证码验证
+        $ip = $this->getIP();
+        $mobile = Auth::user()->mobile;
+
+        $key = md5('order'.$mobile.$ip);
+        $code = Cache::get($key);
+        if($checkCode != $code){
+            $this->throwERROE(505,'验证码错误');
+        }
+
 
         if($option == 'charity'){
             $charity = Charity::find($id);
@@ -323,4 +336,25 @@ class ActivityController extends Controller{
 
         exit();
     }
+
+
+    /*
+    *  获取客户端ip地址
+    **/
+    private function getIP(){
+        if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+            $cip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+        elseif(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
+            $cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        }
+        elseif(!empty($_SERVER["REMOTE_ADDR"])){
+            $cip = $_SERVER["REMOTE_ADDR"];
+        }
+        else{
+            $cip = "无法获取！";
+        }
+        return $cip;
+    }
+
 }

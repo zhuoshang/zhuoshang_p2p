@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Routing\Controller as BaseController;
 use Auth;
+use Cache;
 use Zhuzhichao\IpLocationZh\Ip;
 use Illuminate\Support\Facades\Validator;
 
@@ -173,6 +174,17 @@ class UserAccountController extends Controller{
             $this->throwERROE(500,'金额数据格式不合法');
         }
 
+        $checkCode = $request->checkCode;//获取验证码
+
+        $ip = $this->getIP();
+        $mobile = Auth::user()->mobile;
+
+        $key = md5('withdraw'.$mobile.$ip);
+        $code = Cache::get($key);
+        if($checkCode != $code){
+            $this->throwERROE(505,'验证码错误');
+        }
+
         $withdraw = new Withdraw();
         $withdraw->uid = $this->uid;
         $withdraw->sum = $sum;
@@ -236,5 +248,24 @@ class UserAccountController extends Controller{
         ));
 
         exit();
+    }
+
+    /*
+    *  获取客户端ip地址
+    **/
+    private function getIP(){
+        if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+            $cip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+        elseif(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
+            $cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        }
+        elseif(!empty($_SERVER["REMOTE_ADDR"])){
+            $cip = $_SERVER["REMOTE_ADDR"];
+        }
+        else{
+            $cip = "无法获取！";
+        }
+        return $cip;
     }
 }

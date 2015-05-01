@@ -21,24 +21,46 @@ class SmsController extends Controller{
      **/
     public function smsSent(Request $request){
         $option = $request->option;
-        $mobile = $request->phoneNumber;
-
-        //手机号格式验证
-        if(!$this->mobileCheck($mobile)){
-            $this->throwERROE(500,'手机号格式错误');
-        }
-
         $ip = $this->getIP();
 
+        //注册验证短信
         if($option == 'register'){
-            $code = rand(100000,999999);
+            $mobile = $request->phoneNumber;
+
+            //手机号格式验证
+            if(!$this->mobileCheck($mobile)){
+                $this->throwERROE(500,'手机号格式错误');
+            }
+
+
             $key = md5('register'.$mobile.$ip);
 
-            Cache::put($key,$code,30);
+        //预定验证短信
+        }elseif($option == 'order'){
+            if(!Auth::check()){
+                $this->throwERROE(550,'请先登录');
+            }
 
-            $this->Bssend($code,$mobile);
+            $mobile = Auth::user()->mobile;
+            $key = md5('order'.$mobile.$ip);
 
+        //提现验证短信
+        }elseif($option == 'withdraw'){
+            if(!Auth::check()){
+                $this->throwERROE(550,'请先登录');
+            }
+
+            $mobile = Auth::user()->mobile;
+            $key = md5('withdraw'.$mobile.$ip);
+
+        }else{
+            $this->throwERROE(501,'操作不存在');
         }
+
+        $code = rand(100000,999999);
+        Cache::put($key,$code,10);
+
+        $this->Bssend($code,$mobile);
     }
 
 
