@@ -74,6 +74,12 @@ Route::get('acDetail',array('before'=>'loginCheck','uses'=>'ActivityController@a
 
 Route::post('smsSent','SmsController@smsSent');//短信发送接口
 
+Route::get('introduce',array('before'=>'loginCheck','uses'=>'SiteController@introduce'));//获取公司介绍
+
+Route::get('agreement',array('before'=>'loginCheck','uses'=>'SiteController@agreement'));//获取用户协议
+
+
+
 
 
 

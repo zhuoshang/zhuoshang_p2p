@@ -11,4 +11,8 @@ class ActivityOrder extends Model{
     protected $table = 'activityOrder';
 
 //    public $timestamps = false;
+
+    public function user(){
+        return $this->belongsTo('App\FrontUser','uid','front_uid');
+    }
 }

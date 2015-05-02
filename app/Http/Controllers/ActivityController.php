@@ -317,7 +317,62 @@ class ActivityController extends Controller{
     }
 
 
+
+    /*
+     * 贵宾优享及爱心捐赠明细
+     **/
     public function acDetail(Request $request){
+        $option = $request->option;
+        $details = array();
+
+        if($option == 'activity'){
+            $details = ActivityOrder::all();
+
+            $detailData = array();
+            foreach($details as $key=>$detail){
+                $key++;
+                $time = date('Y/m/d',strtotime($detail->updated_at));
+
+                $detailData[] = array(
+                    'id'=>$key,
+                    'user'=>$detail->user->real_name,
+                    'method'=>'线下支付',
+                    'sum'=>$detail->sum,
+                    'time'=>$time,
+                    'remark'=>$detail->remark,
+                );
+            }
+
+        }elseif($option == 'charity'){
+            $details = CharityOrder::all();
+
+            $detailData = array();
+            foreach($details as $key=>$detail){
+                $key++;
+                $time = date('Y/m/d',strtotime($detail->updated_at));
+
+                $detailData[] = array(
+                    'id'=>$key,
+                    'user'=>$detail->user->real_name,
+                    'method'=>'线下支付',
+                    'sum'=>$detail->sum,
+                    'time'=>$time,
+                    'remark'=>$detail->remark,
+                );
+            }
+
+        }else{
+            $this->throwERROE(501,'操作不存在');
+        }
+
+        echo json_encode(array(
+            'status'=>200,
+            'msg'=>'ok',
+            'data'=>$detailData
+
+        ));
+
+        exit();
 
     }
 

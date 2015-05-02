@@ -10,4 +10,8 @@ class CharityOrder extends Model{
     protected $table = 'charityOrder';
 
 //    public $timestamps = false;
+
+    public function user(){
+        return $this->belongsTo('App\FrontUser','uid','front_uid');
+    }
 }
