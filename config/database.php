@@ -66,7 +66,7 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => '127.0.0.1',
+            'host'      => '10.116.107.249',
             'database'  => 'boshang',
             'username'  => 'root',
             'password'  => 'boshangp2p',

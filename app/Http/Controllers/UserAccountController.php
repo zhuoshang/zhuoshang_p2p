@@ -216,6 +216,17 @@ class UserAccountController extends Controller{
             $this->throwERROE(500,'金额数据格式不合法');
         }
 
+        $checkCode = $request->checkCode;//获取验证码
+
+        $ip = $this->getIP();
+        $mobile = Auth::user()->mobile;
+
+        $key = md5('withdraw'.$mobile.$ip);
+        $code = Cache::get($key);
+        if($checkCode != $code){
+            $this->throwERROE(505,'验证码错误');
+        }
+
         $recharge = new Recharge();
         $recharge->uid = $this->uid;
         $recharge->sum = $sum;
