@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use DB;
 use Auth;
+use Cache;
 
 
 /*
@@ -360,6 +361,22 @@ class DebtController extends Controller{
     public function orderSet(Request $request){
         $did = $request->input('id');
         $money = $request->input('money');
+        $checkCode = $request->checkCode;//获取验证码
+
+        if(!is_numeric($did) || !is_numeric($money)){
+            $this->throwERROE(500,'数据违法');
+        }
+
+        //短信验证码验证
+        $ip = $this->getIP();
+        $mobile = Auth::user()->mobile;
+
+        $key = md5('order'.$mobile.$ip);
+        $code = Cache::get($key);
+        if($checkCode != $code){
+            $this->throwERROE(505,'验证码错误');
+        }
+
 
         $order = new DebtOrder();
         $order->uid = $this->uid;
@@ -392,6 +409,26 @@ class DebtController extends Controller{
         ));
 
         exit();
+    }
+
+
+    /*
+    *  获取客户端ip地址
+    **/
+    private function getIP(){
+        if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+            $cip = $_SERVER["HTTP_CLIENT_IP"];
+        }
+        elseif(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
+            $cip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+        }
+        elseif(!empty($_SERVER["REMOTE_ADDR"])){
+            $cip = $_SERVER["REMOTE_ADDR"];
+        }
+        else{
+            $cip = "无法获取！";
+        }
+        return $cip;
     }
 
 
