@@ -171,9 +171,11 @@ class ActivityController extends Controller{
             'status'=>$status
         );
 
-        foreach($activityData->pic as $picture){
-            if($picture->isbanner == 0){
-                $contentData['pic'][] = $picture->url;
+        if($activityData->pic != ''){
+            foreach($activityData->pic as $picture){
+                if($picture->isbanner == 0){
+                    $contentData['pic'][] = $picture->url;
+                }
             }
         }
 
@@ -231,6 +233,14 @@ class ActivityController extends Controller{
             'status'=>$status
         );
 
+        if($charityData->pic != ''){
+            foreach($charityData->pic as $picture){
+                if($picture->isbanner == 0){
+                    $charityContent['pic'][] = $picture->url;
+                }
+            }
+        }
+
         echo json_encode(array(
             'status'=>200,
             'msg'=>'',
@@ -260,7 +270,7 @@ class ActivityController extends Controller{
 
         $key = md5('order'.$mobile.$ip);
         $code = Cache::get($key);
-        if($checkCode != $code){
+        if($checkCode != $code || $checkCode == ''){
             $this->throwERROE(505,'验证码错误');
         }
 

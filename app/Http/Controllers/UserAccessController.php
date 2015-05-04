@@ -14,6 +14,11 @@ use Cache;
 
 class UserAccessController extends Controller
 {
+    public function __construct()
+    {
+        $this->uid = Auth::user()->front_uid;
+        date_default_timezone_set('PRC');
+    }
 
     /*
      * 用户注册页面（激活其账号）
