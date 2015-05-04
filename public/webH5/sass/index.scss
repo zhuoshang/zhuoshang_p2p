@@ -909,6 +909,7 @@ body{
     top: setRem(25);
     color: white;
     font-weight: normal;
+    z-index: 1;
   }
   .logo{
     position: absolute;
@@ -1149,6 +1150,7 @@ body{
   position: relative;
   img{
     display: block;
+    min-width: setRem(600);
     min-height: 2rem;
   }
   .todo{
