@@ -54,12 +54,14 @@ angular.module("personFun", ["ngTouch"])
             status: "index"
         };
         $scope.honouredAndLove = {
+            id: "",
             status: "pay",
             modelName: "活动详情",
             historyModelName: "爱心捐赠",
             showData: {
                 index: "",
-                detail: ""
+                detail: "",
+                exercise: ""
             }
         };
         $scope.honouredAndLoveRoute = function (status, modelName) {
@@ -283,7 +285,6 @@ angular.module("personFun", ["ngTouch"])
         };
         $scope.toFundDetailProduct = function () {
             var _id = this.foundPInfo.id;
-            console.log(this.foundPInfo);
             $scope.fund.detailBaseInfo = this.foundPInfo;
             $scope.fund.status = "detail";
             $scope.fund.modelName = "基金详情";
@@ -316,7 +317,7 @@ angular.module("personFun", ["ngTouch"])
                         $scope.set.data.email = $scope.set.data.sendInfo;
                     }
                 });
-            };
+            }
 
             if ($scope.set.status == "suggest") {
                 $http.post("../message", {
@@ -334,7 +335,19 @@ angular.module("personFun", ["ngTouch"])
             $scope.set.data.sendInfo = $scope.set.data.email;
         };
         $scope.getSecondInfo = function (name) {
-            $scope.set.data.secondData = name;
+            var _dataFrom;
+
+            if (name == "公司介绍") {
+                _dataFrom = "introduce";
+            }else{
+                _dataFrom = "agreement";
+            }
+
+            $http.get("../" + _dataFrom, {cache: true}).success(function (data) {
+                if (data.status == 200) {
+                    $scope.set.data.secondData = data.data;
+                }
+            });
         };
         $scope.backLastStatus = function () {
             $scope.personList = true;
@@ -345,11 +358,43 @@ angular.module("personFun", ["ngTouch"])
         };
         $scope.getMoney = function (form) {
             $http.post("../withDraw", {
-                money: $scope.person.getMoney
+                money: $scope.person.getMoney,
+                checkCode: $scope.person.checkCode
             }).success(function (data) {
                 if (data.status == 200) {
+                    $scope.person.getMoney = "";
+                    $scope.person.checkCode = "";
                     alert("提现成功");
                 }
+            });
+        };
+        $scope.payLHMoney = function (form) {
+            var _dataForm;
+
+            if ($scope.route == "love") {
+                _dataForm =  "charity";
+            }else if ($scope.route == "honoured") {
+                _dataForm = "activity";
+            }
+
+            $http.post("../acOrder", {
+                id: $scope.honouredAndLove.id,
+                money: $scope.person.getMoney,
+                checkCode: $scope.person.checkCode,
+                option: _dataForm
+            }).success(function (data) {
+                if (data.status == 200) {
+                    $scope.person.getMoney = "";
+                    $scope.person.checkCode = "";
+                    alert("预约成功");
+                }
+            });
+        };
+        $scope.getCheckCode = function (name) {
+            $http.post("../smsSent", {
+                option: name,
+            }).success(function (data) {
+               console.log(data);
             });
         };
         $scope.payMoney = function (form) {
@@ -362,10 +407,10 @@ angular.module("personFun", ["ngTouch"])
             });
         };
         $scope.fundPay = function (form){
-
             $http.post("../debtOrder", {
                 id: $scope.fund._id,
-                money: $scope.person.getMoney
+                money: $scope.person.getMoney,
+                checkCode: $scope.person.checkCode
             }).success(function(data) {
                 if (data.status == 200) {
                     alert("投资成功");
@@ -404,6 +449,39 @@ angular.module("personFun", ["ngTouch"])
                     }
                 });
             }
+        };
+        $scope.getHALData = function () {
+            var _dataFrom;
+
+            if ($scope.route == "love") {
+                _dataFrom =  "charity";
+            }else if ($scope.route == "honoured") {
+                _dataFrom = "activity";
+            }
+
+            $http.get("../acDetail?option=" + _dataFrom, {cache: true}).success(function (data) {
+                if (data.status == 200) {
+                    $scope.honouredAndLove.showData.detail = data.data;
+                }
+            });
+        };
+        $scope.getDHLData = function () {
+            var _dataFrom;
+
+            if ($scope.route == "love") {
+                _dataFrom =  "charityContent";
+            }else if ($scope.route == "honoured") {
+                _dataFrom = "activityContent";
+            }
+
+            $scope.honouredAndLove.status = "exercise";
+            $scope.honouredAndLove.id = this.showData.id;
+
+            $http.get("../" + _dataFrom + "?id=" + this.showData.id, {cache: true}).success(function (data) {
+                if (data.status == 200) {
+                    $scope.honouredAndLove.showData.exercise = data.data;
+                }
+            });
         }
     }])
     .filter("newWorth", function () {

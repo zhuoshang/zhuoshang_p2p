@@ -54,9 +54,9 @@
                 <input type="password" id="rr-password" name="rPassword" placeholder="请输入8～16位密码" ng-focus="setUnTouched(register.rPassword)" ng-model="user.password" required ng-minlength="8" ng-maxlength="16"/>
             </label>
             <label for="rr-verify">
-                <input type="text" id="rr-verify" class="rr-verify"  ng-model="user.registerNumber" name="rVerify" placeholder="验证码" ng-focus="setUnTouched(register.rVerify)" required />
+                <input type="text" id="rr-verify" class="rr-verify"  ng-model="user.checkCode" name="rVerify" placeholder="验证码" ng-focus="setUnTouched(register.rVerify)" required />
             </label>
-            <div class="g-verify">
+            <div class="g-verify" ng-click="getCheckCode('register')">
                 点击获取
             </div>
             <input type="submit" class="m-register-t" value="注册" ng-click="sRegister(register)" />

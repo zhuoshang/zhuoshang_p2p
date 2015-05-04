@@ -16,7 +16,7 @@ class UserAccessController extends Controller
 {
     public function __construct()
     {
-        $this->uid = Auth::user()->front_uid;
+        //$this->uid = Auth::user()->front_uid;
         date_default_timezone_set('PRC');
     }
 

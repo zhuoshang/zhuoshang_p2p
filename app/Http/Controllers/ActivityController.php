@@ -48,6 +48,7 @@ class ActivityController extends Controller{
             }
 
             $activityData[] = array(
+                'id'=>$list->id,
                 'title'=>$list->title,
                 'pic'=>$url,
                 'clicks'=>$list->click,
@@ -105,6 +106,7 @@ class ActivityController extends Controller{
             }
 
             $charityData[] = array(
+                'id'=>$list->id,
                 'title'=>$list->title,
                 'pic'=>$url,
                 'clicks'=>$list->click,
@@ -174,7 +176,7 @@ class ActivityController extends Controller{
         if($activityData->pic != ''){
             foreach($activityData->pic as $picture){
                 if($picture->isbanner == 0){
-                    $contentData['pic'][] = $picture->url;
+                    $contentData['pic'][] = asset($picture->url);
                 }
             }
         }
@@ -236,7 +238,7 @@ class ActivityController extends Controller{
         if($charityData->pic != ''){
             foreach($charityData->pic as $picture){
                 if($picture->isbanner == 0){
-                    $charityContent['pic'][] = $picture->url;
+                    $charityContent['pic'][] = asset($picture->url);
                 }
             }
         }

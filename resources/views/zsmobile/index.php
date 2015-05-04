@@ -39,18 +39,18 @@
             <i class="iconfont h-i-list" ng-if="honouredAndLove.status =='index'" ng-click="toPersonList()">&#xe600;</i>
             <i class="iconfont h-i-return" ng-if="honouredAndLove.status !='index'" ng-click="honouredAndLoveRouteBack('index')">&#xe601;</i>
             <span class="h-i-model">{{honouredAndLove.modelName}}</span>
-            <span class="wfz30" ng-click="honouredAndLoveRoute('detail', '明细')" ng-if="honouredAndLove.status == 'index'">明细</span>
+            <span class="wfz30" ng-click="honouredAndLoveRoute('detail', '明细');getHALData()" ng-if="honouredAndLove.status == 'index'">明细</span>
         </nav>
     </header>
     <section class="love-and-honoured-index" ng-if="honouredAndLove.status == 'index'">
-        <div class="l-h-i-box" ng-repeat="showData in honouredAndLove.showData.index">
+        <div class="l-h-i-box" ng-repeat="showData in honouredAndLove.showData.index" ng-click="getDHLData()">
             <div class="l-h-i-img-todo">
                 <img ng-src="{{showData.pic}}" />
                 <span class="todo">{{showData.title}}</span>
             </div>
             <div class="l-h-i-l-info">
                 <div class="i-left">
-                    <p class="i-l-f">捐助时间: <span ng-class="{'i-activity': showData.status == 1, 'i-no-activity': showData.status == 0}">2014.01.30 - 2015.03.30</span></p>
+                    <p class="i-l-f">捐助时间: <span ng-class="{'i-activity': showData.status == 1, 'i-no-activity': showData.status == 0}">{{showData.begin}} - {{showData.end}}</span></p>
                     <p class="i-l-s">
                         <span>
                             <i class="iconfont">&#xe615;</i> {{showData.clicks}}
@@ -95,42 +95,50 @@
         </div>-->
     </section>
     <section class="love-and-honoured-detail" ng-if="honouredAndLove.status == 'detail'">
-        <header>435345345</header>
+        <header>待定</header>
         <table>
             <thead>
-            <tr>
-                <td>序号</td>
-                <td>捐款者</td>
-                <td>捐款方式</td>
-                <td>捐款金额
-                    (元)</td>
-                <td>制单日期</td>
-                <td>备注</td>
-            </tr>
+                <tr>
+                    <td>序号</td>
+                    <td>捐款者</td>
+                    <td>捐款方式</td>
+                    <td>捐款金额
+                        (元)</td>
+                    <td>制单日期</td>
+                    <td>备注</td>
+                </tr>
+                <tr ng-repeat="showData in honouredAndLove.showData.detail">
+                    <td>{{showData.id}}</td>
+                    <td>{{showData.user}}</td>
+                    <td>{{showData.method}}</td>
+                    <td>{{showData.sum}}</td>
+                    <td>{{showData.time}}</td>
+                    <td>{{showData.remark}}</td>
+                </tr>
             </thead>
         </table>
     </section>
     <section class="love-and-honoured-exercise" ng-if="honouredAndLove.status == 'exercise'">
         <header>
-            <h1 class="exercise-title">1212</h1>
+            <h1 class="exercise-title">{{honouredAndLove.showData.exercise.title}}</h1>
             <p class="exercise-time">
-                捐助时间: <b class="active">2015-</b>
+                捐助时间: <b class="active">{{honouredAndLove.showData.exercise.begin}} - {{honouredAndLove.showData.exercise.end}}</b>
             </p>
             <p class="exercise-info">
                 <span>
-                    <i class="iconfont">&#xe615;</i> 1024
+                    <i class="iconfont">&#xe615;</i> {{honouredAndLove.showData.exercise.click}}
                 </span>
                 <span>
-                    <i class="iconfont">&#xe616;</i> 1024
+                    <i class="iconfont">&#xe616;</i> {{honouredAndLove.showData.exercise.words}}
                 </span>
                 <span>
-                    <i class="iconfont">&#xe614;</i> 1024
+                    <i class="iconfont">&#xe614;</i> {{honouredAndLove.showData.exercise.pics}}
                 </span>
             </p>
         </header>
-        <img src="../images/about-logo.png" class="exercise-cover" />
+        <img ng-src="{{imgSrc}}" class="exercise-cover" ng-repeat="imgSrc in honouredAndLove.showData.exercise.pic track by $index" />
         <div class="exercise-content">
-            2313123
+            {{honouredAndLove.showData.exercise.content}}
         </div>
         <footer class="f-d-c f-d-c-a" ng-click="honouredAndLoveRoute('pay', '付款页面')">我要捐款</footer>
     </section>
@@ -143,15 +151,15 @@
                 <span class="s-right">默认线下支付</span>
             </div>
             <label for="d-money">
-                <input type="text" id="d-money" name="dMoney" placeholder="请输入支付金额" ng-model="person.payMonery" />
+                <input type="text" id="d-money" name="dMoney" placeholder="请输入支付金额" ng-model="person.getMoney" />
             </label>
             <label for="p-verify">
-                <input type="text" id="d-verify" class="d-verify" name="dVerify" placeholder="验证码" required />
+                <input type="text" id="d-verify" class="d-verify" name="dVerify" placeholder="验证码" required  ng-model="person.checkCode" />
             </label>
-            <div class="pp-verify">
+            <div class="pp-verify" ng-click="getCheckCode('order')">
                 点击获取
             </div>
-            <input type="submit" class="p-sure" value="确定" />
+            <input type="submit" class="p-sure" value="确定" ng-click="payLHMoney()" />
         </form>
     </section>
 </section>
@@ -283,7 +291,7 @@
             <i class="iconfont h-i-list" ng-click="toPersonList()" ng-if="fund.status == 'list'">&#xe600;</i>
             <i class="iconfont h-i-return" ng-if="fund.status !='list'" ng-click="fundRoute('list', '基金产品')">&#xe601;</i>
             <span class="h-i-model">{{fund.modelName}}</span>
-            <i class="i-q" ng-if="fund.status == 'list'" ng-click="fundRoute('introduce', '公司介绍')">?</i>
+            <i class="i-q" ng-if="fund.status == 'list'" ng-click="fundRoute('introduce', '公司介绍');getSecondInfo('公司介绍')">?</i>
         </nav>
     </header>
     <section class="fund-product-detail" ng-if="fund.status == 'detail'">
@@ -384,7 +392,7 @@
         </div>
     </section>
     <section class="fund-introduce" ng-if="fund.status == 'introduce'">
-        1231231
+        {{set.data.secondData}}
     </section>
     <section class="fund-pay" ng-if="fund.status == 'pay'">
         <i class="iconfont h-i-return f-i-reutrn" ng-click="fundRoute('detail', '基金详情')">&#xe601;</i>
@@ -398,9 +406,9 @@
                 <input type="text" id="f-money" name="fMoney" placeholder="请输入提现金额" ng-model="person.getMoney" required />
             </label>
             <label for="f-verify">
-                <input type="text" id="f-verify" class="f-verify" name="fVerify" placeholder="验证码" required />
+                <input type="text" id="f-verify" class="f-verify" ng-model="person.checkCode" name="fVerify" placeholder="验证码" required />
             </label>
-            <div class="gg-verify">
+            <div class="gg-verify" ng-click="getCheckCode('order')">
                 点击获取
             </div>
             <input type="submit" class="g-sure" value="确定" ng-click="fundPay(f-p-form)" />
@@ -568,9 +576,9 @@
                 <input type="text" id="g-money" name="gMoney" placeholder="请输入提现金额" ng-model="person.getMoney" required />
             </label>
             <label for="g-verify">
-                <input type="text" id="g-verify" class="g-verify" name="gVerify" placeholder="验证码" required />
+                <input type="text" id="g-verify" class="g-verify" ng-model="person.checkCode" name="gVerify" placeholder="验证码" required />
             </label>
-            <div class="gg-verify">
+            <div class="gg-verify" ng-click="getCheckCode('withdraw')">
                 点击获取
             </div>
             <input type="submit" class="g-sure" value="确定" ng-click="getMoney(gForm)" />

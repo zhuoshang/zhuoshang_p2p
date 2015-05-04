@@ -36,6 +36,15 @@ angular.module("loginAndRegister", ["ngTouch"])
             }
         };
 
+        $scope.getCheckCode = function (name) {
+            $http.post("../smsSent", {
+                option: name,
+                phoneNumber: $scope.user.phoneNumber
+            }).success(function (data) {
+                console.log(data);
+            });
+        };
+
         $scope.sLogin = function (form) {
             if (form.$valid) {
                 $http.post("../login", $scope.user)

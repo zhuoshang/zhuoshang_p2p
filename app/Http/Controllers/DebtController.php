@@ -373,6 +373,7 @@ class DebtController extends Controller{
 
         $key = md5('order'.$mobile.$ip);
         $code = Cache::get($key);
+
         if($checkCode != $code){
             $this->throwERROE(505,'验证码错误');
         }
