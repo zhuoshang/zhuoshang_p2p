@@ -9,7 +9,7 @@
  Target Server Version : 50615
  File Encoding         : utf-8
 
- Date: 05/02/2015 12:33:47 PM
+ Date: 05/08/2015 11:48:40 AM
 */
 
 SET NAMES utf8;
@@ -34,7 +34,7 @@ CREATE TABLE `activity` (
 --  Records of `activity`
 -- ----------------------------
 BEGIN;
-INSERT INTO `activity` VALUES ('2', '顶级别墅装修', '顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修', '2015-04-18 13:58:58', '2015-04-29 07:59:36', '30', '2'), ('3', '顶级跑车优惠', '顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠', '2015-04-18 15:02:10', '2015-04-18 15:02:10', '30', '0');
+INSERT INTO `activity` VALUES ('2', '顶级别墅装修', '顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修顶级别墅装修', '2015-04-18 13:58:58', '2015-05-04 08:05:20', '30', '6'), ('3', '顶级跑车优惠', '顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠顶级跑车优惠', '2015-04-18 15:02:10', '2015-05-04 15:26:16', '30', '4');
 COMMIT;
 
 -- ----------------------------
@@ -56,13 +56,13 @@ CREATE TABLE `activityOrder` (
   KEY `uid` (`uid`),
   CONSTRAINT `order_activity` FOREIGN KEY (`aid`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_activity_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `activityOrder`
 -- ----------------------------
 BEGIN;
-INSERT INTO `activityOrder` VALUES ('1', '2', '4', '0', '12000.56', null, null, null, null), ('2', '2', '4', '0', '135500.77', '2015-04-29 08:41:19', '2015-04-29 08:41:19', null, null), ('3', '2', '4', '0', '1444.00', '2015-05-01 09:14:16', '2015-05-01 09:14:16', null, null);
+INSERT INTO `activityOrder` VALUES ('1', '2', '4', '0', '12000.56', null, null, null, null), ('2', '2', '4', '0', '135500.77', '2015-04-29 08:41:19', '2015-04-29 08:41:19', null, null), ('3', '2', '4', '0', '1444.00', '2015-05-01 09:14:16', '2015-05-01 09:14:16', null, null), ('5', '2', '4', '0', '120000.00', '2015-05-02 18:41:54', '2015-05-02 18:41:54', null, null), ('6', '3', '4', '0', '100.00', '2015-05-04 08:48:55', '2015-05-04 08:48:55', null, null);
 COMMIT;
 
 -- ----------------------------
@@ -71,19 +71,20 @@ COMMIT;
 DROP TABLE IF EXISTS `activityPic`;
 CREATE TABLE `activityPic` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `aid` int(10) unsigned NOT NULL,
-  `url` varchar(100) NOT NULL,
+  `aid` int(10) unsigned DEFAULT NULL,
+  `url` varchar(255) NOT NULL,
+  `absolute_url` varchar(255) DEFAULT NULL,
   `isbanner` int(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `aid` (`aid`),
   CONSTRAINT `pic_activity` FOREIGN KEY (`aid`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `activityPic`
 -- ----------------------------
 BEGIN;
-INSERT INTO `activityPic` VALUES ('1', '2', 'upload/haozhai.png', '1'), ('2', '3', 'upload/paoche.png', '1'), ('3', '2', 'upload/jinji01.jpg', '0'), ('4', '2', 'upload/jinji01.jpg', '0'), ('5', '3', 'upload/jinji2.jpg', '0'), ('6', '3', 'upload/jinji2.jpg', '0');
+INSERT INTO `activityPic` VALUES ('1', '2', 'upload/haozhai.png', null, '1'), ('2', '3', 'upload/paoche.png', null, '1'), ('3', '2', 'upload/jinji01.jpg', null, '0'), ('4', '2', 'upload/jinji01.jpg', null, '0'), ('5', '3', 'upload/jinji2.jpg', null, '0'), ('6', '3', 'upload/jinji2.jpg', null, '0'), ('17', null, 'http://localhost/zhuoshang_admin/public/uploads/activity/2015-05-07/photo/2e72b9adbb8ec436b862e04cc599054a.jpg', '/Library/WebServer/Documents/zhuoshang_admin/public/uploads/activity/2015-05-07/photo/2e72b9adbb8ec436b862e04cc599054a.jpg', '0'), ('18', null, 'http://localhost/zhuoshang_admin/public/uploads/activity/2015-05-07/photo/0105409c0d44babd4617acc0883960bf.jpg', '/Library/WebServer/Documents/zhuoshang_admin/public/uploads/activity/2015-05-07/photo/0105409c0d44babd4617acc0883960bf.jpg', '0'), ('19', null, 'http://localhost/zhuoshang_admin/public/uploads/activity/2015-05/photo/cb33636fcff27ddcbf1329c0af447eb7.jpg', '/Library/WebServer/Documents/zhuoshang_admin/public/uploads/activity/2015-05/photo/cb33636fcff27ddcbf1329c0af447eb7.jpg', '0');
 COMMIT;
 
 -- ----------------------------
@@ -95,16 +96,17 @@ CREATE TABLE `admin` (
   `uid` int(10) unsigned NOT NULL,
   `name` varchar(25) NOT NULL,
   `level` int(1) unsigned NOT NULL DEFAULT '1' COMMENT '1-普通管理员；2-超级管理员',
+  `remember_token` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   CONSTRAINT `admin_user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `admin`
 -- ----------------------------
 BEGIN;
-INSERT INTO `admin` VALUES ('1', '10', 'tianling', '2'), ('2', '11', 'tianling11', '1'), ('3', '12', 'tianling112', '2');
+INSERT INTO `admin` VALUES ('1', '10', 'tianling', '2', 'tMBnDsIAyqzvoiZzmC2NRT4yYkpc8IsTQZoBrW9JwV150KbUrSyTvhgcpw11');
 COMMIT;
 
 -- ----------------------------
@@ -144,7 +146,7 @@ CREATE TABLE `charity` (
 --  Records of `charity`
 -- ----------------------------
 BEGIN;
-INSERT INTO `charity` VALUES ('1', '帮助非洲男孩', '帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩', '2015-04-18 14:34:38', '2015-04-29 08:00:08', '30', '2');
+INSERT INTO `charity` VALUES ('1', '帮助非洲男孩', '帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩帮助非洲男孩', '2015-04-18 14:34:38', '2015-05-04 15:26:12', '30', '31');
 COMMIT;
 
 -- ----------------------------
@@ -166,13 +168,13 @@ CREATE TABLE `charityOrder` (
   KEY `cid` (`cid`),
   CONSTRAINT `charity_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_charity` FOREIGN KEY (`cid`) REFERENCES `charity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `charityOrder`
 -- ----------------------------
 BEGIN;
-INSERT INTO `charityOrder` VALUES ('1', '1', '4', '12000.00', '0', null, null, null, null), ('2', '1', '4', '12000.56', '0', null, null, null, '好心人啊'), ('3', '1', '4', '1444.00', '0', '2015-05-01 09:14:39', '2015-05-01 09:14:39', null, '好心人啊');
+INSERT INTO `charityOrder` VALUES ('1', '1', '4', '12000.00', '0', null, null, null, null), ('2', '1', '4', '12000.56', '0', null, null, null, '好心人啊'), ('3', '1', '4', '1444.00', '0', '2015-05-01 09:14:39', '2015-05-01 09:14:39', null, '好心人啊'), ('4', '1', '4', '100.00', '0', '2015-05-04 08:48:05', '2015-05-04 08:48:05', null, null);
 COMMIT;
 
 -- ----------------------------
@@ -181,20 +183,21 @@ COMMIT;
 DROP TABLE IF EXISTS `charityPic`;
 CREATE TABLE `charityPic` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `cid` int(10) unsigned NOT NULL COMMENT '对应捐赠项目id',
-  `url` varchar(100) NOT NULL,
+  `cid` int(10) unsigned DEFAULT NULL COMMENT '对应捐赠项目id',
+  `url` varchar(255) NOT NULL,
+  `absolute_url` varchar(255) DEFAULT NULL,
   `isbanner` int(1) NOT NULL DEFAULT '0' COMMENT '是否作为banner，0-不是；1-是',
   PRIMARY KEY (`id`),
   KEY `cid` (`cid`),
   KEY `isbanner` (`isbanner`) USING BTREE,
   CONSTRAINT `charity` FOREIGN KEY (`cid`) REFERENCES `charity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `charityPic`
 -- ----------------------------
 BEGIN;
-INSERT INTO `charityPic` VALUES ('1', '1', 'upload/feizhou.png', '1');
+INSERT INTO `charityPic` VALUES ('1', '1', 'upload/feizhou.png', null, '1'), ('2', '1', 'upload/jinji01.jpg', null, '0'), ('3', '1', 'upload/jinji01.jpg', null, '0');
 COMMIT;
 
 -- ----------------------------
@@ -249,7 +252,7 @@ CREATE TABLE `debtBuy` (
 --  Records of `debtBuy`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtBuy` VALUES ('1', '1', '4', '21313123', '90', '10000', '4', '2015'), ('2', '2', '4', '22232323', '90', '50000', '4', '2015'), ('3', '1', '2', '21313213', '90', '5000', '4', '2015');
+INSERT INTO `debtBuy` VALUES ('1', '1', '4', '21313123', '90', '10000', '5', '2015'), ('2', '2', '4', '22232323', '90', '50000', '5', '2015'), ('3', '1', '2', '21313213', '90', '5000', '5', '2015');
 COMMIT;
 
 -- ----------------------------
@@ -296,13 +299,13 @@ CREATE TABLE `debtOrder` (
   KEY `uid` (`uid`),
   CONSTRAINT `debt_order` FOREIGN KEY (`did`) REFERENCES `debt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `order_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `debtOrder`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtOrder` VALUES ('2', '1', '4', '0', '50000.00', '2015-04-11 23:58:25', '2015-04-11 23:58:25'), ('3', '1', '4', '0', '100.00', '2015-04-20 10:10:49', '2015-04-20 10:10:49'), ('4', '1', '4', '0', '100.00', '2015-04-20 10:12:52', '2015-04-20 10:12:52'), ('5', '1', '4', '0', '200.00', '2015-04-20 10:14:05', '2015-04-20 10:14:05'), ('6', '2', '4', '0', '14445.00', '2015-05-01 17:17:32', '2015-05-01 17:17:32');
+INSERT INTO `debtOrder` VALUES ('2', '1', '4', '0', '50000.00', '2015-04-11 23:58:25', '2015-04-11 23:58:25'), ('3', '1', '4', '0', '100.00', '2015-04-20 10:10:49', '2015-04-20 10:10:49'), ('4', '1', '4', '0', '100.00', '2015-04-20 10:12:52', '2015-04-20 10:12:52'), ('5', '1', '4', '0', '200.00', '2015-04-20 10:14:05', '2015-04-20 10:14:05'), ('6', '2', '4', '0', '14445.00', '2015-05-01 17:17:32', '2015-05-01 17:17:32'), ('7', '1', '4', '0', '100.00', '2015-05-04 16:35:10', '2015-05-04 16:35:10');
 COMMIT;
 
 -- ----------------------------
@@ -311,8 +314,9 @@ COMMIT;
 DROP TABLE IF EXISTS `debtPic`;
 CREATE TABLE `debtPic` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `did` int(10) unsigned NOT NULL,
-  `url` varchar(100) NOT NULL,
+  `did` int(10) unsigned DEFAULT NULL,
+  `url` varchar(255) NOT NULL,
+  `absolute_url` varchar(255) DEFAULT NULL,
   `type` varchar(15) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `did` (`did`),
@@ -325,7 +329,7 @@ CREATE TABLE `debtPic` (
 --  Records of `debtPic`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtPic` VALUES ('1', '1', 'upload/jinji01.jpg', 'jpg'), ('2', '1', 'upload/jinji2.jpg', 'jpg'), ('3', '2', 'upload/benpao1.jpg', 'jpg'), ('4', '2', 'upload/benpao2.jpg', 'jpg'), ('5', '3', 'upload/sanxia1.jpeg', 'jpeg');
+INSERT INTO `debtPic` VALUES ('1', '1', 'upload/jinji01.jpg', null, 'jpg'), ('2', '1', 'upload/jinji2.jpg', null, 'jpg'), ('3', '2', 'upload/benpao1.jpg', null, 'jpg'), ('4', '2', 'upload/benpao2.jpg', null, 'jpg'), ('5', '3', 'upload/sanxia1.jpeg', null, 'jpeg');
 COMMIT;
 
 -- ----------------------------
@@ -335,14 +339,19 @@ DROP TABLE IF EXISTS `debtProtection`;
 CREATE TABLE `debtProtection` (
   `id` int(1) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`)
+  `did` int(10) unsigned NOT NULL,
+  `absolute_url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `did` (`did`),
+  KEY `did_2` (`did`),
+  CONSTRAINT `pro_debt` FOREIGN KEY (`did`) REFERENCES `debt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `debtProtection`
 -- ----------------------------
 BEGIN;
-INSERT INTO `debtProtection` VALUES ('1', 'upload/protection.png');
+INSERT INTO `debtProtection` VALUES ('1', 'upload/protection.png', '1', null);
 COMMIT;
 
 -- ----------------------------
@@ -386,16 +395,20 @@ CREATE TABLE `frontUser` (
   `userIntro` text,
   `aboutUser` text,
   `idCard` varchar(20) DEFAULT NULL COMMENT '身份证号',
+  `action_admin` int(3) unsigned DEFAULT NULL COMMENT '操作管理员',
   PRIMARY KEY (`front_uid`),
   KEY `uid` (`uid`),
+  KEY `action_admin` (`action_admin`),
+  KEY `action_admin_2` (`action_admin`),
+  CONSTRAINT `action_admin` FOREIGN KEY (`action_admin`) REFERENCES `admin` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
   CONSTRAINT `user` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `frontUser`
 -- ----------------------------
 BEGIN;
-INSERT INTO `frontUser` VALUES ('2', '5', null, 'activity123', '13618374657', null, 'BzFgwBVvjcOyoiZwCA30hozDFkZHqbIwnPWUYvXheaXaZZvrhApt0dKn1jmW', '2015-04-30 04:35:17', '2015-04-03 08:18:21', '1123455666', '1', '200000.00', null, null, null, null, null, '530103199210293715'), ('3', '6', null, 'ding', '1587793654', null, null, '2015-04-03 08:25:22', '2015-04-03 08:25:22', null, '0', '0.00', null, null, null, null, null, null), ('4', '7', null, 'tianling', '13399857034', '2507073658@qq.com', 'xIth4o2xRozginvWBcwFybLXz36nb3OKwdyGu4ki8vU4AyGAQ1vcFgNQgIOW', '2015-04-09 11:15:07', '2015-04-04 17:31:29', null, '0', '0.00', null, null, null, null, null, null), ('5', '9', null, 'tianlin2', '13529194568', null, null, '2015-04-04 17:43:35', '2015-04-04 17:43:35', null, '0', '0.00', null, null, null, null, null, null), ('6', '13', null, '风天凌', '13399857036', null, null, '2015-04-30 18:00:04', '2015-04-30 18:00:04', null, null, null, null, null, null, null, null, null), ('7', '14', null, '风天凌12345', '13399857037', null, null, '2015-04-30 18:06:36', '2015-04-30 18:06:36', null, null, null, null, null, null, null, null, null);
+INSERT INTO `frontUser` VALUES ('2', '5', null, 'activity123', '13618374657', null, 'BzFgwBVvjcOyoiZwCA30hozDFkZHqbIwnPWUYvXheaXaZZvrhApt0dKn1jmW', '2015-04-30 04:35:17', '2015-04-03 08:18:21', '1123455666', '1', '200000.00', null, null, null, null, null, '530103199210293715', null), ('3', '6', null, 'ding', '1587793654', null, null, '2015-05-03 15:42:42', '2015-04-03 08:25:22', null, '0', '0.00', null, null, null, null, null, null, '1'), ('4', '7', null, 'tianling', '13399857034', '2507073658@qq.com', 'SoULBCfTkEX1si0Te3F4EFy1vMtI6RlOW4I4QHtBPJrovsHXYzD1Iy5kdAPl', '2015-05-06 00:45:56', '2015-04-04 17:31:29', null, '0', '0.00', null, null, null, null, null, null, null), ('5', '9', null, 'tianlin2', '13529194568', null, null, '2015-04-04 17:43:35', '2015-04-04 17:43:35', null, '0', '0.00', null, null, null, null, null, null, null), ('6', '13', null, '风天凌', '13399857036', null, null, '2015-04-30 18:00:04', '2015-04-30 18:00:04', null, null, null, null, null, null, null, null, null, null), ('7', '14', null, '风天凌12345', '13399857037', null, null, '2015-04-30 18:06:36', '2015-04-30 18:06:36', null, null, null, null, null, null, null, null, null, null), ('8', '15', null, 'tan', '13008329397', null, null, '2015-05-04 16:52:57', '2015-05-04 16:52:57', null, null, null, null, null, null, null, null, null, null);
 COMMIT;
 
 -- ----------------------------
@@ -476,13 +489,13 @@ CREATE TABLE `user` (
   `remember_token` varchar(255) DEFAULT NULL,
   `modify` int(5) unsigned DEFAULT '0' COMMENT '信息修改次数',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('5', '$2y$10$QEV5bXJ7f4Zgv.TsrCp/MucG/g.Il5jJyqrzEveBYzW4tVBaGKr42', '125.87.198.250', '1428113402', '0', null, '2015-04-04 02:10:02', null, '0'), ('6', null, null, null, '1', null, null, null, '0'), ('7', '$2y$10$G0MPMOrSrRDvkJRW4EZLru1obSO6o.qY2nvLkmMrfDj/tRKyLPsZe', '125.87.198.250', '1428168784', '0', '2015-04-04 17:31:29', '2015-04-04 17:33:04', null, '0'), ('9', null, null, null, '1', '2015-04-04 17:43:35', '2015-04-04 17:43:35', null, '0'), ('10', '$2y$10$tyGiDi7d4oY9Yx7RMTpAm.JNTFsHPXRa2hNLPLulqnx/vFEfzGWTO', '127.0.0.1', '1429156105', '0', '2015-04-16 03:48:25', '2015-04-16 03:48:25', null, '0'), ('11', '$2y$10$1bI9v2gr96naJUblcV81ju198Ucaz4cv1TtWIXdjZM1Gw59ugtS8y', '127.0.0.1', '1429196438', '0', '2015-04-16 15:00:38', '2015-04-16 15:00:38', null, '0'), ('12', '$2y$10$X2RTjx1HcFfMNXNYgM7Ft.5CE5VKP7q80AwXhJkvhJYIC0m98urx6', '127.0.0.1', '1429344396', '0', '2015-04-18 08:06:36', '2015-04-18 08:06:36', null, '0'), ('13', '$2y$10$Qu62eiQsDHMdc1gKCin3pOl0W08CT2oFstydQw2veHHBqb/On3R4e', '127.0.0.1', '1430417106', '0', '2015-04-30 18:00:04', '2015-04-30 18:05:06', null, '0'), ('14', '$2y$10$Ex5sW0d7ZPWWcEVU3uMt1.rY7FbqXH7Mv2TlanIlYK7Er3Cd8EiSW', '127.0.0.1', '1430417232', '0', '2015-04-30 18:06:36', '2015-04-30 18:07:12', null, '0');
+INSERT INTO `user` VALUES ('5', '$2y$10$QEV5bXJ7f4Zgv.TsrCp/MucG/g.Il5jJyqrzEveBYzW4tVBaGKr42', '125.87.198.250', '1428113402', '0', null, '2015-04-04 02:10:02', null, '0'), ('6', null, null, null, '1', null, null, null, '0'), ('7', '$2y$10$G0MPMOrSrRDvkJRW4EZLru1obSO6o.qY2nvLkmMrfDj/tRKyLPsZe', '125.87.198.250', '1428168784', '0', '2015-04-04 17:31:29', '2015-04-04 17:33:04', null, '0'), ('9', null, null, null, '1', '2015-04-04 17:43:35', '2015-04-04 17:43:35', null, '0'), ('10', '$2y$10$tyGiDi7d4oY9Yx7RMTpAm.JNTFsHPXRa2hNLPLulqnx/vFEfzGWTO', '127.0.0.1', '1430924759', '0', '2015-04-16 03:48:25', '2015-05-06 23:05:59', null, '0'), ('13', '$2y$10$Qu62eiQsDHMdc1gKCin3pOl0W08CT2oFstydQw2veHHBqb/On3R4e', '127.0.0.1', '1430417106', '0', '2015-04-30 18:00:04', '2015-04-30 18:05:06', null, '0'), ('14', '$2y$10$Ex5sW0d7ZPWWcEVU3uMt1.rY7FbqXH7Mv2TlanIlYK7Er3Cd8EiSW', '127.0.0.1', '1430417232', '0', '2015-04-30 18:06:36', '2015-04-30 18:07:12', null, '0'), ('15', '$2y$10$KDi57OeySikSbgC7TyTX4OsoeSyB2En8pizq4r1Ln6Hubh4hdOS/e', '127.0.0.1', '1430730132', '0', '2015-05-04 16:52:57', '2015-05-04 17:02:12', null, '0');
 COMMIT;
 
 -- ----------------------------
@@ -499,13 +512,13 @@ CREATE TABLE `withdrawDeposit` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   CONSTRAINT `withdraw_user` FOREIGN KEY (`uid`) REFERENCES `frontUser` (`front_uid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户提现记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户提现记录表';
 
 -- ----------------------------
 --  Records of `withdrawDeposit`
 -- ----------------------------
 BEGIN;
-INSERT INTO `withdrawDeposit` VALUES ('1', '4', '10000.00', '2015-04-10 21:39:57', '2015-04-10 21:39:57', '0'), ('2', '4', '1000.00', '2015-04-20 10:22:50', '2015-04-20 10:22:50', '0'), ('3', '4', '1444.00', '2015-05-01 17:05:27', '2015-05-01 17:05:27', '0');
+INSERT INTO `withdrawDeposit` VALUES ('1', '4', '10000.00', '2015-04-10 21:39:57', '2015-04-10 21:39:57', '0'), ('2', '4', '1000.00', '2015-04-20 10:22:50', '2015-04-20 10:22:50', '0'), ('3', '4', '1444.00', '2015-05-01 17:05:27', '2015-05-01 17:05:27', '0'), ('4', '4', '100.00', '2015-05-04 16:27:33', '2015-05-04 16:27:33', '0');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

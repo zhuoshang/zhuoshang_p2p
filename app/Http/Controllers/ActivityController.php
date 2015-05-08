@@ -238,7 +238,7 @@ class ActivityController extends Controller{
         if($charityData->pic != ''){
             foreach($charityData->pic as $picture){
                 if($picture->isbanner == 0){
-                    $charityContent['pic'][] = asset($picture->url);
+                    $charityContent['pic'][] = $picture->url;
                 }
             }
         }
