@@ -22,7 +22,9 @@ Route::get('zsmobile/login','UserAccessController@loginPage');
 
 Route::get('zsmobile/register','UserAccessController@registerPage');
 
-Route::post('login','UserAccessController@login');
+Route::get('zsmobile/login','UserAccessController@loginPage');//登录页面
+
+
 
 
 #zsmobile API
@@ -30,27 +32,27 @@ Route::post('login','UserAccessController@login');
 
 
 #公共API
-Route::post('register','UserAccessController@register');
+Route::post('register','UserAccessController@register');//注册接口
 
-Route::get('zsmobile/login','UserAccessController@loginPage');
+Route::post('login','UserAccessController@login');//登录接口
 
-Route::get('list', array('before' => 'loginCheck','uses'=>'DebtController@debtList'));
+Route::get('list', array('before' => 'loginCheck','uses'=>'DebtController@debtList'));//当月资产列表接口
 
-Route::get('monthlist',array('before' => 'loginCheck','uses'=>'DebtController@monthDebtList'));
+Route::get('monthlist',array('before' => 'loginCheck','uses'=>'DebtController@monthDebtList'));//按月查询资产列表接口
 
-Route::get('debtTable',array('before'=>'loginCheck','uses'=>'DebtController@debtTable'));
+Route::get('debtTable',array('before'=>'loginCheck','uses'=>'DebtController@debtTable'));//正在发布的基金列表
 
-Route::get('debtTypeList',array('before'=>'loginCheck','uses'=>'DebtController@DebtTypeList'));
+Route::get('debtTypeList',array('before'=>'loginCheck','uses'=>'DebtController@DebtTypeList'));//基金类型列表
 
-Route::get('userinfo',array('before'=>'loginCheck','uses'=>'UserAccountController@userInfo'));
+Route::get('userinfo',array('before'=>'loginCheck','uses'=>'UserAccountController@userInfo'));//用户信息获取接口
 
-Route::get('logout',array('before' => 'loginCheck','uses'=>'UserAccessController@logout'));
+Route::get('logout',array('before' => 'loginCheck','uses'=>'UserAccessController@logout'));//用户退出接口
 
-Route::get('debtContent',array('before'=>'loginCheck','uses'=>'DebtController@debtContent'));
+Route::get('debtContent',array('before'=>'loginCheck','uses'=>'DebtController@debtContent'));//基金详情接口
 
-Route::get('email',array('before'=>'loginCheck','uses'=>'UserAccountController@emailGet'));
+Route::get('email',array('before'=>'loginCheck','uses'=>'UserAccountController@emailGet'));//获取用户邮箱接口
 
-Route::post('email',array('before'=>'loginCheck','uses'=>'UserAccountController@emailSet'));
+Route::post('email',array('before'=>'loginCheck','uses'=>'UserAccountController@emailSet'));//用户邮箱设置&修改接口
 
 Route::post('message',array('before'=>'loginCheck','uses'=>'UserAccountController@messageSet'));//用户反馈接口
 

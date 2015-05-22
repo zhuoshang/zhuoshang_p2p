@@ -367,6 +367,14 @@ class DebtController extends Controller{
             $this->throwERROE(500,'数据违法');
         }
 
+        $debt = Debt::find($did);
+        if($debt == ''){
+            $this->throwERROE(501,'该基金不存在');
+        }elseif($debt->balance<$money){
+            $this->throwERROE(502,'基金余额不足，无法完成预约');
+        }
+
+
         //短信验证码验证
         $ip = $this->getIP();
         $mobile = Auth::user()->mobile;
